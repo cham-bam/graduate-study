@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>자연어처리 중간고사 예상문제집</title>
+<style>
+  body { font-family: 'Malgun Gothic', sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f9f9f9; color: #222; line-height: 1.7; }
+  h1 { background: #1a237e; color: white; padding: 16px 20px; border-radius: 8px; }
+  h2 { background: #283593; color: white; padding: 10px 16px; border-radius: 6px; margin-top: 40px; }
+  h3 { color: #1a237e; border-bottom: 2px solid #1a237e; padding-bottom: 4px; margin-top: 30px; }
+  h4 { color: #37474f; margin-top: 20px; }
+  .example-box { background: #e8eaf6; border-left: 5px solid #3949ab; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+  .example-box .en { font-style: italic; color: #555; font-size: 0.92em; }
+  .example-box .kr { font-weight: bold; margin-top: 6px; }
+  .example-box .info { margin-top: 8px; font-size: 0.93em; color: #333; }
+  .q-box { background: white; border: 1px solid #c5cae9; border-radius: 6px; padding: 14px 18px; margin: 10px 0; }
+  .q-num { font-weight: bold; color: #1a237e; }
+  .answer { background: #f1f8e9; border-left: 4px solid #558b2f; padding: 8px 14px; margin-top: 8px; border-radius: 4px; display: none; }
+  .toggle-btn { background: #5c6bc0; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85em; margin-top: 6px; }
+  .toggle-btn:hover { background: #3949ab; }
+  .tf-true { color: #2e7d32; font-weight: bold; }
+  .tf-false { color: #c62828; font-weight: bold; }
+  .tag { display: inline-block; background: #ff6f00; color: white; font-size: 0.78em; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .tag.tf { background: #6a1b9a; }
+  .tag.sa { background: #00695c; }
+  .step { margin: 4px 0 4px 16px; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  th { background: #3949ab; color: white; padding: 8px; }
+  td { border: 1px solid #ccc; padding: 8px; font-size: 0.9em; }
+  .chapter-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .chapter-nav a { background: #3949ab; color: white; padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.9em; }
+  .chapter-nav a:hover { background: #1a237e; }
+  .scope-note { background: #fff3e0; border: 1px solid #ff9800; padding: 12px; border-radius: 6px; margin: 16px 0; }
+</style>
+<script>
+function toggle(id) {
+  var el = document.getElementById(id);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+
+<style id="__memo_style__">
+#_mp_{position:fixed;top:0;left:0;right:0;z-index:99999;font-family:'Malgun Gothic',sans-serif;font-size:13px;background:#1e1e2e;border-bottom:2px solid #cba6f7;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#_mh_{display:flex;align-items:center;padding:7px 18px;cursor:pointer;user-select:none;gap:8px}
+#_mh_ .mt{color:#cba6f7;font-weight:bold;font-size:13px}
+#_mc_{font-size:11px;color:#6c7086}
+#_marr_{margin-left:auto;color:#6c7086;font-size:11px;transition:transform .2s}
+#_mb_{display:none;padding:0 16px 12px;max-height:300px;overflow-y:auto}
+.mi{background:#313244;border-radius:8px;padding:10px 12px;margin:6px 0;white-space:pre-wrap;word-break:break-word;line-height:1.65;color:#cdd6f4}
+.mi.ed{background:#45475a}
+.ma{display:flex;gap:6px;margin-top:7px}
+.mb{font-size:11px;padding:3px 10px;border-radius:4px;border:none;cursor:pointer;font-family:'Malgun Gothic',sans-serif}
+.meb{background:#45475a;color:#cdd6f4}.mdb{background:#f38ba822;color:#f38ba8}.msb{background:#a6e3a1;color:#1e1e2e}.mcb{background:#45475a;color:#cdd6f4}
+textarea.meta{width:100%;background:#181825;color:#cdd6f4;border:1px solid #cba6f7;border-radius:6px;padding:7px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:56px}
+#_mnew_{display:flex;gap:8px;margin-top:10px;align-items:flex-end;border-top:1px solid #313244;padding-top:10px}
+#_mta_{flex:1;background:#181825;color:#cdd6f4;border:1px solid #45475a;border-radius:6px;padding:8px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:46px}
+#_msv_{padding:8px 18px;background:#cba6f7;color:#1e1e2e;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-family:'Malgun Gothic',sans-serif;white-space:nowrap;align-self:flex-end}
+#_msv_:hover{background:#b4befe}
+</style>
+<script id="__auth__">
+(async function(){
+  var H='13be5b896be039957e7996f606c8513fa2d9061132bdcabdbee5a362dd9fd8ff';
+  if(sessionStorage.getItem('_ga')===H)return;
+  document.documentElement.style.visibility='hidden';
+  var pw=prompt('\uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694:');
+  if(!pw){document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uC811\uADFC \uAC70\uBD80\uB418\uC5C8\uC2B5\uB2C8\uB2E4.</h2>');return;}
+  var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+  var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+  if(h===H){sessionStorage.setItem('_ga',H);document.documentElement.style.visibility='';}
+  else{document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uBE44\uBC00\uBC88\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4.</h2>');}
+})();
+</script>
+</head>
+<body>
+<div id="_mp_">
+  <div id="_mh_" onclick="_mtog_()">
+    <span class="mt">📝 메모</span><span id="_mc_"></span>
+    <span id="_marr_">▶</span>
+  </div>
+  <div id="_mb_">
+    <div id="_ml_"></div>
+    <div id="_mnew_">
+      <textarea id="_mta_" placeholder="새 메모를 입력하세요..."></textarea>
+      <button id="_msv_" onclick="_msave_()">저장</button>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:right;margin-bottom:10px;">
+  <a href="시험정리_4강5강.html" style="background:#37474f;color:white;padding:6px 16px;border-radius:20px;text-decoration:none;font-size:0.9em;">📖 4강·5강 개념 정리본 보기 →</a>
+</div>
+<h1>자연어처리 중간고사 예상문제집</h1>
+
+<div class="scope-note">
+  <strong>시험 범위:</strong> 0강 Introduction ~ 5강 Transformers<br>
+  5강 범위: BERT Stacking Transformer Layers의 "The outputs from the last layer become contextual embeddings"까지<br>
+  <strong>제외:</strong> BERT Optimization (MLM, NSP)<br>
+  포함 detail PDF: Word2vec details, Transformers details (해당 범위까지)
+</div>
+
+<div class="chapter-nav">
+  <a href="#ch0">0강: Introduction</a>
+  <a href="#ch1">1강: LM intro</a>
+  <a href="#ch2">2강: Semantics</a>
+  <a href="#ch3">3강: Embeddings</a>
+  <a href="#ch4">4강: RNNs</a>
+  <a href="#ch5">5강: Transformers</a>
+  <a href="#detail-w2v">Word2vec Details</a>
+  <a href="#detail-tf">Transformers Details</a>
+</div>
+
+<!-- ==============================
+     PART 1: EXAMPLE 목록
+     ============================== -->
+<h2>PART 1: Example 목록 및 해설</h2>
+
+<!-- 0강 -->
+<h3 id="ch0">0강: Introduction</h3>
+<p>0강은 NLP 소개 슬라이드로, 별도 계산 예제 없음. T/F 문제는 핵심 개념 중심으로 출제.</p>
+
+<!-- 1강 -->
+<h3 id="ch1">1강: Language Model Introduction</h3>
+
+<div class="example-box">
+  <div class="en">[Example 1] Language Models for Generation</div>
+  <div class="kr">언어 모델을 이용한 문장 생성</div>
+  <div class="info">
+    <strong>내용:</strong> [BOS]부터 시작해서 다음 단어를 반복 샘플링하고, [EOS]가 생성되면 멈춤.<br>
+    P(w₁) → P(w₂|w₁) → P(w₃|w₁,w₂) → ... → [EOS]<br>
+    <strong>핵심:</strong> LM은 조건부 확률의 체인으로 문장을 생성한다. [EOS]는 종료 신호.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 2] p("The cat is on the mat") — N-gram 분해</div>
+  <div class="kr">문장 확률을 Unigram / Bigram / Trigram으로 분해하는 예시</div>
+  <div class="info">
+    <strong>Unigram:</strong> p(The) × p(cat) × p(is) × p(on) × p(the) × p(mat)<br>
+    <strong>Bigram:</strong> p(The) × p(cat|The) × p(is|cat) × p(on|is) × p(the|on) × p(mat|the)<br>
+    <strong>Trigram:</strong> p(The) × p(cat|The) × p(is|The cat) × p(on|cat is) × p(the|is on) × p(mat|on the)<br>
+    <strong>핵심:</strong> N이 클수록 더 많은 이전 문맥을 고려하는 Markov 가정.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 3] Vocabulary Size & [UNK]</div>
+  <div class="kr">어휘 크기 설정과 미등록 단어 처리</div>
+  <div class="info">
+    <strong>예:</strong> 어휘 크기를 10K로 고정 → 상위 10K 이외의 단어는 훈련 시 모두 [UNK]로 변환<br>
+    <strong>핵심:</strong> OOV(Out-of-Vocabulary) 문제를 [UNK] 토큰으로 처리하는 전략.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 4] Numerical Underflow & Log Probability</div>
+  <div class="kr">확률 곱셈의 수치 불안정성과 로그 확률</div>
+  <div class="info">
+    <strong>예:</strong> (1/10)¹⁰⁰ = 10⁻¹⁰⁰ → underflow(0으로 반올림) 위험<br>
+    <strong>해결:</strong> log(1/10) = -2.3 → 로그 공간에서 덧셈으로 계산<br>
+    <strong>핵심:</strong> PPL(Perplexity)은 실제로 log-scale로 계산.
+  </div>
+</div>
+
+<!-- 2강 -->
+<h3 id="ch2">2강: Semantics</h3>
+
+<div class="example-box">
+  <div class="en">[Example 5] Vector Space Basics — Cosine Similarity</div>
+  <div class="kr">4차원 벡터 간의 코사인 유사도 계산</div>
+  <div class="info">
+    <strong>내용:</strong> 두 벡터의 dot product(내적) 계산 → 각 벡터의 norm(크기) 계산 → 코사인 유사도 = 내적 / (|A| × |B|)<br>
+    <strong>범위:</strong> [-1, 1]. 1에 가까울수록 유사, 0이면 무관계, -1이면 반대 의미.<br>
+    <strong>핵심:</strong> 벡터 길이에 영향을 받지 않는 방향 기반 유사도.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 6] PPMI Example</div>
+  <div class="kr">원시 빈도 행렬 → PPMI 가중치 행렬 변환</div>
+  <div class="info">
+    <strong>PMI(w, c) = log₂ [P(w,c) / (P(w)×P(c))]</strong><br>
+    <strong>PPMI:</strong> 음수 PMI 값을 모두 0으로 치환<br>
+    <strong>문제점:</strong> 희귀 단어에 bias → Power Smoothing(α=0.75) 또는 Add-k smoothing으로 보완<br>
+    <strong>핵심:</strong> 두 단어가 우연보다 더 자주 함께 등장하면 높은 PMI.
+  </div>
+</div>
+
+<!-- 3강 -->
+<h3 id="ch3">3강: Word Embeddings</h3>
+
+<div class="example-box">
+  <div class="en">[Example 7] Dense Vector Example</div>
+  <div class="kr">밀집 벡터(Dense Vector)의 각 차원 의미 분산 표현</div>
+  <div class="info">
+    <strong>내용:</strong><br>
+    - 한 차원: 동물(cat, dog) vs 탈것(car, truck) 구분에 부분 기여<br>
+    - 다른 차원: 크기(size) 측면 포착<br>
+    - 또 다른 차원: 격식/감정적 어조 표현<br>
+    <strong>핵심:</strong> 어떤 단일 차원도 하나의 개념을 전담하지 않음. 분산 표현(Distributed Representation).
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 8] Distributional Hypothesis — "Ong choy"</div>
+  <div class="kr">분포 가설: 문맥이 비슷하면 의미가 비슷하다</div>
+  <div class="info">
+    <strong>예:</strong> "Ong choy"의 의미를 모르지만 문맥을 보면:<br>
+    - "Ong choy is delicious sautéed with garlic / superb over rice / leafy greens"<br>
+    → spinach, chard 등과 같은 문맥 → Ong choy = water spinach(공심채)<br>
+    <strong>핵심:</strong> "You shall know a word by the company it keeps" (Firth, 1957)
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 9] Word2Vec Training Data — "there is a cat on the mat"</div>
+  <div class="kr">Window size=2 기준 Skip-gram 훈련 데이터 생성</div>
+  <div class="info">
+    <strong>입력:</strong> "there is a cat on the mat", window=2<br>
+    <strong>훈련 쌍 예시:</strong><br>
+    (there, is), (there, a)<br>
+    (cat, is), (cat, a), (cat, on), (cat, the)<br>
+    <strong>핵심:</strong> Skip-gram은 중심 단어로 주변 문맥 단어를 예측. 레이블 없이 raw corpus만으로 학습 가능.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 10] Word Analogy — man:woman::king:?</div>
+  <div class="kr">단어 임베딩의 유추 능력</div>
+  <div class="info">
+    <strong>일반식:</strong> a:b::c:? → 코사인 유사도를 최대화하는 단어 찾기<br>
+    <strong>벡터 연산:</strong> vec(king) - vec(man) + vec(woman) ≈ vec(queen)<br>
+    <strong>핵심:</strong> Word2Vec 임베딩 공간에서 의미/문법적 관계가 벡터 방향으로 인코딩됨.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 10-b] Intrinsic Evaluation — WordSim353</div>
+  <div class="kr">내재적 평가 데이터셋: WordSim353</div>
+  <div class="info">
+    <strong>데이터셋:</strong> 353개의 단어 쌍 + 인간이 평가한 유사도 점수<br>
+    <strong>예시 쌍:</strong> (tiger, cat) → 높은 유사도 / (book, computer) → 낮은 유사도<br>
+    <strong>평가 방법:</strong> 임베딩의 코사인 유사도 vs 인간 평가 점수 → Spearman 상관계수<br>
+    <strong>핵심:</strong> 내재적 평가(Intrinsic) = 실제 태스크 없이 임베딩 자체의 품질을 단어 유사도·유추로 직접 측정.
+    외재적 평가(Extrinsic)와 대비되는 개념.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 11] Extrinsic Evaluation — Text Classification & NER</div>
+  <div class="kr">단어 임베딩의 외재적 평가: 분류/개체명 인식</div>
+  <div class="info">
+    <strong>Example 1 (텍스트 분류):</strong> 주제/감성 분류. 임베딩 위에 시퀀스 모델링 → 문장 임베딩 → 분류 정확도 측정<br>
+    <strong>Example 2 (NER):</strong> 개체명 인식. 단어 임베딩 연결로 span 표현 → Precision/Recall/F1<br>
+    <strong>핵심:</strong> 외재적 평가 = 실제 하위 태스크 성능으로 임베딩 품질 판단.
+  </div>
+</div>
+
+<!-- 4강 -->
+<h3 id="ch4">4강: RNNs & Neural Networks</h3>
+
+<div class="example-box">
+  <div class="en">[Example 12] Basic Unit (Perceptron) Example</div>
+  <div class="kr">퍼셉트론 단위 계산 예시</div>
+  <div class="info">
+    <strong>단계:</strong><br>
+    1. 입력 x (벡터)<br>
+    2. 가중치 w와 편향 b 적용: z = w·x + b (선형 계산)<br>
+    3. 비선형 활성화 함수 적용: a = σ(z) (예: tanh, ReLU)<br>
+    <strong>핵심:</strong> 선형 연산만 쌓으면 여전히 선형 → 비선형 활성화 함수가 반드시 필요.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 13] 2-layer FFN (Feedforward Network)</div>
+  <div class="kr">2층 피드포워드 신경망 순전파 계산</div>
+  <div class="info">
+    <strong>단계:</strong><br>
+    1. 입력 x<br>
+    2. 1층: h = σ(W₁x + b₁) — 비선형 활성화 적용<br>
+    3. 2층: o = W₂h + b₂<br>
+    4. 출력: ŷ = softmax(o) → 확률 분포<br>
+    <strong>손실함수:</strong> Cross-Entropy (CE) Loss = -log P(정답 클래스)
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 14] RNN Limitation — "The bank is on the river"</div>
+  <div class="kr">RNN의 단방향 처리 한계: 단어 중의성 해소 실패</div>
+  <div class="info">
+    <strong>문제:</strong> "bank"는 금융/강둑 두 가지 의미 → 뒤에 오는 "river"를 봐야 올바르게 해석 가능<br>
+    <strong>RNN 한계:</strong> 왼쪽→오른쪽 처리 → "bank" 처리 시점에 "river"를 아직 보지 못함<br>
+    <strong>핵심:</strong> 단방향 RNN은 미래 문맥을 활용할 수 없어 중의성 해소에 취약.
+  </div>
+</div>
+
+<!-- 5강 -->
+<h3 id="ch5">5강: Transformers (시험 범위까지)</h3>
+
+<div class="example-box">
+  <div class="en">[Example 15] Self-Attention Intuition — "The quick brown fox jumps over the lazy dog"</div>
+  <div class="kr">Self-Attention 직관: "jumps"가 어느 단어에 집중하는가</div>
+  <div class="info">
+    <strong>내용:</strong> "jumps"에 대한 attention 학습 시<br>
+    - 높은 attention: "fox"(주어), "over"(전치사)<br>
+    - 낮은 attention: "the", "lazy"<br>
+    <strong>핵심:</strong> Self-Attention은 같은 시퀀스 내 단어들끼리 서로 얼마나 관련 있는지 학습.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 16] Self-Attention Example — weighted sum of context (word "it")</div>
+  <div class="kr">Self-Attention: 문맥 벡터들의 가중 합으로 표현 생성</div>
+  <div class="info">
+    <strong>수식:</strong> aᵢ = Σⱼ αᵢⱼ xⱼ, where Σⱼ αᵢⱼ = 1<br>
+    <strong>예:</strong> 현재 단어 = "it" → 모든 단어의 표현을 attention 가중치로 합산<br>
+    αᵢⱼ = Softmax(xᵢ · xⱼ)<br>
+    <strong>핵심:</strong> Query(현재 단어) × Key(문맥 단어) = attention score → softmax → 가중치
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 17] Self-Attention Computation — Input sequence [1, 2, 3]</div>
+  <div class="kr">QKV 계산 4단계 프로세스</div>
+  <div class="info">
+    <strong>3번 단어의 self-attention 계산 순서:</strong><br>
+    1. Q, K, V 계산: qᵢ = xᵢWQ, kᵢ = xᵢWK, vᵢ = xᵢWV<br>
+    2. 3번의 query를 모든 단어의 key와 비교 (dot product)<br>
+    3. √d로 나눈 후 softmax → attention score (합=1)<br>
+    4. attention score × value 벡터들을 합산 → contextualized representation<br>
+    <strong>핵심:</strong> 출력 = 문맥화된 표현(contextual embedding)
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 18] Tokenization — "unhappiness" → "un" + "happy" + "ness"</div>
+  <div class="kr">단어 토큰화의 한계: 서브워드 정보 손실</div>
+  <div class="info">
+    <strong>문제:</strong> word-level 토큰화 → "unhappiness" 전체를 하나의 토큰으로 처리 → "un-(접두사)", "-ness(접미사)" 의미 정보 손실<br>
+    <strong>해결:</strong> 서브워드 토큰화(Subword Tokenization) — BPE 등<br>
+    <strong>핵심:</strong> 형태소 정보가 의미 이해에 중요.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 19] BPE (Byte Pair Encoding) Example</div>
+  <div class="kr">BPE 알고리즘: 빈도 기반 subword 병합</div>
+  <div class="info">
+    <strong>말뭉치:</strong> low(5), lowest(2), newer(6), wider(3), new(2)<br>
+    <strong>알고리즘:</strong><br>
+    1. 초기: 문자 단위로 분리 + end-of-word 기호(_)<br>
+    2. 가장 빈도 높은 인접 쌍 찾기: "er" (9번) → 병합<br>
+    3. 다음: "er_" (9번) → 병합<br>
+    4. 다음: "ne" (8번) → 병합 ...<br>
+    <strong>적용:</strong> 병합 규칙 순서대로 test set에 적용 (e.g., "lower_" → "low" + "er_")
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 20] BPE Application to Test Set</div>
+  <div class="kr">학습된 BPE 규칙을 테스트 데이터에 적용</div>
+  <div class="info">
+    <strong>병합 규칙:</strong> [(e,r), (er,_), (n,e), (ne,w), (l,o), (lo,w), (new,er_), (low,_)]<br>
+    <strong>"newer_" (훈련 데이터에 있음):</strong> → "newer_" 전체 단어로 토큰화<br>
+    <strong>"lower_" (훈련 데이터에 없는 단어):</strong> → "low" + "er_" 로 분리<br>
+    <strong>핵심:</strong> BPE는 OOV 없이 서브워드 단위로 분해 가능.
+  </div>
+</div>
+
+<!-- Word2vec Details -->
+<h3 id="detail-w2v">Word2vec Details PDF</h3>
+
+<div class="example-box">
+  <div class="en">[Example 21] Word-Word Co-occurrence Matrix (window=2)</div>
+  <div class="kr">단어-단어 공기 행렬 구성: "Taylor releases a new pop album..."</div>
+  <div class="info">
+    <strong>예:</strong> 입력 문장 "Taylor releases a new pop album with a hit song", window=2<br>
+    <strong>공기 쌍:</strong><br>
+    - (Taylor, releases), (Taylor, a)<br>
+    - (releases, Taylor), (releases, a), (releases, new)<br>
+    - (a, Taylor), (a, releases), (a, new), (a, pop) ...<br>
+    <strong>결과:</strong> V×V 크기의 단어-단어 공기 행렬 (V = 어휘 크기)<br>
+    <strong>핵심:</strong> 이 raw count 행렬에 PPMI 등 가중치를 적용해 sparse vector 만듦.
+  </div>
+</div>
+
+<!-- Transformers Details -->
+<h3 id="detail-tf">Transformers Details PDF (시험 범위까지)</h3>
+
+<div class="example-box">
+  <div class="en">[Example 22] Self-attention 4-step Illustration (3-word sequence)</div>
+  <div class="kr">3단어 시퀀스의 Self-attention 4단계 시각화</div>
+  <div class="info">
+    <strong>[1단계]</strong> Q, K, V 계산 (학습된 행렬 W_Q, W_K, W_V 적용)<br>
+    <strong>[2단계]</strong> 3번 단어의 query를 모든 단어의 key와 비교<br>
+    <strong>[3단계]</strong> softmax로 attention score 도출 (합=1)<br>
+    <strong>[4단계]</strong> weighted sum of value vectors → 출력: [o₁, o₂, o₃] contextualized representation
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 23] Stacking Self-Attention Layers — "picnic on bank/river"</div>
+  <div class="kr">Self-Attention 레이어 쌓기: 문맥 정보 전파</div>
+  <div class="info">
+    <strong>1층만 있을 때 문제:</strong> "picnic"과 "bank"는 static embedding에서 유사하지 않음 → attention 가중치가 낮게 할당<br>
+    <strong>레이어 쌓기의 효과:</strong> "picnic" ↔ "river" 유사 / "river" ↔ "bank" 유사 → 2층에서 "picnic"과 "bank"의 관계가 전파됨<br>
+    <strong>핵심:</strong> 레이어를 쌓을수록 간접적 문맥 관계도 포착 가능.
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 24] BERT: Stacking Transformer Layers</div>
+  <div class="kr">BERT: 마지막 레이어 출력 = contextual embedding</div>
+  <div class="info">
+    <strong>BERT 구조:</strong> 여러 Transformer 레이어(self-attention + FFN) 쌓기<br>
+    <strong>핵심 결과:</strong> "The outputs from the last layer become contextual embeddings"<br>
+    → 각 단어의 최종 출력 벡터는 문맥을 반영한 밀집 표현<br>
+    <strong>vs. Word2Vec:</strong> Word2Vec은 고정 임베딩 / BERT는 문맥에 따라 달라지는 임베딩
+  </div>
+</div>
+
+
+<!-- ==============================
+     PART 2: T/F 문제
+     ============================== -->
+<h2>PART 2: T/F 예상문제 (각 단원 10문제)</h2>
+
+<!-- 0강 T/F -->
+<h3>0강: Introduction — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> NLP(자연어처리)는 컴퓨터가 인간의 언어를 이해하고 처리하는 기술이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-1')">정답 보기</button>
+  <div class="answer" id="tf0-1"><span class="tf-true">TRUE</span> — NLP의 정의.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> 언어 모델(Language Model)은 단어 시퀀스에 확률을 부여하는 모델이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-2')">정답 보기</button>
+  <div class="answer" id="tf0-2"><span class="tf-true">TRUE</span> — LM은 P(w₁, w₂, ..., wₙ)을 모델링.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> 딥러닝 기반 NLP는 전통적인 규칙 기반 방법보다 항상 더 빠르게 동작한다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-3')">정답 보기</button>
+  <div class="answer" id="tf0-3"><span class="tf-false">FALSE</span> — 딥러닝은 연산량이 많아 추론 속도가 느릴 수 있음.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> 감성 분석(Sentiment Analysis)은 NLP의 응용 분야 중 하나이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-4')">정답 보기</button>
+  <div class="answer" id="tf0-4"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> 기계 번역(Machine Translation)은 NLP와 무관한 분야이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-5')">정답 보기</button>
+  <div class="answer" id="tf0-5"><span class="tf-false">FALSE</span> — 기계 번역은 NLP의 대표적 응용 분야.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> NLP에서 "토큰(token)"은 텍스트를 처리하는 기본 단위이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-6')">정답 보기</button>
+  <div class="answer" id="tf0-6"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> 개체명 인식(NER)은 텍스트에서 사람, 조직, 장소 등의 이름을 찾는 태스크이다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-7')">정답 보기</button>
+  <div class="answer" id="tf0-7"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> Transformer 아키텍처는 RNN 기반 모델보다 먼저 개발되었다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-8')">정답 보기</button>
+  <div class="answer" id="tf0-8"><span class="tf-false">FALSE</span> — RNN이 먼저(1980년대), Transformer는 2017년 "Attention is All You Need" 논문에서 등장.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> NLP 모델의 성능은 훈련 데이터의 질과 양에 크게 의존한다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-9')">정답 보기</button>
+  <div class="answer" id="tf0-9"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> BERT, GPT 모두 Transformer 아키텍처를 기반으로 한다.
+  <br><button class="toggle-btn" onclick="toggle('tf0-10')">정답 보기</button>
+  <div class="answer" id="tf0-10"><span class="tf-true">TRUE</span> — BERT는 Encoder, GPT는 Decoder 기반.</div>
+</div>
+
+
+<!-- 1강 T/F -->
+<h3>1강: Language Model Intro — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> Bigram LM에서 각 단어의 확률은 바로 직전 단어에만 의존한다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-1')">정답 보기</button>
+  <div class="answer" id="tf1-1"><span class="tf-true">TRUE</span> — Bigram: P(wₙ|wₙ₋₁)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> Trigram LM에서 p("The cat is on the mat")을 계산하려면 6개의 조건부 확률을 곱해야 한다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-2')">정답 보기</button>
+  <div class="answer" id="tf1-2"><span class="tf-true">TRUE</span> — p(The)×p(cat|The)×p(is|The cat)×p(on|cat is)×p(the|is on)×p(mat|on the)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> N-gram 모델에서 N이 클수록 데이터 희소성(data sparsity) 문제가 줄어든다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-3')">정답 보기</button>
+  <div class="answer" id="tf1-3"><span class="tf-false">FALSE</span> — N이 클수록 해당 N-gram이 훈련 데이터에 등장하지 않을 가능성이 높아짐 → 희소성 증가.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> [BOS]와 [EOS]는 각각 문장의 시작과 끝을 나타내는 특수 토큰이다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-4')">정답 보기</button>
+  <div class="answer" id="tf1-4"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> N-gram 확률은 MLE(최대우도추정)로 훈련 말뭉치의 빈도를 이용해 추정한다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-5')">정답 보기</button>
+  <div class="answer" id="tf1-5"><span class="tf-true">TRUE</span> — P(wₙ|wₙ₋₁) = count(wₙ₋₁, wₙ) / count(wₙ₋₁)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> Perplexity(PPL)가 낮을수록 언어 모델의 성능이 더 좋다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-6')">정답 보기</button>
+  <div class="answer" id="tf1-6"><span class="tf-true">TRUE</span> — PPL = 평균적으로 얼마나 당황(perplexed)하는지의 척도. 낮을수록 예측이 잘 됨.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> 확률값들을 로그 공간에서 덧셈으로 계산하면 수치적 언더플로(underflow)를 방지할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-7')">정답 보기</button>
+  <div class="answer" id="tf1-7"><span class="tf-true">TRUE</span> — log(a×b) = log(a) + log(b)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> [UNK] 토큰을 사용하면 OOV(Out-of-Vocabulary) 문제를 완전히 해결할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-8')">정답 보기</button>
+  <div class="answer" id="tf1-8"><span class="tf-false">FALSE</span> — OOV를 처리하지만, [UNK]로 대체하면 해당 단어의 고유 의미 정보는 손실됨.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> Unigram LM은 단어 간의 상관관계를 포착하지 못한다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-9')">정답 보기</button>
+  <div class="answer" id="tf1-9"><span class="tf-true">TRUE</span> — Unigram은 각 단어를 독립적으로 처리: P(w₁,...,wₙ) = ΠP(wᵢ)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> 언어 모델은 문장 생성 외에도 다음 단어 확률 예측, 문장 점수화 등 다양한 용도로 활용된다.
+  <br><button class="toggle-btn" onclick="toggle('tf1-10')">정답 보기</button>
+  <div class="answer" id="tf1-10"><span class="tf-true">TRUE</span></div>
+</div>
+
+
+<!-- 2강 T/F -->
+<h3>2강: Semantics — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> Cosine Similarity의 범위는 [0, 1]이다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-1')">정답 보기</button>
+  <div class="answer" id="tf2-1"><span class="tf-false">FALSE</span> — 범위는 [-1, 1]. 음수 PMI는 가능하지만 PPMI에서 0으로 처리.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> Cosine Similarity는 벡터의 크기(magnitude)에 영향을 받지 않는다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-2')">정답 보기</button>
+  <div class="answer" id="tf2-2"><span class="tf-true">TRUE</span> — 방향(각도)만 비교하기 때문.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> PPMI는 PMI의 음수값을 0으로 교체한 것이다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-3')">정답 보기</button>
+  <div class="answer" id="tf2-3"><span class="tf-true">TRUE</span> — Positive PMI: max(PMI, 0)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> PMI가 높을수록 두 단어가 우연보다 더 자주 함께 등장한다는 의미이다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-4')">정답 보기</button>
+  <div class="answer" id="tf2-4"><span class="tf-true">TRUE</span> — PMI = log[P(w,c) / P(w)P(c)]. 양수면 우연 이상의 연관성.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> PPMI는 빈도가 낮은 단어에 대해 과소추정(underestimation) 경향이 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-5')">정답 보기</button>
+  <div class="answer" id="tf2-5"><span class="tf-false">FALSE</span> — 반대로 희귀 단어에 PMI가 과대추정(bias toward infrequent)되는 경향. Power Smoothing으로 보완.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> TF-IDF는 단어 쌍의 연관성을 단어 수준(pair level)에서 측정한다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-6')">정답 보기</button>
+  <div class="answer" id="tf2-6"><span class="tf-false">FALSE</span> — TF-IDF는 문서 수준(document level). PMI가 단어 쌍 수준.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> 벡터 공간 모델(Vector Space Model)에서 유사한 의미의 단어는 유사한 벡터 표현을 가진다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-7')">정답 보기</button>
+  <div class="answer" id="tf2-7"><span class="tf-true">TRUE</span> — 분포 가설(Distributional Hypothesis) 기반.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> One-hot 벡터에서는 모든 단어 쌍의 코사인 유사도가 0이다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-8')">정답 보기</button>
+  <div class="answer" id="tf2-8"><span class="tf-true">TRUE</span> — 각 단어가 서로 다른 차원을 가지므로 내적=0 → cos=0.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> PPMI Power Smoothing에서 α < 1이면 희귀 단어의 확률이 증가한다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-9')">정답 보기</button>
+  <div class="answer" id="tf2-9"><span class="tf-true">TRUE</span> — P(c)^α (α=0.75)로 분모를 줄여 희귀 단어 확률을 boost.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> TF-IDF에서 IDF 값이 높다는 것은 해당 단어가 많은 문서에 걸쳐 자주 등장한다는 의미이다.
+  <br><button class="toggle-btn" onclick="toggle('tf2-10')">정답 보기</button>
+  <div class="answer" id="tf2-10"><span class="tf-false">FALSE</span> — IDF = log(N/df). IDF가 높으면 특정 문서에만 등장(희귀). 많은 문서에 등장하면 IDF가 낮음.</div>
+</div>
+
+
+<!-- 3강 T/F -->
+<h3>3강: Word Embeddings — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> Word2Vec Skip-gram 모델은 주변 문맥 단어로 중심 단어를 예측한다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-1')">정답 보기</button>
+  <div class="answer" id="tf3-1"><span class="tf-false">FALSE</span> — Skip-gram은 중심 단어로 주변 문맥 단어를 예측. CBOW가 반대.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> Word2Vec 훈련 데이터는 인간이 직접 레이블링할 필요 없이 raw corpus에서 자동 생성된다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-2')">정답 보기</button>
+  <div class="answer" id="tf3-2"><span class="tf-true">TRUE</span> — Self-supervised learning.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> 분포 가설(Distributional Hypothesis)에 따르면 비슷한 문맥에 등장하는 단어들은 유사한 의미를 가진다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-3')">정답 보기</button>
+  <div class="answer" id="tf3-3"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> Dense vector는 sparse vector에 비해 각 차원에 명확한 의미를 부여하기 쉽다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-4')">정답 보기</button>
+  <div class="answer" id="tf3-4"><span class="tf-false">FALSE</span> — Dense vector는 해석 가능성(interpretability)이 낮음. 각 차원의 의미가 분산되어 불명확.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> Word2Vec에서 context window size를 크게 할수록 더 많은 훈련 쌍이 생성된다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-5')">정답 보기</button>
+  <div class="answer" id="tf3-5"><span class="tf-true">TRUE</span> — 더 넓은 범위의 단어 쌍을 포함.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> "man:woman::king:queen" 유추는 Word2Vec 임베딩 공간에서 벡터 덧셈/뺄셈으로 검증 가능하다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-6')">정답 보기</button>
+  <div class="answer" id="tf3-6"><span class="tf-true">TRUE</span> — vec(king) - vec(man) + vec(woman) ≈ vec(queen)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> 내재적 평가(Intrinsic Evaluation)는 실제 NLP 태스크 성능으로 임베딩을 평가한다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-7')">정답 보기</button>
+  <div class="answer" id="tf3-7"><span class="tf-false">FALSE</span> — 내재적 평가는 단어 유사도, 유추 등 임베딩 자체를 평가. 실제 태스크는 외재적 평가.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> Word2Vec은 두 개의 임베딩 행렬(입력 임베딩, 출력 임베딩)을 학습한다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-8')">정답 보기</button>
+  <div class="answer" id="tf3-8"><span class="tf-true">TRUE</span> — Center word embedding(E), Context word embedding(E') 두 행렬.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> Dense vector는 sparse vector보다 더 많은 차원이 필요하다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-9')">정답 보기</button>
+  <div class="answer" id="tf3-9"><span class="tf-false">FALSE</span> — Dense vector는 보통 100~300차원. Sparse vector(one-hot 등)는 어휘 크기만큼의 차원이 필요 (수만 차원).</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> Word2Vec 임베딩은 문맥(context)에 따라 같은 단어에 다른 표현을 부여한다.
+  <br><button class="toggle-btn" onclick="toggle('tf3-10')">정답 보기</button>
+  <div class="answer" id="tf3-10"><span class="tf-false">FALSE</span> — Word2Vec은 정적(static) 임베딩: 같은 단어는 항상 같은 벡터. BERT가 문맥에 따라 다른 표현.</div>
+</div>
+
+
+<!-- 4강 T/F -->
+<h3>4강: RNNs & Neural Networks — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> 선형 변환만 여러 번 쌓아도 여전히 선형 변환과 동일한 결과를 낸다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-1')">정답 보기</button>
+  <div class="answer" id="tf4-1"><span class="tf-true">TRUE</span> — 이것이 비선형 활성화 함수가 필요한 이유.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> ReLU 활성화 함수는 음수 입력에 대해 0을 출력한다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-2')">정답 보기</button>
+  <div class="answer" id="tf4-2"><span class="tf-true">TRUE</span> — ReLU(x) = max(0, x)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> Cross-Entropy Loss는 분류 태스크에서 모델 출력 확률과 정답 레이블 간의 거리를 측정한다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-3')">정답 보기</button>
+  <div class="answer" id="tf4-3"><span class="tf-true">TRUE</span> — CE = -Σ y_c log(ŷ_c)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> RNN은 입력 시퀀스의 각 타임스텝에서 동일한 가중치를 공유한다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-4')">정답 보기</button>
+  <div class="answer" id="tf4-4"><span class="tf-true">TRUE</span> — Weight sharing across time steps.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> Vanilla RNN은 장거리 의존성(long-range dependency) 학습에 탁월하다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-5')">정답 보기</button>
+  <div class="answer" id="tf4-5"><span class="tf-false">FALSE</span> — Vanishing gradient 문제로 장거리 의존성 학습이 어려움.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> LSTM은 forget gate, input gate, output gate를 통해 장기 기억을 유지한다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-6')">정답 보기</button>
+  <div class="answer" id="tf4-6"><span class="tf-true">TRUE</span></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> "The bank is on the river"에서 단방향 RNN은 "bank"를 처리할 때 "river"를 참조할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-7')">정답 보기</button>
+  <div class="answer" id="tf4-7"><span class="tf-false">FALSE</span> — 왼쪽→오른쪽 처리이므로 "bank" 시점에서 아직 "river"를 보지 못함.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> Teacher Forcing은 훈련 중에 모델의 예측값을 다음 스텝의 입력으로 사용하는 방법이다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-8')">정답 보기</button>
+  <div class="answer" id="tf4-8"><span class="tf-false">FALSE</span> — Teacher Forcing은 실제 정답(ground truth)을 다음 입력으로 사용. 모델 예측값 사용은 "free-running" 방식.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> Softmax 함수는 출력값의 합이 1이 되도록 정규화한다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-9')">정답 보기</button>
+  <div class="answer" id="tf4-9"><span class="tf-true">TRUE</span> — 확률 분포 출력.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> Exposure Bias는 훈련과 추론(inference) 시 입력 분포 차이에서 발생하는 문제이다.
+  <br><button class="toggle-btn" onclick="toggle('tf4-10')">정답 보기</button>
+  <div class="answer" id="tf4-10"><span class="tf-true">TRUE</span> — 훈련: 정답 단어 입력 / 추론: 모델 예측 단어 입력 → 오류 누적.</div>
+</div>
+
+
+<!-- 5강 T/F -->
+<h3>5강: Transformers — T/F 10문제</h3>
+<span class="tag tf">T/F</span>
+
+<div class="q-box">
+  <span class="q-num">Q1.</span> Self-Attention에서 Query, Key, Value는 모두 같은 입력 시퀀스에서 만들어진다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-1')">정답 보기</button>
+  <div class="answer" id="tf5-1"><span class="tf-true">TRUE</span> — qᵢ=xᵢWQ, kᵢ=xᵢWK, vᵢ=xᵢWV (같은 입력 x에서 파생)</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2.</span> Self-Attention의 attention score는 Query와 Key의 내적(dot product)으로 계산된다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-2')">정답 보기</button>
+  <div class="answer" id="tf5-2"><span class="tf-true">TRUE</span> — score = qᵢ · kⱼ / √d</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3.</span> Multi-head Attention에서 각 헤드는 서로 동일한 attention pattern을 학습한다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-3')">정답 보기</button>
+  <div class="answer" id="tf5-3"><span class="tf-false">FALSE</span> — 각 헤드는 서로 다른 언어적 관계나 패턴을 학습하도록 설계됨.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4.</span> Self-Attention의 계산은 각 토큰이 독립적으로 처리되므로 GPU에서 병렬화가 가능하다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-4')">정답 보기</button>
+  <div class="answer" id="tf5-4"><span class="tf-true">TRUE</span> — RNN과 달리 순차 처리 불필요.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5.</span> BPE(Byte Pair Encoding)는 훈련 데이터에서 가장 빈도가 낮은 인접 기호 쌍을 반복 병합한다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-5')">정답 보기</button>
+  <div class="answer" id="tf5-5"><span class="tf-false">FALSE</span> — 가장 빈도가 <strong>높은</strong> 인접 쌍을 병합.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6.</span> Word-level tokenization은 OOV 문제를 겪을 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-6')">정답 보기</button>
+  <div class="answer" id="tf5-6"><span class="tf-true">TRUE</span> — 훈련 데이터에 없는 단어는 처리 불가.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7.</span> BERT는 단방향(left-to-right) Self-Attention을 사용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-7')">정답 보기</button>
+  <div class="answer" id="tf5-7"><span class="tf-false">FALSE</span> — BERT는 양방향(Bidirectional) Self-Attention 사용. GPT가 단방향.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8.</span> Transformer는 self-attention 외에도 FFN(피드포워드 네트워크)과 Layer Normalization을 포함한다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-8')">정답 보기</button>
+  <div class="answer" id="tf5-8"><span class="tf-true">TRUE</span> — Transformer 블록 = Multi-head Attention + FFN + LayerNorm + Residual.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9.</span> BERT의 마지막 레이어 출력은 문맥을 반영한 contextual embedding이다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-9')">정답 보기</button>
+  <div class="answer" id="tf5-9"><span class="tf-true">TRUE</span> — <strong>시험 범위의 핵심 결론.</strong></div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10.</span> Self-Attention의 시퀀스 길이에 대한 복잡도는 O(n)이다.
+  <br><button class="toggle-btn" onclick="toggle('tf5-10')">정답 보기</button>
+  <div class="answer" id="tf5-10"><span class="tf-false">FALSE</span> — O(n²). 모든 토큰 쌍의 attention을 계산하기 때문.</div>
+</div>
+
+
+<!-- ==============================
+     PART 3: 단답형 (Example 기반)
+     ============================== -->
+<h2>PART 3: 단답형 예상문제 (Example 기반, 풀이 단계 포함)</h2>
+
+<h3>1강 — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-1.</span> <span class="tag sa">단답형</span><br>
+  문장 <strong>"The cat is on the mat"</strong>의 확률을 <strong>Bigram LM</strong>으로 분해하시오. (단, [BOS]와 [EOS]는 생략)
+  <br><button class="toggle-btn" onclick="toggle('sa1-1')">풀이 보기</button>
+  <div class="answer" id="sa1-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① Bigram 공식: P(wₙ|wₙ₋₁) = count(wₙ₋₁,wₙ) / count(wₙ₋₁)</div>
+    <div class="step">② P("The cat is on the mat")</div>
+    <div class="step">= P(The) × P(cat|The) × P(is|cat) × P(on|is) × P(the|on) × P(mat|the)</div>
+    <strong>[정답]</strong> 위 6개 항의 곱
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-2.</span> <span class="tag sa">단답형</span><br>
+  확률값들의 곱 (1/10)¹⁰⁰을 직접 계산하면 어떤 수치적 문제가 발생하는가? 그리고 이를 어떻게 해결하는가?
+  <br><button class="toggle-btn" onclick="toggle('sa1-2')">풀이 보기</button>
+  <div class="answer" id="sa1-2">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 문제: (1/10)¹⁰⁰ = 10⁻¹⁰⁰ → 컴퓨터가 0으로 반올림 = <strong>Underflow</strong></div>
+    <div class="step">② 해결: 로그(log) 변환 사용</div>
+    <div class="step">③ log(1/10) = -2.3 → 곱셈 대신 <strong>덧셈</strong>으로 계산</div>
+    <div class="step">④ log(a × b) = log(a) + log(b)</div>
+    <strong>[정답]</strong> Underflow 문제 / Log-scale로 덧셈 연산
+  </div>
+</div>
+
+<h3>2강 — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-3.</span> <span class="tag sa">단답형</span><br>
+  두 벡터 <strong>a = [1, 0, 1, 0]</strong>, <strong>b = [0, 1, 1, 0]</strong>의 코사인 유사도를 구하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa2-1')">풀이 보기</button>
+  <div class="answer" id="sa2-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 내적(dot product): a·b = 1×0 + 0×1 + 1×1 + 0×0 = 1</div>
+    <div class="step">② |a| = √(1+0+1+0) = √2</div>
+    <div class="step">③ |b| = √(0+1+1+0) = √2</div>
+    <div class="step">④ cos(a,b) = 1 / (√2 × √2) = 1/2 = <strong>0.5</strong></div>
+    <strong>[정답]</strong> 0.5
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-4.</span> <span class="tag sa">단답형</span><br>
+  PPMI에서 Power Smoothing(α=0.75)을 적용하는 이유와 방법을 설명하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa2-2')">풀이 보기</button>
+  <div class="answer" id="sa2-2">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 문제: 희귀 단어가 PMI에서 과대평가(bias toward infrequent)</div>
+    <div class="step">② 해결: 분모의 문맥 단어 확률에 power α를 적용</div>
+    <div class="step">③ PPMI_α(w,c) = max(log[P(w,c) / (P(w) × P(c)^α)], 0)</div>
+    <div class="step">④ α < 1 → 희귀 단어의 P(c) 값이 상대적으로 커짐 → PMI 값이 낮아져 보정됨</div>
+    <strong>[정답]</strong> 희귀 단어의 bias 보정 / 분모 P(c)를 P(c)^α로 대체
+  </div>
+</div>
+
+<h3>3강 — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-5.</span> <span class="tag sa">단답형</span><br>
+  입력 문장 <strong>"there is a cat on the mat"</strong>에서 window size=2일 때, 단어 <strong>"cat"</strong>의 훈련 쌍(word-context pairs)을 모두 쓰시오.
+  <br><button class="toggle-btn" onclick="toggle('sa3-1')">풀이 보기</button>
+  <div class="answer" id="sa3-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 문장: there(1) is(2) a(3) <strong>cat(4)</strong> on(5) the(6) mat(7)</div>
+    <div class="step">② window=2: cat 기준 왼쪽 2개, 오른쪽 2개</div>
+    <div class="step">③ 왼쪽: is(2), a(3) / 오른쪽: on(5), the(6)</div>
+    <strong>[정답]</strong> (cat, is), (cat, a), (cat, on), (cat, the)
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-6.</span> <span class="tag sa">단답형</span><br>
+  Word2Vec analogy에서 <strong>"man:woman::king:?"</strong>을 벡터 연산으로 구하는 방법을 기술하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa3-2')">풀이 보기</button>
+  <div class="answer" id="sa3-2">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 일반 공식: a:b::c:? → vec(b) - vec(a) + vec(c)와 가장 유사한 단어</div>
+    <div class="step">② 대입: vec(woman) - vec(man) + vec(king)</div>
+    <div class="step">③ 코사인 유사도를 최대화하는 단어를 어휘에서 탐색</div>
+    <strong>[정답]</strong> argmax_{w} cos(vec(w), vec(woman)-vec(man)+vec(king)) → <strong>queen</strong>
+  </div>
+</div>
+
+<h3>4강 — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-7.</span> <span class="tag sa">단답형</span><br>
+  2-layer FFN에서 입력 <strong>x</strong>가 주어질 때 출력 확률 분포 ŷ를 구하는 순전파(forward pass) 단계를 순서대로 기술하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa4-1')">풀이 보기</button>
+  <div class="answer" id="sa4-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 1층 선형 변환: z₁ = W₁x + b₁</div>
+    <div class="step">② 1층 비선형 활성화: h = σ(z₁) (예: ReLU, tanh)</div>
+    <div class="step">③ 2층 선형 변환: z₂ = W₂h + b₂</div>
+    <div class="step">④ 출력 확률화: ŷ = softmax(z₂)</div>
+    <strong>[정답]</strong> z₁ → h=σ(z₁) → z₂ → ŷ=softmax(z₂)
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-8.</span> <span class="tag sa">단답형</span><br>
+  단방향 RNN이 <strong>"The bank is on the river"</strong>에서 "bank"의 의미를 정확히 파악하지 못하는 이유를 설명하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa4-2')">풀이 보기</button>
+  <div class="answer" id="sa4-2">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 단방향 RNN은 왼쪽→오른쪽으로 처리</div>
+    <div class="step">② "bank" 처리 시점: The, bank까지만 본 상태</div>
+    <div class="step">③ "river"는 "bank" 뒤에 위치 → 아직 읽지 않음</div>
+    <div class="step">④ "bank"의 의미(금융 vs 강둑)는 "river"로 해소 가능하지만 접근 불가</div>
+    <strong>[정답]</strong> 단방향 처리로 미래 문맥("river")에 접근 불가 → 중의성 해소 실패
+  </div>
+</div>
+
+<h3>5강 — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-9.</span> <span class="tag sa">단답형</span><br>
+  3단어 시퀀스 [x₁, x₂, x₃]에서 <strong>x₃의 self-attention</strong>을 계산하는 4단계를 순서대로 기술하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa5-1')">풀이 보기</button>
+  <div class="answer" id="sa5-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① Q, K, V 계산: q₃=x₃WQ, k₁=x₁WK, k₂=x₂WK, k₃=x₃WK, v₁~v₃ 계산</div>
+    <div class="step">② Attention score: q₃와 k₁, k₂, k₃ 각각 dot product → √d_k로 나눔</div>
+    <div class="step">③ Softmax: score들을 softmax → α₃₁, α₃₂, α₃₃ (합=1)</div>
+    <div class="step">④ Weighted sum: o₃ = α₃₁v₁ + α₃₂v₂ + α₃₃v₃ → contextual representation</div>
+    <strong>[정답]</strong> ①QKV 계산 → ②dot product/√d → ③softmax → ④weighted sum
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-10.</span> <span class="tag sa">단답형</span><br>
+  코퍼스: <em>low(5회), lowest(2회), newer(6회), wider(3회), new(2회)</em><br>
+  BPE 첫 번째 병합 단계에서 어떤 쌍이 선택되고 병합 결과는 어떻게 되는가?
+  <br><button class="toggle-btn" onclick="toggle('sa5-2')">풀이 보기</button>
+  <div class="answer" id="sa5-2">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 초기화: 모든 단어를 문자 단위로 분리 (+ end-of-word _ 추가)</div>
+    <div class="step">② l o w _ / l o w e s t _ / n e w e r _ / w i d e r _ / n e w _</div>
+    <div class="step">③ 모든 인접 쌍의 빈도 카운트:</div>
+    <div class="step">&nbsp;&nbsp; (e, r): newer(6) + wider(3) = <strong>9번</strong> → 최고 빈도</div>
+    <div class="step">④ "e"와 "r"을 병합 → "er"</div>
+    <strong>[정답]</strong> 선택 쌍: <strong>(e, r)</strong>, 결과: "er" (9번 등장)
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-11.</span> <span class="tag sa">단답형</span><br>
+  BPE 병합 규칙이 [(e,r), (er,_), (n,e), (ne,w), (l,o), (lo,w), (new,er_), (low,_)]로 학습되었을 때,
+  테스트 단어 <strong>"lower_"</strong>는 어떻게 토큰화되는가? 단계별로 설명하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa5-3')">풀이 보기</button>
+  <div class="answer" id="sa5-3">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 초기: l o w e r _</div>
+    <div class="step">② 규칙1 (e,r) 적용: l o w <strong>er</strong> _</div>
+    <div class="step">③ 규칙2 (er,_) 적용: l o w <strong>er_</strong></div>
+    <div class="step">④ 규칙5 (l,o) 적용: <strong>lo</strong> w er_</div>
+    <div class="step">⑤ 규칙6 (lo,w) 적용: <strong>low</strong> er_</div>
+    <div class="step">⑥ (new,er_) 규칙은 해당 없음 (low≠new)</div>
+    <strong>[정답]</strong> "lower_" → <strong>"low" + "er_"</strong>
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-12.</span> <span class="tag sa">단답형</span><br>
+  Self-Attention 레이어를 여러 층 쌓는 이유를 <strong>"picnic on bank"</strong> 예시를 들어 설명하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa5-4')">풀이 보기</button>
+  <div class="answer" id="sa5-4">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 1층만 있을 때: attention score = static embedding의 유사도에 의존</div>
+    <div class="step">② "picnic"과 "bank"는 static embedding에서 유사하지 않음 → 낮은 attention</div>
+    <div class="step">③ 하지만: "picnic" ↔ "river" 유사, "river" ↔ "bank" 유사</div>
+    <div class="step">④ 레이어 2에서: 1층 출력을 입력으로 사용 → "picnic"이 "river"를 통해 "bank"와 연결</div>
+    <strong>[정답]</strong> 간접적 문맥 관계를 여러 층을 통해 전파 가능
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-13.</span> <span class="tag sa">단답형</span><br>
+  Word2Vec(정적 임베딩)과 BERT(문맥적 임베딩)의 차이를 "bank(은행/강둑)" 단어를 예시로 설명하시오.
+  <br><button class="toggle-btn" onclick="toggle('sa5-5')">풀이 보기</button>
+  <div class="answer" id="sa5-5">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① Word2Vec: "bank"는 모든 문맥에서 동일한 하나의 벡터</div>
+    <div class="step">② "river bank"든 "bank account"든 같은 벡터 → 중의성 처리 불가</div>
+    <div class="step">③ BERT: "bank"의 출력 벡터는 주변 문맥에 따라 달라짐</div>
+    <div class="step">④ "river bank" → 강둑 의미의 벡터 / "bank account" → 금융 의미의 벡터</div>
+    <strong>[정답]</strong> Word2Vec = 고정 벡터(단의적) / BERT = 문맥 의존 벡터(다의어 처리 가능)
+  </div>
+</div>
+
+<h3>Word2vec Details — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-14.</span> <span class="tag sa">단답형</span><br>
+  문장 <strong>"Taylor releases a new pop album with a hit song"</strong>에서 window size=2일 때,
+  단어 <strong>"new"</strong>의 공기 쌍(co-occurrence pairs)을 모두 쓰시오.
+  <br><button class="toggle-btn" onclick="toggle('saw-1')">풀이 보기</button>
+  <div class="answer" id="saw-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① 위치: Taylor(1) releases(2) a(3) <strong>new(4)</strong> pop(5) album(6) ...</div>
+    <div class="step">② window=2: 왼쪽 releases(2), a(3) / 오른쪽 pop(5), album(6)</div>
+    <strong>[정답]</strong> (new, releases), (new, a), (new, pop), (new, album)
+  </div>
+</div>
+
+<h3>Transformers Details — 단답형</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-15.</span> <span class="tag sa">단답형</span><br>
+  BERT가 여러 Transformer 레이어를 쌓아서 얻는 최종 결과물의 이름과 특징을 서술하시오.
+  <br><button class="toggle-btn" onclick="toggle('satd-1')">풀이 보기</button>
+  <div class="answer" id="satd-1">
+    <strong>[풀이 단계]</strong><br>
+    <div class="step">① BERT는 여러 Transformer 레이어(self-attention + FFN)를 쌓음</div>
+    <div class="step">② 각 레이어에서 self-attention을 통해 점진적으로 풍부한 문맥 반영</div>
+    <div class="step">③ 마지막 레이어의 출력 = 각 단어에 대한 최종 표현</div>
+    <strong>[정답]</strong> <strong>Contextual Embedding(문맥적 임베딩)</strong><br>
+    특징: 같은 단어라도 문맥에 따라 다른 벡터 값을 가짐. 모든 앞뒤 문맥 정보를 반영.
+  </div>
+</div>
+
+
+<hr style="margin-top:40px;">
+<p style="text-align:center; color:#888; font-size:0.85em;">자연어처리 중간고사 예상문제집 — 시험범위: 0강~5강 + Word2vec details + Transformers details (BERT contextual embeddings까지)</p>
+
+<script id="__memo_script__">
+(function(){
+  var KEY='__mp__'+(document.title||location.pathname);
+  function get(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+  function put(a){localStorage.setItem(KEY,JSON.stringify(a))}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function render(){
+    var memos=get();
+    document.getElementById('_mc_').textContent=memos.length?' ('+memos.length+'개)':'';
+    var ml=document.getElementById('_ml_');ml.innerHTML='';
+    memos.forEach(function(m,i){
+      var d=document.createElement('div');d.className='mi';
+      d.innerHTML='<div class="mt2">'+esc(m).replace(/
+/g,'<br>')+'</div>'
+        +'<div class="ma">'
+        +'<button class="mb meb" onclick="_medit_('+i+',this)">수정</button>'
+        +'<button class="mb mdb" onclick="_mdel_('+i+')">삭제</button>'
+        +'</div>';
+      ml.appendChild(d);
+    });
+    updatePad();
+  }
+  window._mtog_=function(){
+    var b=document.getElementById('_mb_');
+    var a=document.getElementById('_marr_');
+    var open=b.style.display==='block';
+    b.style.display=open?'none':'block';
+    a.textContent=open?'▶':'▼';
+    setTimeout(updatePad,10);
+  };
+  window._msave_=function(){
+    var ta=document.getElementById('_mta_');
+    var v=ta.value.trim();if(!v)return;
+    var a=get();a.push(v);put(a);ta.value='';render();
+  };
+  window._medit_=function(i,btn){
+    var item=btn.parentElement.parentElement;
+    var memos=get();
+    var ta=document.createElement('textarea');
+    ta.className='meta';ta.value=memos[i];
+    var actions=item.querySelector('.ma');
+    item.querySelector('.mt2').style.display='none';
+    actions.innerHTML='<button class="mb msb" onclick="_mupd_('+i+',this)">저장</button>'
+      +'<button class="mb mcb" onclick="render()">취소</button>';
+    item.insertBefore(ta,actions);item.className='mi ed';
+  };
+  window._mupd_=function(i,btn){
+    var ta=btn.parentElement.previousSibling;
+    var v=ta.value.trim();if(!v)return;
+    var a=get();a[i]=v;put(a);render();
+  };
+  window._mdel_=function(i){
+    if(!confirm('이 메모를 삭제할까요?'))return;
+    var a=get();a.splice(i,1);put(a);render();
+  };
+  function updatePad(){
+    var h=document.getElementById('_mp_').offsetHeight;
+    document.body.style.paddingTop=h+'px';
+    var sb=document.querySelector('.toc-sidebar');
+    if(sb)sb.style.top=h+'px';
+    var mn=document.querySelector('.main');
+    if(mn&&mn.style&&!mn.style.marginLeft){}
+  }
+  render();
+  setTimeout(updatePad,150);
+  window.addEventListener('resize',updatePad);
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='m'){e.preventDefault();_mtog_();}
+  });
+})();
+</script>
+</body>
+</html>

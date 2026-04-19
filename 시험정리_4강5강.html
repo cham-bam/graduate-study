@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자연어처리 중간고사 정리 | 0~5강 전범위</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.75;
+  }
+  .toc-sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #1a1a2e;
+    color: #cdd6f4;
+    overflow-y: auto;
+    padding: 20px 0;
+    z-index: 100;
+    font-size: 13px;
+  }
+  .toc-sidebar h2 {
+    color: #cba6f7;
+    font-size: 14px;
+    padding: 0 16px 12px;
+    border-bottom: 1px solid #313244;
+    margin-bottom: 8px;
+  }
+  .toc-sidebar a {
+    display: block;
+    padding: 4px 16px;
+    color: #cdd6f4;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .toc-sidebar a:hover { background: #313244; color: #cba6f7; }
+  .toc-sidebar .toc-section {
+    color: #89b4fa;
+    font-weight: bold;
+    padding: 10px 16px 4px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .main {
+    margin-left: 240px;
+    padding: 40px 48px;
+    max-width: 960px;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 40px;
+  }
+  .hero h1 { font-size: 28px; margin-bottom: 8px; }
+  .hero .subtitle { color: #89b4fa; font-size: 15px; }
+  .hero .scope-box {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+  .scope-box .in { color: #a6e3a1; }
+  .scope-box .out { color: #f38ba8; }
+
+  .chapter {
+    margin-bottom: 48px;
+  }
+  .chapter-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1a1a2e;
+    padding: 12px 20px;
+    border-left: 5px solid #cba6f7;
+    background: white;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #89b4fa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 28px 0 12px;
+  }
+  .page-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid #cba6f7;
+    transition: box-shadow 0.2s;
+  }
+  .page-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .page-card.agenda { border-left-color: #6c7086; background: #f8f8fa; }
+  .page-card.important { border-left-color: #f38ba8; }
+  .page-card.exam-end {
+    border: 2px dashed #f38ba8;
+    background: #fff5f5;
+  }
+  .page-num {
+    display: inline-block;
+    background: #cba6f7;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+  }
+  .page-card.agenda .page-num { background: #6c7086; }
+  .page-card.important .page-num { background: #f38ba8; }
+  .page-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+  }
+  .page-body { font-size: 14px; color: #313244; }
+  .page-body ul { padding-left: 20px; margin: 6px 0; }
+  .page-body li { margin: 3px 0; }
+  .page-body strong { color: #1a1a2e; }
+  .page-body .formula {
+    background: #f0f2f5;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin: 8px 0;
+    color: #4c4f69;
+    border-left: 3px solid #89b4fa;
+  }
+  .page-body .tip {
+    background: #eff1f5;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    margin: 8px 0;
+    color: #5c5f77;
+  }
+  .page-body .tip::before { content: "💡 "; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin: 2px;
+    font-weight: bold;
+  }
+  .tag.key { background: #ffe4b5; color: #8b6914; }
+  .tag.exam { background: #ffd6d6; color: #9b2020; }
+  .tag.skip { background: #e0e0e0; color: #666; }
+
+  .divider-exam-end {
+    background: linear-gradient(90deg, #f38ba8, #eba0ac);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+  .summary-table th {
+    background: #1a1a2e;
+    color: #cdd6f4;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .summary-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .summary-table tr:nth-child(even) td { background: #f8f8fa; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1a1a2e; }
+  ::-webkit-scrollbar-thumb { background: #313244; border-radius: 3px; }
+</style>
+
+<style id="__memo_style__">
+#_mp_{position:fixed;top:0;left:0;right:0;z-index:99999;font-family:'Malgun Gothic',sans-serif;font-size:13px;background:#1e1e2e;border-bottom:2px solid #cba6f7;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#_mh_{display:flex;align-items:center;padding:7px 18px;cursor:pointer;user-select:none;gap:8px}
+#_mh_ .mt{color:#cba6f7;font-weight:bold;font-size:13px}
+#_mc_{font-size:11px;color:#6c7086}
+#_marr_{margin-left:auto;color:#6c7086;font-size:11px;transition:transform .2s}
+#_mb_{display:none;padding:0 16px 12px;max-height:300px;overflow-y:auto}
+.mi{background:#313244;border-radius:8px;padding:10px 12px;margin:6px 0;white-space:pre-wrap;word-break:break-word;line-height:1.65;color:#cdd6f4}
+.mi.ed{background:#45475a}
+.ma{display:flex;gap:6px;margin-top:7px}
+.mb{font-size:11px;padding:3px 10px;border-radius:4px;border:none;cursor:pointer;font-family:'Malgun Gothic',sans-serif}
+.meb{background:#45475a;color:#cdd6f4}.mdb{background:#f38ba822;color:#f38ba8}.msb{background:#a6e3a1;color:#1e1e2e}.mcb{background:#45475a;color:#cdd6f4}
+textarea.meta{width:100%;background:#181825;color:#cdd6f4;border:1px solid #cba6f7;border-radius:6px;padding:7px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:56px}
+#_mnew_{display:flex;gap:8px;margin-top:10px;align-items:flex-end;border-top:1px solid #313244;padding-top:10px}
+#_mta_{flex:1;background:#181825;color:#cdd6f4;border:1px solid #45475a;border-radius:6px;padding:8px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:46px}
+#_msv_{padding:8px 18px;background:#cba6f7;color:#1e1e2e;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-family:'Malgun Gothic',sans-serif;white-space:nowrap;align-self:flex-end}
+#_msv_:hover{background:#b4befe}
+</style>
+<script id="__auth__">
+(async function(){
+  var H='13be5b896be039957e7996f606c8513fa2d9061132bdcabdbee5a362dd9fd8ff';
+  if(sessionStorage.getItem('_ga')===H)return;
+  document.documentElement.style.visibility='hidden';
+  var pw=prompt('\uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694:');
+  if(!pw){document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uC811\uADFC \uAC70\uBD80\uB418\uC5C8\uC2B5\uB2C8\uB2E4.</h2>');return;}
+  var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+  var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+  if(h===H){sessionStorage.setItem('_ga',H);document.documentElement.style.visibility='';}
+  else{document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uBE44\uBC00\uBC88\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4.</h2>');}
+})();
+</script>
+</head>
+<body>
+<div id="_mp_">
+  <div id="_mh_" onclick="_mtog_()">
+    <span class="mt">📝 메모</span><span id="_mc_"></span>
+    <span id="_marr_">▶</span>
+  </div>
+  <div id="_mb_">
+    <div id="_ml_"></div>
+    <div id="_mnew_">
+      <textarea id="_mta_" placeholder="새 메모를 입력하세요..."></textarea>
+      <button id="_msv_" onclick="_msave_()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 사이드바 TOC -->
+<nav class="toc-sidebar">
+  <h2>📚 목차</h2>
+  <div style="padding:8px 16px 4px;"><a href="시험문제집_중간고사.html" style="background:#cba6f7;color:#1e1e2e;padding:5px 10px;border-radius:12px;font-size:12px;font-weight:bold;display:block;text-align:center;">📝 예상문제집 (0~5강) →</a></div>
+  <div class="toc-section">0강 — 개요</div>
+  <a href="#lec0-nlp">NLP란?</a>
+  <a href="#lec0-history">NLP 역사</a>
+  <div class="toc-section">1강 — N-gram LM</div>
+  <a href="#lm-basics">언어 모델 기초</a>
+  <a href="#ngram-core">N-gram 핵심</a>
+  <a href="#smoothing">Smoothing</a>
+  <a href="#evaluation">평가 (Perplexity)</a>
+  <div class="toc-section">2강 — Semantics</div>
+  <a href="#word-senses">Word Senses</a>
+  <a href="#wordnet">WordNet</a>
+  <a href="#vector-space">Vector Space</a>
+  <a href="#tfidf">TF-IDF & PMI</a>
+  <div class="toc-section">3강 — Word Embeddings</div>
+  <a href="#sparse-dense">Sparse vs Dense</a>
+  <a href="#dist-hyp">Distributional Hypothesis</a>
+  <a href="#word2vec">Word2Vec</a>
+  <a href="#w2v-eval">임베딩 평가</a>
+  <div class="toc-section">4강 — RNNs</div>
+  <a href="#rnn-perceptron">퍼셉트론 & 기초</a>
+  <a href="#rnn-ffn">FFN & 학습</a>
+  <a href="#rnn-simple-lm">Simple Neural LM</a>
+  <a href="#rnn-core">RNN 핵심</a>
+  <a href="#rnn-limits">RNN 한계</a>
+  <a href="#rnn-advanced">LSTM & Advanced</a>
+  <div class="toc-section">5강 — Transformers</div>
+  <a href="#tf-overview">개요 & 동기</a>
+  <a href="#tf-selfattn">Self-Attention</a>
+  <a href="#tf-qkv">Q, K, V</a>
+  <a href="#tf-multihead">Multi-Head & 병렬</a>
+  <a href="#tf-bidir">양방향 vs 단방향</a>
+  <a href="#tf-posenc">Position Encoding</a>
+  <a href="#tf-tokenize">Tokenization & BPE</a>
+  <a href="#tf-modules">추가 모듈</a>
+  <a href="#tf-pretrain">Pretraining</a>
+  <a href="#tf-bert">BERT ★시험끝</a>
+</nav>
+
+<!-- 본문 -->
+<main class="main">
+
+  <!-- 헤더 -->
+  <div class="hero">
+    <h1>🧠 자연어처리 중간고사 정리</h1>
+    <div class="subtitle">0강 개요 · 1강 N-gram LM · 2강 Semantics · 3강 Word Embeddings · 4강 RNN · 5강 Transformers</div>
+    <div class="scope-box">
+      <strong>시험 범위</strong><br>
+      <span class="in">✅ 0~4강 전체 + 5강: Self-Attention 전체, Transformer 세부사항, BERT (Big picture / Input / Stacking → contextual embeddings까지)</span><br>
+      <span class="out">❌ 제외: BERT Optimization (MLM, NSP)</span>
+    </div>
+  </div>
+
+  <!-- ==================== 0강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title" id="lec0-nlp">0강 — Introduction to NLP</div>
+
+    <div class="section-label" id="lec0-nlp">NLP란?</div>
+
+    <div class="page-card">
+      <div class="page-num">p.5</div>
+      <div class="page-title">NLP 정의</div>
+      <div class="page-body">
+        머신러닝 + 언어학의 융합 분야.<br>
+        목표: 컴퓨터가 인간 언어를 이해·해석·생성할 수 있게 함.<br>
+        <div class="tip">핵심 문제 = 언어 모델링 (Language Modeling)</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.14~16</div>
+      <div class="page-title">언어 모델의 핵심 역할 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>언어 모델 = 단어 시퀀스에 확률을 부여하는 모델</strong><br>
+        <ul>
+          <li>텍스트 이해: p("The cat is on the mat") >> p("Truck the earth on")</li>
+          <li>텍스트 생성: p(w | "The cat is on the") → "mat"</li>
+        </ul>
+        <div class="formula">P(w₁, w₂, ..., wₙ) = P(w₁) × P(w₂|w₁) × ... × P(wₙ|w₁,...,wₙ₋₁)</div>
+        <div class="tip">모든 NLP 태스크는 언어 모델링 문제로 변환 가능!</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="lec0-history">NLP 역사</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.6~11</div>
+      <div class="page-title">NLP 발전 단계 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>시기</th><th>방법론</th><th>대표 기술</th></tr>
+          <tr><td>~1980s</td><td>규칙 기반</td><td>구문 패턴 매칭</td></tr>
+          <tr><td>1980s~2000s</td><td>통계적 방법</td><td>N-gram, HMM</td></tr>
+          <tr><td>2000s~2018</td><td>얕은 신경망</td><td>Word2Vec, RNN, CNN</td></tr>
+          <tr><td>2018~2022</td><td>소형 사전학습 모델</td><td>BERT, GPT-2, T5</td></tr>
+          <tr><td>2022~</td><td>대규모 언어 모델</td><td>ChatGPT, GPT-4</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 1강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title">1강 — N-gram Language Models</div>
+
+    <div class="section-label" id="lm-basics">언어 모델 기초</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.6~9</div>
+      <div class="page-title">Autoregressive 언어 모델 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>Autoregressive 가정</strong>: 각 단어의 확률은 이전 토큰들에만 의존.<br>
+        <div class="formula">P(w₁,...,wₙ) = ∏ P(wₜ | w₁,...,wₜ₋₁)</div>
+        생성 방법: P(w | 이전 단어들)에서 반복 샘플링 → [EOS] 나올 때까지.
+        <div class="tip">BOS(시작 토큰)으로 시작, EOS(끝 토큰)로 종료</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="ngram-core">N-gram 핵심</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.16~17</div>
+      <div class="page-title">N-gram 가정 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        전체 이전 맥락을 추적하기 어려움 → 이전 N-1개 단어만 봄.<br>
+        <table class="summary-table">
+          <tr><th>종류</th><th>의존 단어 수</th><th>예시</th></tr>
+          <tr><td>Unigram (N=1)</td><td>없음 (독립)</td><td>P(mat)</td></tr>
+          <tr><td>Bigram (N=2)</td><td>이전 1개</td><td>P(mat|the)</td></tr>
+          <tr><td>Trigram (N=3)</td><td>이전 2개</td><td>P(mat|on the)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.18</div>
+      <div class="page-title">N-gram 학습 (MLE) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        빈도(counts)로 확률 추정 = 최대우도추정 (MLE):
+        <div class="formula">P(wₙ | wₙ₋₁) = count(wₙ₋₁, wₙ) / count(wₙ₋₁)</div>
+        코퍼스에서 등장 횟수를 세서 확률 계산.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.25</div>
+      <div class="page-title">N-gram 특성 & 트레이드오프 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        N이 클수록:
+        <ul>
+          <li>✅ 더 많은 문맥 반영 (단어 상관관계 포착)</li>
+          <li>❌ Sparsity 증가 (어휘 크기의 N제곱만큼 파라미터 필요)</li>
+        </ul>
+        어휘 크기 10K 기준: Unigram=10K, Bigram=100M, Trigram=1T 파라미터
+        <div class="tip">Sparsity = 학습 데이터에 없는 N-gram → 확률 0 → 문장 전체 확률 0!</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="smoothing">Smoothing</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.29~36</div>
+      <div class="page-title">Smoothing 기법 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>목적</strong>: 등장하지 않은 N-gram에도 0이 아닌 확률 부여.<br>
+        <table class="summary-table">
+          <tr><th>방법</th><th>아이디어</th><th>문제점</th></tr>
+          <tr><td>Add-one (Laplace)</td><td>모든 카운트에 +1</td><td>과도한 평탄화 (over-smoothing)</td></tr>
+          <tr><td>Add-k</td><td>k &lt; 1을 더함</td><td>k는 validation set으로 튜닝</td></tr>
+          <tr><td>Interpolation</td><td>여러 N-gram 확률 혼합</td><td>가중치 λ 튜닝 필요</td></tr>
+          <tr><td>Backoff</td><td>고차 N-gram 없으면 저차로 후퇴</td><td>discount 계수 필요</td></tr>
+        </table>
+        <div class="formula">Add-one: P(wₙ|wₙ₋₁) = (count(wₙ₋₁,wₙ) + 1) / (count(wₙ₋₁) + V)</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.37</div>
+      <div class="page-title">OOV (Out-of-Vocabulary) 처리</div>
+      <div class="page-body">
+        학습 데이터에 없는 단어 → [UNK] 토큰으로 대체.<br>
+        학습 시: 드문 단어를 [UNK]로 교체 후 확률 추정.<br>
+        테스트 시: 미등장 단어 → [UNK] 확률 사용.
+      </div>
+    </div>
+
+    <div class="section-label" id="evaluation">언어 모델 평가</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.42~45</div>
+      <div class="page-title">Perplexity (PPL) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>언어 모델의 내재적 평가 지표.</strong><br>
+        "다음 단어에 얼마나 당황하는가?" — 낮을수록 좋음.<br>
+        <div class="formula">PPL = P(w₁,...,wₙ)^(-1/N)</div>
+        <div class="formula">log PPL = -1/N × Σ log P(wₜ | w₁,...,wₜ₋₁)  (수치 안정성을 위해 log scale)</div>
+        <table class="summary-table">
+          <tr><th>구분</th><th>설명</th><th>예시</th></tr>
+          <tr><td>Intrinsic</td><td>언어 모델 자체 품질 측정</td><td>Perplexity</td></tr>
+          <tr><td>Extrinsic</td><td>실제 태스크 성능 측정</td><td>분류 정확도, 번역 BLEU</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 2강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title">2강 — Word Senses & Semantics</div>
+
+    <div class="section-label" id="word-senses">Word Senses</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.31~36</div>
+      <div class="page-title">어휘 의미 관계 유형 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>관계</th><th>정의</th><th>예시</th></tr>
+          <tr><td>Synonyms (동의어)</td><td>같은 의미</td><td>happy ≈ joyful</td></tr>
+          <tr><td>Antonyms (반의어)</td><td>반대 의미</td><td>hot ↔ cold</td></tr>
+          <tr><td>Hyponym (하위어)</td><td>더 구체적인 개념</td><td>rose → flower</td></tr>
+          <tr><td>Hypernym (상위어)</td><td>더 일반적인 개념</td><td>flower ← rose</td></tr>
+          <tr><td>Polysemy (다의어)</td><td>한 단어, 여러 관련 의미</td><td>bank: 은행/강둑</td></tr>
+        </table>
+        <div class="tip">Word Sense Disambiguation (WSD): 문맥에 맞는 의미 판별 태스크</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.40~41</div>
+      <div class="page-title">Connotation (함의)</div>
+      <div class="page-body">
+        단어의 글자 그대로의 의미를 넘어선 정서적·문화적 연상.<br>
+        3차원으로 표현:
+        <ul>
+          <li><strong>Valence</strong>: 유쾌함 정도 (happy↑, unhappy↓)</li>
+          <li><strong>Arousal</strong>: 감정 강도 (excited↑, calm↓)</li>
+          <li><strong>Dominance</strong>: 통제감 (controlling↑, influenced↓)</li>
+        </ul>
+        <div class="tip">최초의 다차원 단어 벡터 표현 아이디어!</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="wordnet">WordNet</div>
+
+    <div class="page-card">
+      <div class="page-num">p.43~48</div>
+      <div class="page-title">WordNet</div>
+      <div class="page-body">
+        수동으로 구축된 대형 어휘 데이터베이스.<br>
+        <strong>Synset</strong>: 같은 의미를 가진 단어들의 집합.<br>
+        단어 관계(동의어, 반의어, 상/하위어) 정의.<br>
+        <strong>한계</strong>: 구축/유지 비용↑, 도메인 특화 용어 부족, 문맥 고려 불가.
+        <div class="tip">→ 이 한계를 극복하려고 벡터 표현 (Word Embeddings) 등장!</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="vector-space">Vector Space Model</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.51~54</div>
+      <div class="page-title">벡터 공간 기초 & 코사인 유사도 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        단어를 다차원 벡터로 표현. 의미가 유사한 단어는 공간에서 가까움.<br>
+        <div class="formula">cosine(u, v) = (u·v) / (|u| × |v|)  → 범위: [-1, 1]</div>
+        코사인 유사도 특성:
+        <ul>
+          <li>벡터 길이에 영향받지 않음</li>
+          <li>대칭: sim(u,v) = sim(v,u)</li>
+          <li>직관적 기하학적 해석 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.55~58</div>
+      <div class="page-title">One-hot 벡터 & 문서 표현</div>
+      <div class="page-body">
+        가장 단순한 단어 벡터: one-hot (해당 단어 인덱스만 1, 나머지 0).<br>
+        단어-문서 행렬: 단어가 각 문서에 등장하는 빈도로 표현.<br>
+        단어-단어 행렬: ±4 단어 윈도우 내 동시 등장 횟수로 표현.
+      </div>
+    </div>
+
+    <div class="section-label" id="tfidf">TF-IDF & PMI</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.24~30</div>
+      <div class="page-title">TF-IDF & PMI <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        단순 빈도 대신 가중치를 부여하는 방법:
+        <table class="summary-table">
+          <tr><th>방법</th><th>아이디어</th><th>수식</th></tr>
+          <tr><td>TF</td><td>빈도를 log 압축</td><td>log(count + 1)</td></tr>
+          <tr><td>IDF</td><td>드문 단어에 높은 가중치</td><td>log(N/df)</td></tr>
+          <tr><td>TF-IDF</td><td>TF × IDF</td><td>문서 내 중요도</td></tr>
+          <tr><td>PMI</td><td>우연보다 얼마나 더 함께 등장?</td><td>log P(x,y)/(P(x)P(y))</td></tr>
+          <tr><td>PPMI</td><td>PMI의 음수값 → 0으로 대체</td><td>max(PMI, 0)</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 3강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title">3강 — Word Embeddings</div>
+
+    <div class="section-label" id="sparse-dense">Sparse vs Dense 벡터</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.33~36</div>
+      <div class="page-title">Sparse vs Dense 벡터 비교 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th></th><th>Sparse (희소)</th><th>Dense (밀집)</th></tr>
+          <tr><td>차원</td><td>어휘 크기 (>10K)</td><td>100~300 (훨씬 작음)</td></tr>
+          <tr><td>값</td><td>대부분 0</td><td>대부분 비영(실수)</td></tr>
+          <tr><td>해석</td><td>각 차원 = 특정 단어/문서</td><td>각 차원 = 추상적 의미</td></tr>
+          <tr><td>예시</td><td>One-hot, TF-IDF</td><td>Word2Vec, GloVe</td></tr>
+        </table>
+        Dense 장점: 컴팩트, 일반화 좋음, 신경망 입력으로 효율적.<br>
+        Dense 단점: 해석 어려움 (각 차원 의미 불명확).
+      </div>
+    </div>
+
+    <div class="section-label" id="dist-hyp">Distributional Hypothesis</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.38</div>
+      <div class="page-title">Distributional Hypothesis <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>"비슷한 문맥에 등장하는 단어는 비슷한 의미를 가진다"</strong><br>
+        "You shall know a word by the company it keeps"<br>
+        Word Embedding의 핵심 이론적 근거.<br>
+        <div class="tip">예: "Ong choy"를 몰라도 "garlic", "rice", "salty leaves"와 자주 등장 → 채소류임을 유추</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="word2vec">Word2Vec</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.44~51</div>
+      <div class="page-title">Word2Vec (Skip-gram) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>목표</strong>: 중심 단어로 주변 단어(context)를 예측하도록 학습.<br>
+        각 단어는 두 벡터를 가짐: 중심 단어 벡터(u), 문맥 단어 벡터(v).<br>
+        <div class="formula">P(o | c) = exp(uₒ · vc) / Σw exp(uw · vc)</div>
+        <strong>Negative Sampling</strong>: 전체 어휘 합산 대신 랜덤 샘플링으로 근사.<br>
+        → 실제 쌍(positive) vs 랜덤 쌍(negative)을 이진 분류로 학습.
+        <div class="tip">CBOW = 문맥 단어들로 중심 단어 예측 (Skip-gram의 반대)</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.45~46</div>
+      <div class="page-title">Word2Vec 설정 & 학습 데이터 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        학습 데이터: (중심 단어, 문맥 단어) 쌍 — 사람이 레이블링 불필요!<br>
+        <div class="tip">"there is a cat on the mat" + window=2 → (cat, is), (cat, a), (cat, on), (cat, the) 등</div>
+        하이퍼파라미터:
+        <ul>
+          <li><strong>임베딩 차원</strong>: 보통 100~300</li>
+          <li><strong>Context window</strong>: 보통 5~10 (작으면 문법적, 크면 의미적 정보)</li>
+          <li><strong>Negative sample 수</strong>: 보통 5~10</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.52</div>
+      <div class="page-title">SGD 최적화 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <div class="formula">θ ← θ + α × ∇θ J(θ)</div>
+        파라미터를 gradient 방향으로 업데이트.<br>
+        α = learning rate (보통 0.02~0.05).
+      </div>
+    </div>
+
+    <div class="section-label" id="w2v-eval">임베딩 평가</div>
+
+    <div class="page-card">
+      <div class="page-num">p.55~59</div>
+      <div class="page-title">Word Embedding 평가</div>
+      <div class="page-body">
+        <strong>Intrinsic (내재적)</strong>:
+        <ul>
+          <li>Word Similarity: 코사인 유사도와 인간 판단 상관관계</li>
+          <li>Word Analogy: "man:woman = king:?" → 벡터 연산으로 답 찾기</li>
+        </ul>
+        <div class="formula">analogy: vking - vman + vwoman ≈ vqueen</div>
+        <strong>Extrinsic (외재적)</strong>: 텍스트 분류, NER 등 실제 태스크 성능.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 4강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title" id="rnn-perceptron">4강 — Recurrent Neural Networks</div>
+
+    <div class="section-label" id="rnn-perceptron">신경망 기초</div>
+
+    <div class="page-card">
+      <div class="page-num">p.3</div>
+      <div class="page-title">Word Similarity (복습)</div>
+      <div class="page-body">
+        단어 임베딩 간 코사인 유사도로 의미 유사도 측정. 높을수록 의미가 가까움.<br>
+        <div class="tip">4강은 3강(임베딩) 바로 다음 → 임베딩이 입력으로 쓰임</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.4</div>
+      <div class="page-title">Sequence Modeling 목표</div>
+      <div class="page-body">
+        텍스트 시퀀스를 이해·처리·생성하는 것.<br>
+        <ul>
+          <li>문맥 의존 표현 학습</li>
+          <li>장거리 의존성 포착</li>
+          <li>복잡한 단어 관계 처리</li>
+        </ul>
+        <div class="tip">DNN은 언어의 계층 구조(글자→단어→문장)를 층별로 모델링함</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.7</div>
+      <div class="page-title">퍼셉트론 (Perceptron) — 기본 단위</div>
+      <div class="page-body">
+        신경망의 최소 단위. 계산 순서:
+        <ol style="padding-left:20px; margin-top:6px;">
+          <li>입력 x</li>
+          <li>선형 계산: <code>z = Wx + b</code></li>
+          <li>비선형 활성화: <code>y = f(z)</code></li>
+        </ol>
+        <div class="formula">z = w₁x₁ + w₂x₂ + ... + b → y = sigmoid(z)</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.8</div>
+      <div class="page-title">퍼셉트론 계산 예시</div>
+      <div class="page-body">
+        구체적인 숫자로 퍼셉트론 계산 과정 보여주는 슬라이드.<br>
+        <div class="tip">W(가중치)와 b(바이어스)가 학습되는 파라미터</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.9</div>
+      <div class="page-title">비선형 활성화 함수</div>
+      <div class="page-body">
+        <strong>왜 비선형?</strong> → 선형을 아무리 쌓아도 선형 → 복잡한 패턴 학습 불가.<br>
+        <table class="summary-table">
+          <tr><th>함수</th><th>범위</th><th>특징</th></tr>
+          <tr><td>Sigmoid</td><td>0 ~ 1</td><td>확률 출력, 초기에 많이 씀</td></tr>
+          <tr><td>tanh</td><td>-1 ~ 1</td><td>0 중심, LSTM에서 사용</td></tr>
+          <tr><td>ReLU</td><td>0 ~ ∞</td><td>단순, 현재 가장 많이 씀</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label" id="rnn-ffn">FFN & 학습</div>
+
+    <div class="page-card">
+      <div class="page-num">p.11</div>
+      <div class="page-title">Feedforward Network (FFN)</div>
+      <div class="page-body">
+        FFN = MLP = 여러 퍼셉트론을 층으로 쌓은 것.<br>
+        각 층: 가중치 행렬(W) + 바이어스 벡터(b).<br>
+        아래 층 출력 → 위 층 입력으로 전달 (방향이 한쪽으로만).
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.12</div>
+      <div class="page-title">2-layer FFN 계산 예시</div>
+      <div class="page-body">
+        <div class="formula">h = f(W₁x + b₁)  ← 1층: 비선형 활성화</div>
+        <div class="formula">z = W₂h + b₂       ← 2층: 선형</div>
+        <div class="formula">ŷ = softmax(z)      ← 확률 분포 출력</div>
+        <div class="tip">1층 = 특징 추출, 2층 = 분류</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.13</div>
+      <div class="page-title">훈련 목적함수 — Cross-Entropy Loss <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        정답과 예측의 차이를 수치화. 분류 문제의 표준 손실함수.<br>
+        <div class="formula">CE Loss = -log P(정답 클래스)</div>
+        → 정답 클래스에 높은 확률을 줄수록 손실 감소.<br>
+        NLL Loss(Negative Log Likelihood)와 동일한 개념.
+        <div class="tip">정답은 one-hot 벡터 → 정답 클래스 하나의 확률만 보면 됨</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.14</div>
+      <div class="page-title">모델 학습 — Forward Pass</div>
+      <div class="page-body">
+        <strong>경사하강법(Gradient Descent)</strong>으로 파라미터 최적화.<br>
+        <ol style="padding-left:20px; margin-top:6px;">
+          <li>파라미터 랜덤 초기화</li>
+          <li>Forward: 입력 → 모델 → 손실값 계산 (예측이 얼마나 틀렸나?)</li>
+          <li>Backward: gradient 계산 후 파라미터 업데이트</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.15</div>
+      <div class="page-title">모델 학습 — Backward Pass</div>
+      <div class="page-body">
+        손실값 → 역방향으로 gradient 계산 → 파라미터 수정.<br>
+        <div class="formula">θ ← θ - α × ∇L(θ)</div>
+        <strong>Chain Rule</strong>로 gradient 계산. PyTorch가 자동으로 처리 (autograd).
+      </div>
+    </div>
+
+    <div class="section-label" id="rnn-simple-lm">Simple Neural Language Model</div>
+
+    <div class="page-card">
+      <div class="page-num">p.17</div>
+      <div class="page-title">Simple Neural Language Model</div>
+      <div class="page-body">
+        FFN을 언어 모델로 사용.<br>
+        <ul>
+          <li>입력: 이전 N개 단어의 임베딩 (concatenate)</li>
+          <li>Hidden layer 통과</li>
+          <li>출력: 다음 단어 확률 분포</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.18</div>
+      <div class="page-title">Neural LM의 장점</div>
+      <div class="page-body">
+        <ul>
+          <li><strong>Sparsity 해결</strong>: 모든 단어에 0보다 큰 확률 부여 (N-gram은 미등장 시 0)</li>
+          <li><strong>의미 유사성 반영</strong>: 비슷한 의미 단어 → 비슷한 확률 분포</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.19</div>
+      <div class="page-title">Simple Neural LM의 한계 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>컨텍스트 창이 고정됨</strong> → N-gram과 같은 문제.<br>
+        N을 늘리면 볼 수 있는 과거는 많아지지만, 파라미터도 그만큼 증가.<br>
+        <div class="tip">→ 이 문제를 해결하려고 RNN 등장!</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="rnn-core">RNN 핵심</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.21</div>
+      <div class="page-title">RNN 개요 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <strong>임의 길이의 입력을 처리할 수 있는 신경망.</strong><br>
+        핵심 아이디어: <strong>모든 단어에 같은 가중치(W)를 재사용.</strong><br>
+        <div class="tip">"같은 뇌로 단어를 하나씩 순서대로 읽는" 구조</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.22</div>
+      <div class="page-title">RNN 계산 (개념) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        각 시점(t)의 hidden state 계산:
+        <div class="formula">hₜ = f(Wₕ · hₜ₋₁ + Wₓ · xₜ + b)</div>
+        <ul>
+          <li><strong>hₜ₋₁</strong>: 이전 시점의 기억 (과거 정보)</li>
+          <li><strong>xₜ</strong>: 현재 단어 임베딩 (현재 정보)</li>
+          <li><strong>Wₕ, Wₓ</strong>: 모든 시점에서 공유되는 파라미터</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.23</div>
+      <div class="page-title">RNN 계산 절차</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li>[BOS] 토큰으로 시작, h₀ 초기화</li>
+          <li>각 단계: hₜ = f(Wₕhₜ₋₁ + Wₓxₜ)</li>
+          <li>출력: ŷₜ = softmax(Wₒhₜ)</li>
+          <li>반복 (W는 항상 같은 것 사용)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.24</div>
+      <div class="page-title">RNN Weight Tying</div>
+      <div class="page-body">
+        출력층 행렬 = 입력 임베딩 행렬 (같은 걸 공유).<br>
+        <ul>
+          <li>파라미터 수 감소</li>
+          <li>학습 효율 & 성능 향상</li>
+        </ul>
+        <div class="tip">차원이 같으니까 가능. 입출력이 같은 어휘 공간에 있기 때문</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.25</div>
+      <div class="page-title">RNN으로 언어 모델링</div>
+      <div class="page-body">
+        P(wₜ | w₁, ..., wₜ₋₁) 계산이 목표.<br>
+        t-1 시점의 hₜ₋₁이 이전 모든 단어를 압축하여 저장.<br>
+        <div class="tip">이론상 무한 과거를 기억할 수 있지만 실제로는 어려움 (뒤에서 설명)</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.26</div>
+      <div class="page-title">RNN 언어 모델 학습 (Teacher Forcing)</div>
+      <div class="page-body">
+        매 시점마다 "다음 단어 맞추기" 형태로 학습.<br>
+        훈련 시: 항상 정답 단어를 다음 입력으로 줌 = <strong>Teacher Forcing</strong>.<br>
+        손실 = 각 시점 Cross-Entropy의 합.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.27</div>
+      <div class="page-title">RNN 텍스트 생성</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li>[BOS] 입력</li>
+          <li>softmax에서 단어 샘플링</li>
+          <li>그 단어를 다음 입력으로</li>
+          <li>[EOS]가 나올 때까지 반복</li>
+        </ol>
+        <div class="tip">생성 시엔 모델 자신의 출력을 다음 입력으로 사용 (훈련과 다름!)</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="rnn-limits">RNN 한계</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.29</div>
+      <div class="page-title">Vanishing & Exploding Gradient <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        역전파 시 gradient를 시간 역방향으로 계속 곱함.<br>
+        <ul>
+          <li><strong>Vanishing</strong>: 작은 값 반복 곱 → 0으로 수렴 → 먼 과거 학습 불가</li>
+          <li><strong>Exploding</strong>: 큰 값 반복 곱 → 무한대 → 학습 발산</li>
+        </ul>
+        <div class="tip">Gradient Clipping으로 exploding은 어느정도 완화 가능</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.30</div>
+      <div class="page-title">장거리 의존성 포착 어려움 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        hidden state 크기는 고정인데 문장이 길어지면 → 초반 정보가 덮어씌워짐.<br>
+        최근 단어에 더 많은 가중치 → 문장 앞부분을 "잊어버림".<br>
+        <div class="tip">이론 ≠ 현실: 이론상 무한 기억, 실제는 최근 것만</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.31</div>
+      <div class="page-title">양방향성 부재 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        RNN은 왼쪽 → 오른쪽으로만 처리.<br>
+        예: "The <strong>bank</strong> is on the <strong>river</strong>"<br>
+        → "bank" 처리 시점에 "river"가 아직 안 나옴 → 의미 파악 불가.<br>
+        <div class="tip">Bidirectional RNN으로 해결 (p.41)</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.32</div>
+      <div class="page-title">Exposure Bias <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <ul>
+          <li><strong>훈련 시</strong>: 항상 정답 단어를 다음 입력으로 줌 (Teacher Forcing)</li>
+          <li><strong>생성 시</strong>: 모델 자신의 예측을 다음 입력으로 사용</li>
+        </ul>
+        → 한 번 틀리면 틀린 것 기반으로 계속 예측 → 오류 누적.<br>
+        훈련과 실제 상황의 불일치가 문제.
+      </div>
+    </div>
+
+    <div class="section-label" id="rnn-advanced">LSTM & Advanced RNNs</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.34</div>
+      <div class="page-title">LSTM 개요 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        RNN 문제: hidden state가 금방 덮어씌워짐.<br>
+        LSTM 해결책: <strong>cell state(장기 메모리)</strong> 추가 + 3개의 게이트로 정보 흐름 제어.<br>
+        <table class="summary-table">
+          <tr><th>게이트</th><th>역할</th></tr>
+          <tr><td>Forget gate</td><td>뭘 잊을지</td></tr>
+          <tr><td>Input gate</td><td>뭘 기억할지</td></tr>
+          <tr><td>Output gate</td><td>뭘 출력할지</td></tr>
+        </table>
+        입력: 현재 단어 임베딩 + 이전 hidden state + cell state
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.35</div>
+      <div class="page-title">LSTM — Forget Gate</div>
+      <div class="page-body">
+        <div class="formula">fₜ = σ(Wf · [hₜ₋₁, xₜ] + bf)</div>
+        sigmoid → 0~1 사이 값.<br>
+        0이면 "완전히 잊어", 1이면 "전부 기억".<br>
+        <strong>cell state × fₜ</strong> → 일부 정보 삭제.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.36</div>
+      <div class="page-title">LSTM — Input Gate</div>
+      <div class="page-body">
+        <div class="formula">iₜ = σ(Wi · [hₜ₋₁, xₜ] + bi)</div>
+        새로운 정보 중 얼마나 cell state에 넣을지 결정하는 밸브.<br>
+        0~1 사이 값.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.37</div>
+      <div class="page-title">LSTM — Candidate Cell State</div>
+      <div class="page-body">
+        <div class="formula">c̃ₜ = tanh(Wc · [hₜ₋₁, xₜ] + bc)</div>
+        tanh → -1~1 사이 값.<br>
+        "현재 입력에서 뽑아낸 새 정보 후보".<br>
+        Input gate와 곱해져서 실제 반영량 결정.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.38</div>
+      <div class="page-title">LSTM — Cell State 업데이트 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <div class="formula">cₜ = fₜ ⊙ cₜ₋₁ + iₜ ⊙ c̃ₜ</div>
+        = "지울 건 지우고 (forget gate)" + "추가할 건 추가 (input gate × candidate)"<br>
+        <div class="tip">이게 LSTM의 핵심! 장기 기억 유지의 비결</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.39</div>
+      <div class="page-title">LSTM — Output Gate</div>
+      <div class="page-body">
+        <div class="formula">oₜ = σ(Wo · [hₜ₋₁, xₜ] + bo)</div>
+        cell state 전체를 다 내보내지 않고 필요한 부분만 선택.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.40</div>
+      <div class="page-title">LSTM — Hidden State 업데이트</div>
+      <div class="page-body">
+        <div class="formula">hₜ = oₜ ⊙ tanh(cₜ)</div>
+        cell state를 tanh로 압축 → output gate로 필터링 → hidden state.<br>
+        이 hₜ가 다음 시점 or 상위 레이어로 전달됨.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.41</div>
+      <div class="page-title">Bidirectional RNN <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        앞→뒤 RNN + 뒤→앞 RNN 두 개를 따로 학습.<br>
+        각 단어 위치에서 두 hidden state를 <strong>concatenate</strong>.<br>
+        → 앞뒤 문맥 모두 반영 가능.<br>
+        <div class="tip">"bank" 문제 해결: 나중에 나오는 "river"도 참고 가능</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.42</div>
+      <div class="page-title">Deep RNN</div>
+      <div class="page-body">
+        RNN 레이어를 여러 층 쌓음.<br>
+        아래 층 출력 → 위 층 입력.<br>
+        층이 깊어질수록 더 추상적인 표현 학습.<br>
+        마지막 층 출력 = 최종 표현.
+      </div>
+    </div>
+
+  </div><!-- /4강 -->
+
+  <!-- ==================== 5강 ==================== -->
+  <div class="chapter">
+    <div class="chapter-title">5강 — Transformer Language Models</div>
+
+    <div class="section-label" id="tf-overview">Transformer 개요 & 동기</div>
+
+    <div class="page-card">
+      <div class="page-num">p.3</div>
+      <div class="page-title">Transformer 개요</div>
+      <div class="page-body">
+        Transformer = attention으로 RNN의 반복 연산을 대체한 DNN 구조.<br>
+        현재 거의 모든 LLM(GPT, BERT 등)의 기반.<br>
+        <div class="tip">2017년 "Attention is All You Need" 논문에서 등장</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.4</div>
+      <div class="page-title">Transformer vs. RNN</div>
+      <div class="page-body">
+        <ul>
+          <li>RNN: 순서대로 하나씩 처리 (recurrent)</li>
+          <li>Transformer: attention으로 전체 동시에 처리</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.5</div>
+      <div class="page-title">Transformer 등장 이유 (RNN 3가지 한계 해결) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>문제</th><th>RNN</th><th>Transformer</th></tr>
+          <tr><td>병렬 처리</td><td>한 번에 하나씩</td><td>전체 동시 처리</td></tr>
+          <tr><td>장거리 의존성</td><td>vanishing gradient</td><td>어디든 직접 접근</td></tr>
+          <tr><td>양방향성</td><td>단방향</td><td>기본이 양방향</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.6</div>
+      <div class="page-title">Transformer 레이어 구성 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        각 Transformer 레이어 = 아래 4개로 구성:
+        <ol style="padding-left:20px; margin-top:6px;">
+          <li><strong>Self-Attention</strong></li>
+          <li><strong>Feedforward Network (FFN)</strong></li>
+          <li><strong>Residual Connection</strong></li>
+          <li><strong>Layer Normalization</strong></li>
+        </ol>
+        이 블록을 N번 쌓아서 깊게 만듦.
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-selfattn">Self-Attention</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.7</div>
+      <div class="page-title">Self-Attention 직관 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        "이 단어를 이해하려면 다른 어떤 단어에 집중해야 하나?"<br>
+        각 단어가 같은 시퀀스 내 다른 단어들을 참조.<br>
+        예: "jumps" → "fox"(주어), "over"(전치사)에 높은 attention / "the", "lazy"에는 낮은 attention.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.8</div>
+      <div class="page-title">Self-Attention 예시 (it)</div>
+      <div class="page-body">
+        "it"의 표현 = 문장 내 모든 단어 표현의 가중합.<br>
+        <div class="formula">aᵢ = Σ αᵢⱼ × xⱼ ,  Σαᵢⱼ = 1</div>
+        αᵢⱼ = attention score (softmax 후 합 = 1).
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.9</div>
+      <div class="page-title">Attention Score 계산 & Q/K 분리 이유 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <div class="formula">αᵢⱼ = Softmax(xᵢ · xⱼ)</div>
+        <strong>왜 같은 벡터 두 개를 내적하지 않나?</strong><br>
+        → 자기 자신과의 내적이 항상 최대 → 항상 자기한테만 집중하는 문제 발생.<br>
+        → 그래서 Query와 Key를 다른 행렬로 분리!
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-qkv">Q, K, V</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.10</div>
+      <div class="page-title">Query, Key, Value 개념 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        단어마다 3가지 역할 벡터:
+        <table class="summary-table">
+          <tr><th>벡터</th><th>역할</th><th>비유</th></tr>
+          <tr><td><strong>Q (Query)</strong></td><td>어떤 정보를 찾나?</td><td>검색 쿼리</td></tr>
+          <tr><td><strong>K (Key)</strong></td><td>어떤 정보를 가졌나?</td><td>검색 인덱스</td></tr>
+          <tr><td><strong>V (Value)</strong></td><td>실제 전달할 내용</td><td>검색 결과</td></tr>
+        </table>
+        Q와 K로 attention score 계산 → 그 score로 V를 가중합.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.11</div>
+      <div class="page-title">Q, K, V 생성 방법</div>
+      <div class="page-body">
+        입력 단어 벡터 x에 3개의 가중치 행렬을 곱해서 생성:
+        <div class="formula">q = xWQ ,  k = xWK ,  v = xWV</div>
+        WQ, WK, WV는 학습되는 파라미터 행렬.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.12</div>
+      <div class="page-title">Self-Attention 전체 계산 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <div class="formula">αᵢⱼ = Softmax(qᵢ · kⱼ / √d)</div>
+        <div class="formula">aᵢ = Σ αᵢⱼ × vⱼ</div>
+        <strong>√d로 나누는 이유</strong>: 차원(d)이 클수록 내적값이 커져 softmax가 극단적으로 쏠림 → √d로 나눠서 안정화.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.13</div>
+      <div class="page-title">Self-Attention 시각화 (3단어 예시)</div>
+      <div class="page-body">
+        x1, x2, x3 → Q,K,V 계산 → x3의 Q를 모든 K와 비교 → softmax → V 가중합 → 출력.<br>
+        <div class="tip">그림 보면서 흐름 익히기: Q와 K 내적 → √d 나누기 → softmax → V 가중합</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-multihead">Multi-Head & 병렬 계산</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.14</div>
+      <div class="page-title">Multi-Head Self-Attention <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        attention head를 여러 개 사용.<br>
+        각 head가 서로 다른 종류의 관계를 학습 (문법적, 의미적, 위치적 등).<br>
+        각 head 결과를 <strong>concatenate</strong> → 선형 변환 → 최종 출력.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.15</div>
+      <div class="page-title">QKV 병렬 계산</div>
+      <div class="page-body">
+        토큰마다 QKV 계산이 독립적 → 행렬 연산으로 전체 동시 처리.<br>
+        <div class="formula">Q = XWQ ,  K = XWK ,  V = XWV</div>
+        X = 전체 입력 행렬 (모든 토큰 포함). GPU 행렬 연산으로 빠름.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.16</div>
+      <div class="page-title">Attention 행렬 연산</div>
+      <div class="page-body">
+        <div class="formula">A = Softmax(QKᵀ / √d) × V</div>
+        행렬 한 번으로 모든 단어의 attention을 동시에 계산.<br>
+        Attention matrix = 각 단어 쌍의 attention score 행렬.
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-bidir">양방향 vs 단방향</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.17</div>
+      <div class="page-title">Bidirectional Self-Attention (Encoder) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        모든 위치가 모든 위치에 attention 가능 → <strong>양방향</strong>.<br>
+        이런 구조 = <strong>Transformer Encoder</strong>.<br>
+        대표 모델: <strong>BERT</strong>.<br>
+        용도: 텍스트 분류, NER 등 이해(NLU) 태스크.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.18</div>
+      <div class="page-title">Unidirectional Self-Attention (Decoder) <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        현재 위치는 이전 위치들만 볼 수 있음 → <strong>단방향(Causal)</strong>.<br>
+        미래 토큰은 -∞ 마스킹으로 차단.<br>
+        이런 구조 = <strong>Transformer Decoder</strong>.<br>
+        대표 모델: <strong>GPT</strong>.<br>
+        용도: 텍스트 생성(NLG).
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-posenc">Position Encoding</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.19</div>
+      <div class="page-title">Position Encoding 필요성 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        Self-attention은 순서 정보가 없음 (행렬 연산이라 위치 무관).<br>
+        → 위치 정보를 임베딩에 더해줌 = <strong>Position Encoding</strong>.
+        <div class="tip">"I love you" vs "You love I"가 attention 입장에서는 같음 → 위치 정보 필수</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.20</div>
+      <div class="page-title">Position Encoding 방법 3가지</div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>방법</th><th>특징</th><th>단점</th></tr>
+          <tr><td>Absolute</td><td>각 위치마다 임베딩 학습</td><td>긴 문장 일반화 약함</td></tr>
+          <tr><td>Relative</td><td>단어 간 상대 거리 인코딩</td><td>계산 복잡</td></tr>
+          <tr><td><strong>RoPE</strong></td><td>회전 행렬 적용, 절대+상대 위치</td><td>-</td></tr>
+        </table>
+        <div class="tip">최신 LLM 대부분은 RoPE 사용</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-tokenize">Tokenization & BPE</div>
+
+    <div class="page-card">
+      <div class="page-num">p.22</div>
+      <div class="page-title">Tokenization 개요</div>
+      <div class="page-body">
+        문자열을 토큰 시퀀스로 분리.<br>
+        공백 기반(단어 단위)은 현대 LLM에서 사용 안 함.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.23</div>
+      <div class="page-title">단어 단위 토큰화의 문제</div>
+      <div class="page-body">
+        <ul>
+          <li><strong>OOV</strong>: 학습 안 된 단어 처리 불가</li>
+          <li><strong>Subword 정보 손실</strong>: "unhappiness" → un+happy+ness 구조 활용 못함</li>
+          <li><strong>어휘 폭발</strong>: 단어 수 = 어휘 크기 → 너무 많아짐</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.24</div>
+      <div class="page-title">문자 단위 토큰화의 문제</div>
+      <div class="page-body">
+        OOV 없고 어휘 작지만:<br>
+        <ul>
+          <li>시퀀스 길이 폭발 → self-attention은 O(n²) → 느려짐</li>
+          <li>문자 하나는 의미 없음</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.25</div>
+      <div class="page-title">Subword Tokenization <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        단어 단위 + 문자 단위의 중간점.<br>
+        <table class="summary-table">
+          <tr><th>알고리즘</th><th>사용 모델</th></tr>
+          <tr><td>BPE</td><td>GPT 계열</td></tr>
+          <tr><td>WordPiece</td><td>BERT</td></tr>
+          <tr><td>SentencePiece</td><td>T5, LLaMA 등</td></tr>
+        </table>
+        두 단계: ① Token Learner (어휘 구축) + ② Token Segmenter (분리)
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.26~32</div>
+      <div class="page-title">BPE (Byte-Pair Encoding) 상세</div>
+      <div class="page-body">
+        <strong>직관</strong>: 문자 단위에서 시작 → 자주 나오는 쌍을 반복 합치기.<br>
+        <ol style="padding-left:20px; margin-top:6px;">
+          <li>문자 단위 어휘로 초기화</li>
+          <li>가장 자주 나오는 인접 쌍 찾기</li>
+          <li>그 쌍을 합쳐서 새 토큰 추가</li>
+          <li>코퍼스 업데이트</li>
+          <li>지정한 횟수만큼 반복</li>
+        </ol>
+        <div class="tip">"er" 빈도 9 → "er_" 빈도 9 → "ne" 빈도 8 ... 순서로 병합</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.33</div>
+      <div class="page-title">BPE Token Segmenter</div>
+      <div class="page-body">
+        학습된 병합 규칙을 순서대로 적용해서 새 문장 분리.<br>
+        예: "lower_" → 학습에 없음 → "low" + "er_" 로 분리.<br>
+        <div class="tip">OOV 문제 해결 + subword 의미 활용 가능</div>
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-modules">추가 Transformer 모듈</div>
+
+    <div class="page-card">
+      <div class="page-num">p.35</div>
+      <div class="page-title">Transformer Block 전체 구조</div>
+      <div class="page-body">
+        Multi-head Attention → LayerNorm → FFN → LayerNorm<br>
+        (각 sublayer마다 Residual connection 적용)<br>
+        이 블록을 N번 쌓음.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.36~37</div>
+      <div class="page-title">Layer Normalization</div>
+      <div class="page-body">
+        학습 중 각 층 입력 분포가 계속 바뀜(Internal Covariate Shift) → 학습 불안정.<br>
+        <div class="formula">LayerNorm(x) = γ × (x - μ)/σ + β</div>
+        μ, σ: 벡터 내 차원들로 계산. γ, β: 학습 가능 파라미터.
+        <div class="tip">Batch Norm과 달리 벡터 하나 단위로 정규화</div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.38</div>
+      <div class="page-title">FFN in Transformer</div>
+      <div class="page-body">
+        <div class="formula">FFN(x) = ReLU(xW₁)W₂</div>
+        2층 MLP. 매 토큰에 동일 가중치 적용 (토큰 독립).<br>
+        Self-attention이 "어디에 집중?"이라면, FFN은 "그 정보로 뭘 할까?" 역할.
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.39</div>
+      <div class="page-title">Residual Connection <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <div class="formula">y = x + f(x)</div>
+        입력을 출력에 그냥 더해줌.<br>
+        장점:
+        <ul>
+          <li>Vanishing gradient 완화 (지름길로 gradient 통과)</li>
+          <li>정보 흐름 보존</li>
+          <li>깊은 모델 학습 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.40</div>
+      <div class="page-title">Language Model Head</div>
+      <div class="page-body">
+        마지막 층 출력 → LM Head → 단어 확률 분포.<br>
+        Weight tying: 입력 임베딩 행렬 = 출력 행렬 (파라미터 절약 + 성능 향상).
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.41~42</div>
+      <div class="page-title">Transformer LM 전체 구조 & 학습</div>
+      <div class="page-body">
+        입력 토큰 임베딩 + Position encoding → Transformer 블록 N개 → LM head → 다음 단어 예측.<br>
+        Cross-Entropy Loss로 학습. 병렬로 모든 위치 동시에 학습 가능 (RNN보다 효율적).
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-pretrain">Pretraining</div>
+
+    <div class="page-card">
+      <div class="page-num">p.44~45</div>
+      <div class="page-title">Pretraining 필요성</div>
+      <div class="page-body">
+        기존: 각 태스크마다 처음부터 학습 → 데이터 부족, 일반화 약함.<br>
+        웹에 텍스트 데이터가 엄청 많음 → 이걸로 먼저 학습(Pretraining) 후 Fine-tuning.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.47</div>
+      <div class="page-title">Self-Supervised Learning</div>
+      <div class="page-body">
+        정답 레이블 없이도 학습 가능.<br>
+        입력 일부를 가리거나 손상 → 나머지로 복원/예측.<br>
+        사람이 레이블링 안 해도 됨.
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.48</div>
+      <div class="page-title">Pretraining + Fine-Tuning</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li><strong>Pretraining</strong>: 대규모 텍스트로 사전학습 (범용 능력)</li>
+          <li><strong>Fine-Tuning</strong>: 특정 태스크 데이터로 추가 학습 (특화)</li>
+        </ol>
+        Fine-tuning 형태: 분류 레이블 데이터 or 대화 데이터(Instruction tuning).
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-num">p.49</div>
+      <div class="page-title">Transformer가 Pretraining에 적합한 이유</div>
+      <div class="page-body">
+        <ul>
+          <li><strong>효율성</strong>: 병렬 처리 → 대규모 데이터 빠르게 학습</li>
+          <li><strong>확장성</strong>: 크기 키울수록 성능 향상 (Scaling law)</li>
+          <li><strong>범용성</strong>: 텍스트 외 이미지, 오디오, 멀티모달 적용 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label" id="tf-bert">BERT ★ 시험범위 끝</div>
+
+    <div class="page-card important">
+      <div class="page-num">p.51</div>
+      <div class="page-title">Transformer 아키텍처 3종류 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>구조</th><th>Attention 방향</th><th>대표 모델</th></tr>
+          <tr><td><strong>Encoder</strong></td><td>양방향</td><td>BERT</td></tr>
+          <tr><td><strong>Decoder</strong></td><td>단방향</td><td>GPT</td></tr>
+          <tr><td><strong>Encoder-Decoder</strong></td><td>둘 다</td><td>BART, T5</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">p.52</div>
+      <div class="page-title">아키텍처별 용도 — BERT Big Picture <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        <table class="summary-table">
+          <tr><th>모델</th><th>용도</th><th>예시 태스크</th></tr>
+          <tr><td>BERT (Encoder)</td><td>NLU</td><td>분류, NER, 감성분석</td></tr>
+          <tr><td>GPT (Decoder)</td><td>NLG</td><td>텍스트 생성, 번역</td></tr>
+          <tr><td>BART/T5 (Enc-Dec)</td><td>NLU+NLG</td><td>요약, 번역, QA</td></tr>
+        </table>
+        <div class="tip">BERT = 양방향 문맥 이해 → NLU에 강함</div>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-num">BERT Input</div>
+      <div class="page-title">BERT 입력 구조 <span class="tag exam">시험</span></div>
+      <div class="page-body">
+        BERT 입력 = 3가지 임베딩의 합:
+        <table class="summary-table">
+          <tr><th>임베딩</th><th>설명</th></tr>
+          <tr><td><strong>Token Embedding</strong></td><td>WordPiece로 토큰화된 단어 임베딩 (embedding table)</td></tr>
+          <tr><td><strong>Segment Embedding</strong></td><td>문장 A/B 구분 (문장 쌍 태스크용)</td></tr>
+          <tr><td><strong>Position Embedding</strong></td><td>토큰 위치 정보</td></tr>
+        </table>
+        특수 토큰: <strong>[CLS]</strong> (문장 시작/분류), <strong>[SEP]</strong> (문장 구분)
+      </div>
+    </div>
+
+    <div class="page-card exam-end">
+      <div class="page-num">BERT Stacking</div>
+      <div class="page-title">BERT: Stacking Transformer Layers <span class="tag exam">⭐ 시험범위 끝</span></div>
+      <div class="page-body">
+        BERT = Transformer <strong>Encoder</strong> 블록을 여러 층 쌓은 구조.<br>
+        <ul>
+          <li>BERT-base: 12층, 768 차원, 12 heads</li>
+          <li>BERT-large: 24층, 1024 차원, 16 heads</li>
+        </ul>
+        <div class="formula">입력 토큰 → [CLS]+토큰임베딩+위치임베딩 → Transformer Layer × N → 출력</div>
+        <strong>"The outputs from the last layer become contextual embeddings"</strong><br>
+        → 마지막 층의 출력 = 각 토큰의 <strong>문맥 반영 임베딩 (Contextual Embeddings)</strong>.<br>
+        → 같은 단어라도 문맥에 따라 다른 벡터를 가짐. (cf. Word2Vec은 항상 같은 벡터)
+      </div>
+    </div>
+
+    <div class="divider-exam-end">
+      🛑 여기까지가 중간고사 범위 &nbsp;|&nbsp; MLM / NSP 이후 내용은 제외
+    </div>
+
+  </div><!-- /5강 -->
+
+  <!-- 핵심 요약 카드 -->
+  <div class="chapter">
+    <div class="chapter-title">⚡ 최종 핵심 정리 (암기용)</div>
+
+    <div class="page-card important">
+      <div class="page-title">0~1강 핵심</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li><strong>언어 모델</strong>: 단어 시퀀스에 확률 부여 → 모든 NLP 태스크의 핵심</li>
+          <li><strong>Autoregressive</strong>: P(wₜ | w₁,...,wₜ₋₁)을 순서대로 예측</li>
+          <li><strong>N-gram 트레이드오프</strong>: N↑ → 문맥↑, Sparsity↑, 파라미터↑</li>
+          <li><strong>Smoothing</strong>: Add-one / Add-k / Interpolation / Backoff → 0확률 방지</li>
+          <li><strong>Perplexity</strong>: 낮을수록 좋음, log-scale로 계산</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-title">2~3강 핵심</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li><strong>어휘 관계</strong>: Synonyms / Antonyms / Hyponym / Hypernym / Polysemy</li>
+          <li><strong>WordNet 한계</strong>: 수동 구축, 문맥 고려 불가 → Word Embedding 등장</li>
+          <li><strong>Distributional Hypothesis</strong>: 비슷한 문맥 = 비슷한 의미</li>
+          <li><strong>Sparse vs Dense</strong>: Dense = 작은 차원, 비영 실수, 신경망에 효율적</li>
+          <li><strong>Word2Vec Skip-gram</strong>: 중심 단어 → 문맥 단어 예측 + Negative Sampling</li>
+          <li><strong>Word Analogy</strong>: vking - vman + vwoman ≈ vqueen</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-title">4강 RNN 핵심 5가지</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li><strong>RNN</strong>: 같은 가중치 재사용, hₜ = f(Wₕhₜ₋₁ + Wₓxₜ)</li>
+          <li><strong>RNN 한계</strong>: Vanishing gradient / 장거리 의존성 / 단방향 / Exposure bias</li>
+          <li><strong>LSTM</strong>: cell state + 3 gates (forget / input / output)</li>
+          <li><strong>Cell state 업데이트</strong>: cₜ = fₜ⊙cₜ₋₁ + iₜ⊙c̃ₜ</li>
+          <li><strong>Bidirectional RNN</strong>: 앞→뒤 + 뒤→앞 → concatenate</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page-card important">
+      <div class="page-title">5강 Transformer 핵심 5가지</div>
+      <div class="page-body">
+        <ol style="padding-left:20px;">
+          <li><strong>Self-Attention</strong>: αᵢⱼ = Softmax(qᵢkⱼ/√d), aᵢ = Σαᵢⱼvⱼ</li>
+          <li><strong>Q/K/V</strong>: Q=검색, K=인덱스, V=내용 — 같은 벡터 쓰면 자기한테만 집중</li>
+          <li><strong>Multi-Head</strong>: 여러 head → 다양한 관계 학습 → concatenate</li>
+          <li><strong>Encoder vs Decoder</strong>: BERT=양방향(NLU) / GPT=단방향(NLG)</li>
+          <li><strong>BERT stacking</strong>: 마지막 층 출력 = Contextual Embeddings (문맥 반영)</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+<script id="__memo_script__">
+(function(){
+  var KEY='__mp__'+(document.title||location.pathname);
+  function get(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+  function put(a){localStorage.setItem(KEY,JSON.stringify(a))}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function render(){
+    var memos=get();
+    document.getElementById('_mc_').textContent=memos.length?' ('+memos.length+'개)':'';
+    var ml=document.getElementById('_ml_');ml.innerHTML='';
+    memos.forEach(function(m,i){
+      var d=document.createElement('div');d.className='mi';
+      d.innerHTML='<div class="mt2">'+esc(m).replace(/
+/g,'<br>')+'</div>'
+        +'<div class="ma">'
+        +'<button class="mb meb" onclick="_medit_('+i+',this)">수정</button>'
+        +'<button class="mb mdb" onclick="_mdel_('+i+')">삭제</button>'
+        +'</div>';
+      ml.appendChild(d);
+    });
+    updatePad();
+  }
+  window._mtog_=function(){
+    var b=document.getElementById('_mb_');
+    var a=document.getElementById('_marr_');
+    var open=b.style.display==='block';
+    b.style.display=open?'none':'block';
+    a.textContent=open?'▶':'▼';
+    setTimeout(updatePad,10);
+  };
+  window._msave_=function(){
+    var ta=document.getElementById('_mta_');
+    var v=ta.value.trim();if(!v)return;
+    var a=get();a.push(v);put(a);ta.value='';render();
+  };
+  window._medit_=function(i,btn){
+    var item=btn.parentElement.parentElement;
+    var memos=get();
+    var ta=document.createElement('textarea');
+    ta.className='meta';ta.value=memos[i];
+    var actions=item.querySelector('.ma');
+    item.querySelector('.mt2').style.display='none';
+    actions.innerHTML='<button class="mb msb" onclick="_mupd_('+i+',this)">저장</button>'
+      +'<button class="mb mcb" onclick="render()">취소</button>';
+    item.insertBefore(ta,actions);item.className='mi ed';
+  };
+  window._mupd_=function(i,btn){
+    var ta=btn.parentElement.previousSibling;
+    var v=ta.value.trim();if(!v)return;
+    var a=get();a[i]=v;put(a);render();
+  };
+  window._mdel_=function(i){
+    if(!confirm('이 메모를 삭제할까요?'))return;
+    var a=get();a.splice(i,1);put(a);render();
+  };
+  function updatePad(){
+    var h=document.getElementById('_mp_').offsetHeight;
+    document.body.style.paddingTop=h+'px';
+    var sb=document.querySelector('.toc-sidebar');
+    if(sb)sb.style.top=h+'px';
+    var mn=document.querySelector('.main');
+    if(mn&&mn.style&&!mn.style.marginLeft){}
+  }
+  render();
+  setTimeout(updatePad,150);
+  window.addEventListener('resize',updatePad);
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='m'){e.preventDefault();_mtog_();}
+  });
+})();
+</script>
+</body>
+</html>
