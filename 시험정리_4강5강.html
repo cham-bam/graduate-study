@@ -193,6 +193,34 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: #1a1a2e; }
   ::-webkit-scrollbar-thumb { background: #313244; border-radius: 3px; }
+
+  /* 모바일 */
+  #toc-toggle {
+    display: none;
+    position: fixed; top: 10px; left: 10px; z-index: 200;
+    background: #cba6f7; color: #1e1e2e;
+    border: none; border-radius: 8px;
+    padding: 8px 14px; font-size: 16px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  #toc-overlay {
+    display: none;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99;
+  }
+  @media (max-width: 768px) {
+    #toc-toggle { display: block; }
+    .toc-sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      z-index: 150;
+    }
+    .toc-sidebar.open { transform: translateX(0); }
+    #toc-overlay.open { display: block; }
+    .main { margin-left: 0; padding: 60px 16px 32px; }
+    .hero { padding: 24px 20px; }
+    .hero h1 { font-size: 20px; }
+    .summary-table { display: block; overflow-x: auto; }
+  }
 </style>
 
 <style id="__memo_style__">
@@ -228,6 +256,8 @@ textarea.meta{width:100%;background:#181825;color:#cdd6f4;border:1px solid #cba6
 </script>
 </head>
 <body>
+<button id="toc-toggle" onclick="document.querySelector('.toc-sidebar').classList.toggle('open');document.getElementById('toc-overlay').classList.toggle('open')">☰ 목차</button>
+<div id="toc-overlay" onclick="document.querySelector('.toc-sidebar').classList.remove('open');this.classList.remove('open')"></div>
 <div id="_mp_">
   <div id="_mh_" onclick="_mtog_()">
     <span class="mt">📝 메모</span><span id="_mc_"></span>
