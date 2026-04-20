@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오답노트 — 자연어처리 중간고사</title>
+<style>
+  * { box-sizing:border-box; }
+  body { font-family:'Malgun Gothic',sans-serif; max-width:900px; margin:0 auto; padding:20px; background:#f9f9f9; color:#222; line-height:1.7; }
+  @media (max-width:600px){ body{padding:12px;} h1{font-size:1.1rem;padding:12px 14px;} }
+  h1 { background:#e65100; color:white; padding:16px 20px; border-radius:8px; }
+  .topbar { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; align-items:center; }
+  .topbar a, .topbar button { background:#3949ab; color:white; border:none; padding:8px 16px; border-radius:20px; text-decoration:none; font-size:0.9em; cursor:pointer; font-family:inherit; }
+  .topbar a:hover, .topbar button:hover { background:#1a237e; }
+  .topbar .req { background:#ff6f00; }
+  .topbar .req:hover { background:#e65100; }
+  .topbar .clr { background:#78909c; }
+  .topbar .clr:hover { background:#455a64; }
+  .stats { background:#fff3e0; border:1px solid #ff9800; padding:10px 14px; border-radius:6px; margin:14px 0; font-size:0.92em; }
+  .stats .chapter-stat { display:inline-block; background:#ffe0b2; color:#e65100; padding:3px 10px; border-radius:12px; margin:3px; font-weight:bold; font-size:0.85em; }
+  .empty { text-align:center; padding:60px 20px; color:#666; font-size:1.05em; }
+  .empty a { color:#3949ab; }
+  .entry { background:white; border:1px solid #c5cae9; border-left:5px solid #ff9800; border-radius:6px; padding:14px 18px; margin:14px 0; }
+  .entry .meta { font-size:0.8em; color:#888; margin-bottom:8px; }
+  .entry .meta .chip { background:#e8eaf6; color:#1a237e; padding:2px 8px; border-radius:10px; margin-right:6px; font-weight:bold; }
+  .entry .q { font-size:1em; margin-bottom:10px; }
+  .entry .a { background:#f1f8e9; border-left:4px solid #558b2f; padding:8px 14px; margin:8px 0; border-radius:4px; font-size:0.93em; }
+  .entry .info { background:#e3f2fd; border-left:4px solid #1976d2; padding:10px 14px; margin:8px 0; border-radius:4px; font-size:0.9em; }
+  .entry .info strong { color:#1565c0; }
+  .entry .info ul { margin:6px 0 0 20px; padding:0; }
+  .entry .info li { margin:2px 0; }
+  .entry .info .detail-link { display:inline-block; margin-top:8px; background:#1976d2; color:white; padding:4px 12px; border-radius:12px; text-decoration:none; font-size:0.85em; }
+  .entry .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .entry .actions button { font-family:inherit; font-size:0.85em; padding:5px 12px; border-radius:4px; border:none; cursor:pointer; }
+  .entry .actions .ask { background:#ff6f00; color:white; }
+  .entry .actions .ask:hover { background:#e65100; }
+  .entry .actions .rm { background:#ef9a9a; color:#b71c1c; }
+  .entry .actions .rm:hover { background:#e57373; color:white; }
+</style>
+<script id="__auth__">
+(async function(){
+  var H='5fa75ee2c5383fa601a45136751b99f41f203754378c650440e94c75020b70b0';
+  if(sessionStorage.getItem('_ga')===H)return;
+  document.documentElement.style.visibility='hidden';
+  var pw=prompt('\uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD558\uC138\uC694:');
+  if(!pw){document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uC811\uADFC \uAC70\uBD80\uB418\uC5C8\uC2B5\uB2C8\uB2E4.</h2>');return;}
+  var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+  var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+  if(h===H){sessionStorage.setItem('_ga',H);document.documentElement.style.visibility='';}
+  else{document.documentElement.style.visibility='';document.write('<h2 style="font-family:sans-serif;color:red;padding:40px">\uBE44\uBC00\uBC88\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4.</h2>');}
+})();
+</script>
+</head>
+<body>
+<h1>📕 오답노트</h1>
+
+<div class="topbar">
+  <a href="시험문제집_중간고사.html">← 문제집으로</a>
+  <a href="시험정리_4강5강.html">📖 정리본</a>
+  <button class="req" onclick="requestAll()">📋 전체 유사문제 요청 (복사)</button>
+  <button class="clr" onclick="clearAll()">🗑 전체 초기화</button>
+</div>
+
+<div id="stats" class="stats" style="display:none"></div>
+<div id="list"></div>
+
+<script>
+var KEY='nlp_midterm_wrong';
+
+// PDF 기반 챕터별 핵심 개념
+var CONCEPTS = {
+  '0': {
+    title:'Introduction',
+    bullets:['NLP 정의 — 컴퓨터가 인간 언어를 이해·생성','핵심 응용: 기계번역, 감성분석, QA, 요약','딥러닝 vs 규칙기반 — 정확도↑ but 연산↑','언어의 모호성 (lexical/syntactic/semantic)']
+  },
+  '1': {
+    title:'Language Model Intro',
+    bullets:['LM = P(w₁,...,wₙ) 모델링','N-gram: Markov 가정으로 근사','Perplexity = 2^(cross-entropy), 낮을수록 좋음','Sparsity 문제 → smoothing (add-k, Kneser-Ney)','Chain rule: P(문장) = ∏ P(wᵢ | w₁..wᵢ₋₁)']
+  },
+  '2': {
+    title:'Semantics',
+    bullets:['Lexical semantics — 단어 의미','WordNet — 동의어(synset), 상하위어','Distributional hypothesis — 문맥이 비슷하면 의미도 비슷','Word similarity vs relatedness','PMI (Pointwise Mutual Information)']
+  },
+  '3': {
+    title:'Word Embeddings',
+    bullets:['One-hot vs dense vector — 차원 축소','Word2vec: CBOW (문맥→중심어), Skip-gram (중심어→문맥)','Negative sampling — 효율적 학습','GloVe — co-occurrence matrix 기반','벡터 연산: king - man + woman ≈ queen']
+  },
+  '4': {
+    title:'RNNs & Neural Networks',
+    bullets:['RNN: hᵢ = f(Wx·xᵢ + Wh·hᵢ₋₁)','Vanishing/exploding gradient — 긴 시퀀스 문제','LSTM: forget/input/output gate, cell state','GRU: reset/update gate (LSTM보다 경량)','Seq2seq: encoder-decoder 구조']
+  },
+  '5': {
+    title:'Transformers',
+    bullets:['Self-attention: Q·Kᵀ/√d → softmax → ·V','Multi-head attention — 여러 subspace 동시 학습','Positional encoding — 순서 정보 주입 (sin/cos)','Encoder/Decoder stack (N=6 layers)','BERT: Encoder-only, bidirectional context']
+  }
+};
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+function chNum(h3){var m=(h3||'').match(/(\d)강/);return m?m[1]:'';}
+function esc(s){return (s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+
+function renderStats(entries){
+  var cnt={};
+  entries.forEach(function(e){
+    var n=chNum(e[1].h3);
+    if(n) cnt[n]=(cnt[n]||0)+1;
+  });
+  var el=document.getElementById('stats');
+  if(!entries.length){el.style.display='none';return;}
+  var chips=Object.keys(cnt).sort().map(function(k){
+    return '<span class="chapter-stat">'+k+'강: '+cnt[k]+'개</span>';
+  }).join('');
+  el.innerHTML='<strong>총 '+entries.length+'개</strong> &nbsp; '+chips;
+  el.style.display='block';
+}
+
+function render(){
+  var s=load();
+  var entries=Object.entries(s).sort(function(a,b){return (a[1].t||0)-(b[1].t||0)});
+  renderStats(entries);
+  var list=document.getElementById('list');
+  if(!entries.length){
+    list.innerHTML='<div class="empty">체크된 오답이 없습니다.<br><br>'+
+      '<a href="시험문제집_중간고사.html">문제집</a>에서 각 문제 왼쪽 체크박스를 눌러 오답을 표시하세요.</div>';
+    return;
+  }
+  list.innerHTML=entries.map(function(pair){
+    var id=pair[0],v=pair[1];
+    var n=chNum(v.h3);
+    var c=CONCEPTS[n];
+    var info='';
+    if(c){
+      info='<div class="info"><strong>📌 '+c.title+' — 핵심 개념</strong><ul>'+
+        c.bullets.map(function(b){return '<li>'+esc(b)+'</li>'}).join('')+'</ul>';
+      if(n==='4'||n==='5') info+='<a class="detail-link" href="시험정리_4강5강.html">📖 '+n+'강 상세 정리 보기</a>';
+      info+='</div>';
+    }
+    return '<div class="entry">'+
+      '<div class="meta"><span class="chip">'+(n?n+'강':'—')+'</span>'+esc(v.h3||'')+'</div>'+
+      '<div class="q">'+esc(v.q)+'</div>'+
+      '<div class="a">'+esc(v.a)+'</div>'+
+      info+
+      '<div class="actions">'+
+        '<button class="ask" onclick="askOne(\''+id+'\')">📋 유사문제 요청 (복사)</button>'+
+        '<button class="rm" onclick="rmOne(\''+id+'\')">제거</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function copyText(txt,okMsg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){alert(okMsg)}).catch(function(){fallback(txt,okMsg)});
+  }else fallback(txt,okMsg);
+}
+function fallback(txt,okMsg){
+  var ta=document.createElement('textarea');
+  ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');alert(okMsg)}catch(e){alert('복사 실패. 수동 복사:\n\n'+txt)}
+  document.body.removeChild(ta);
+}
+
+function askOne(id){
+  var v=load()[id];if(!v)return;
+  var p='다음 자연어처리 문제와 유사한 예상문제 5개를 새로 만들어줘. 같은 형식(T/F 또는 단답형)으로 생성하고, 각 문제마다 정답과 해설을 포함해.\n\n'+
+    '[원 문제]\n단원: '+(v.h3||'')+'\n'+v.q+'\n\n[정답/해설]\n'+v.a;
+  copyText(p,'프롬프트가 클립보드에 복사됐습니다.\nClaude 창(대학원공부 프로젝트)에 붙여넣으세요.');
+}
+
+function requestAll(){
+  var s=load();
+  var items=Object.values(s);
+  if(!items.length){alert('오답이 없습니다.');return;}
+  var p='다음 '+items.length+'개 자연어처리 오답 문제와 유사한 추가 예상문제를 각 문제당 3개씩 만들어줘.\n같은 형식 유지하고 정답 해설 포함.\n문제별로 그룹화해서 출력해줘.\n\n';
+  items.forEach(function(v,i){
+    p+='['+(i+1)+'] 단원: '+(v.h3||'')+'\n문제: '+v.q+'\n정답: '+v.a+'\n\n';
+  });
+  copyText(p,'전체 프롬프트('+items.length+'개 기반) 복사 완료.\nClaude에 붙여넣으세요.');
+}
+
+function rmOne(id){
+  var s=load();delete s[id];save(s);render();
+}
+function clearAll(){
+  if(!confirm('모든 오답을 초기화합니다. 계속?'))return;
+  save({});render();
+}
+
+render();
+window.addEventListener('storage',function(e){if(e.key===KEY)render();});
+</script>
+</body>
+</html>

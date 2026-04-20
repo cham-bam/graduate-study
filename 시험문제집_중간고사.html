@@ -1127,5 +1127,80 @@ textarea.meta{width:100%;background:#181825;color:#cdd6f4;border:1px solid #cba6
   });
 })();
 </script>
+
+<style>
+.wrong-box { background:#fff3e0; border:2px solid #ff9800; padding:10px 14px; border-radius:6px; margin:14px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:0.95em; }
+.wrong-box strong { color:#e65100; }
+.wrong-box a { background:#ff6f00; color:white; padding:6px 14px; border-radius:20px; text-decoration:none; font-size:0.88em; }
+.wrong-box a:hover { background:#e65100; }
+.wrong-check { width:18px; height:18px; margin-right:10px; cursor:pointer; vertical-align:middle; accent-color:#ff6f00; }
+.q-box.is-wrong { background:#fff8e1; border-color:#ff9800; }
+</style>
+<script>
+(function(){
+  var KEY='nlp_midterm_wrong';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+  function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+  function findHead(box){
+    var h3='',h2='',el=box;
+    while(el){
+      var p=el.previousElementSibling;
+      while(p){
+        if(!h3&&p.tagName==='H3')h3=p.textContent.trim();
+        if(!h2&&p.tagName==='H2'){h2=p.textContent.trim();break;}
+        p=p.previousElementSibling;
+      }
+      if(h2) break;
+      el=el.parentElement;
+    }
+    return {h2:h2,h3:h3};
+  }
+  function qtext(box){
+    var c=box.cloneNode(true);
+    c.querySelectorAll('.answer,.toggle-btn,button,input,label').forEach(function(e){e.remove()});
+    return c.textContent.replace(/\s+/g,' ').trim();
+  }
+  var boxes=document.querySelectorAll('.q-box');
+  var store=load();
+  var cntEl;
+  function updateCount(){
+    var s=load();
+    if(cntEl) cntEl.textContent=Object.keys(s).length+'개';
+  }
+  boxes.forEach(function(box){
+    var ans=box.querySelector('.answer');
+    if(!ans||!ans.id) return;
+    var qid=ans.id;
+    var cb=document.createElement('input');
+    cb.type='checkbox';
+    cb.className='wrong-check';
+    cb.title='오답 체크';
+    cb.checked=!!store[qid];
+    if(cb.checked) box.classList.add('is-wrong');
+    cb.addEventListener('change',function(e){
+      e.stopPropagation();
+      var s=load();
+      if(cb.checked){
+        var head=findHead(box);
+        s[qid]={q:qtext(box),a:ans.textContent.trim(),h2:head.h2,h3:head.h3,t:Date.now()};
+        box.classList.add('is-wrong');
+      }else{
+        delete s[qid];
+        box.classList.remove('is-wrong');
+      }
+      save(s);
+      updateCount();
+    });
+    box.insertBefore(cb,box.firstChild);
+  });
+  var banner=document.createElement('div');
+  banner.className='wrong-box';
+  banner.innerHTML='<strong>📕 오답 체크:</strong> <span id="_wc_">0개</span> <a href="오답노트.html">오답노트 열기 →</a> <span style="color:#666;font-size:0.85em">각 문제 왼쪽 체크박스로 표시</span>';
+  var scope=document.querySelector('.scope-note');
+  if(scope) scope.parentNode.insertBefore(banner,scope.nextSibling);
+  cntEl=document.getElementById('_wc_');
+  updateCount();
+})();
+</script>
 </body>
 </html>
