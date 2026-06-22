@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자연어처리 기말고사 — 핵심 개념 종합 정리</title>
+<style>
+:root {
+  --navy:#1a2a4a; --navy2:#2d4070;
+  --pre:#6a1b9a;  --pre-l:#f3e5f5;  --pre-a:#8e24aa;
+  --sca:#1565c0;  --sca-l:#e3f2fd;  --sca-a:#1976d2;
+  --pos:#c62828;  --pos-l:#fdecea;  --pos-a:#e53935;
+  --rea:#2e7d32;  --rea-l:#e8f5e9;  --rea-a:#388e3c;
+  --ali:#00695c;  --ali-l:#e0f5f1;  --ali-a:#00897b;
+  --rag:#283593;  --rag-l:#e8eaf6;  --rag-a:#3949ab;
+  --age:#e65100;  --age-l:#fff3e0;  --age-a:#ef6c00;
+  --gold:#f57c00; --red:#c62828;
+  --bg:#f4f6fb; --card:#fff; --border:#e0e6ed; --text:#1a1a2e; --gray:#546e7a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+
+/* lock */
+#lock{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;}
+#lock .box{background:#fff;border-radius:16px;padding:40px 48px;text-align:center;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+#lock h2{color:var(--navy);font-size:17px;margin-bottom:4px;}
+#lock p{color:var(--gray);font-size:12px;margin-bottom:20px;}
+#lock input{width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;font-size:20px;text-align:center;letter-spacing:6px;outline:none;transition:border .2s;}
+#lock input:focus{border-color:var(--ali);}
+#lock button{margin-top:12px;width:100%;padding:11px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;}
+#lock-err{color:var(--red);font-size:12px;margin-top:8px;min-height:14px;}
+
+/* header */
+header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+.h-top{padding:12px 20px 8px;display:flex;align-items:flex-start;justify-content:space-between;}
+.h-top h1{font-size:16px;font-weight:700;}
+.h-top .sub{font-size:11px;opacity:.65;margin-top:3px;}
+.tab-nav{display:flex;border-top:1px solid rgba(255,255,255,.1);overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex:0 0 auto;padding:10px 18px;color:rgba(255,255,255,.6);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;font-family:inherit;transition:all .15s;}
+.tab-btn:hover{color:#fff;background:rgba(255,255,255,.07);}
+.tab-btn.active{color:#4dd0e1;border-bottom-color:#4dd0e1;}
+
+/* pane */
+.tab-pane{display:none;padding:20px;max-width:980px;margin:0 auto;}
+.tab-pane.active{display:block;}
+
+/* chapter accordion */
+.ch{margin-bottom:12px;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--card);}
+.ch-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none;transition:background .15s;}
+.ch-head:hover{background:#f8fafc;}
+.ch-head .ct{font-weight:700;font-size:13.5px;}
+.ch-head .cs{font-size:11px;color:var(--gray);margin-left:8px;}
+.ch-head .arr{font-size:11px;color:var(--gray);transition:transform .2s;}
+.ch.open .arr{transform:rotate(180deg);}
+.ch-body{display:none;padding:0 16px 14px;}
+.ch.open .ch-body{display:block;}
+
+/* concept block */
+.blk{margin-top:10px;padding:12px 14px;border-left:4px solid;border-radius:0 8px 8px 0;}
+.blk.pre{border-color:var(--pre-a);background:var(--pre-l);}
+.blk.sca{border-color:var(--sca-a);background:var(--sca-l);}
+.blk.pos{border-color:var(--pos-a);background:var(--pos-l);}
+.blk.rea{border-color:var(--rea-a);background:var(--rea-l);}
+.blk.ali{border-color:var(--ali-a);background:var(--ali-l);}
+.blk.rag{border-color:var(--rag-a);background:var(--rag-l);}
+.blk.age{border-color:var(--age-a);background:var(--age-l);}
+.blk.gray{border-color:#90a4ae;background:#f5f7f8;}
+
+.blk-title{font-weight:700;font-size:13px;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.star{color:var(--gold);font-size:12px;}
+.badge-must{background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:4px;}
+.badge-likely{background:var(--age);color:#fff;font-size:10px;padding:1px 6px;border-radius:4px;}
+.badge-pos{background:#78909c;color:#fff;font-size:10px;padding:1px 6px;border-radius:4px;}
+
+.blk ul{padding-left:18px;}
+.blk li{margin:3px 0;line-height:1.65;}
+.blk p{margin:4px 0;line-height:1.7;}
+
+/* formula */
+.fm{background:#1a2a4a;color:#e8f5e9;padding:10px 14px;border-radius:8px;font-family:'Courier New',monospace;font-size:12.5px;margin:8px 0;line-height:1.9;}
+.fm .c{color:#80cbc4;font-size:11px;}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+.tbl th{background:var(--navy);color:#fff;padding:7px 11px;text-align:left;}
+.tbl td{padding:6px 11px;border-bottom:1px solid var(--border);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f9fbfc;}
+.hl{color:var(--red);font-weight:700;}
+.ok{color:var(--ali);font-weight:700;}
+
+/* flow */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:8px 0;}
+.fi{background:var(--navy);color:#fff;padding:6px 12px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap;text-align:center;line-height:1.4;}
+.fa{color:var(--navy);font-weight:900;font-size:15px;margin:0 2px;}
+
+/* axis label */
+.ax{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;white-space:nowrap;vertical-align:middle;}
+.ax.pre{background:var(--pre-l);color:var(--pre);}
+.ax.sca{background:var(--sca-l);color:var(--sca);}
+.ax.pos{background:var(--pos-l);color:var(--pos);}
+.ax.rea{background:var(--rea-l);color:var(--rea);}
+.ax.ali{background:var(--ali-l);color:var(--ali);}
+.ax.rag{background:var(--rag-l);color:var(--rag);}
+.ax.age{background:var(--age-l);color:var(--age);}
+
+/* overview grid */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px;}
+.ov-card{border-radius:10px;border:1px solid var(--border);overflow:hidden;}
+.ov-head{padding:10px 14px;font-weight:700;font-size:13px;color:#fff;}
+.ov-body{padding:10px 14px;font-size:12.5px;line-height:1.7;background:var(--card);}
+.ov-body li{margin:3px 0;}
+
+/* exam list */
+.ex-list{list-style:none;padding:0;}
+.ex-list li{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:6px;margin:4px 0;background:#f8fafc;border:1px solid var(--border);font-size:13px;line-height:1.5;}
+.ex-list li::before{content:"✓";color:var(--ali);font-weight:900;flex-shrink:0;margin-top:1px;}
+.ex-list li.hot{background:#fff8e1;border-color:#ffcc02;}
+.ex-list li.hot::before{content:"★";color:var(--gold);}
+
+.divider{height:1px;background:var(--border);margin:12px 0;}
+.hint{background:linear-gradient(135deg,#e8f5e9,#e3f2fd);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:12.5px;color:var(--navy);line-height:1.7;}
+.hint strong{color:var(--ali);}
+.section-title{font-size:15px;font-weight:700;color:var(--navy);margin:16px 0 10px;display:flex;align-items:center;gap:8px;}
+.summary-anchor{display:block;position:relative;top:-86px;visibility:hidden;height:0;width:0;}
+.summary-focus{outline:3px solid #ffcc02;outline-offset:4px;border-radius:8px;scroll-margin-top:86px;}
+
+/* 문제집 링크 버튼 */
+.exam-link{background:#f57c00;color:#fff;padding:7px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;flex-shrink:0;align-self:center;}
+.exam-link:hover{background:#e65100;}
+
+/* 테이블 모바일 스크롤 래퍼 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+/* ── PC 전용 (769px 이상) ── */
+@media (min-width:769px){
+  .tab-pane{padding:24px;}
+  .blk{padding:14px 16px;}
+  .blk-title{font-size:13.5px;}
+  .tbl{font-size:13px;}
+  .fm{font-size:13px;}
+  .fi{font-size:12px;padding:7px 14px;}
+  .ov-grid{grid-template-columns:repeat(3,1fr);}
+  .h-top h1{font-size:17px;}
+}
+
+/* ── 모바일 전용 (768px 이하) ── */
+@media (max-width:768px){
+  .h-top{padding:10px 12px 8px;flex-wrap:wrap;gap:6px;}
+  .h-top h1{font-size:14px;}
+  .h-top .sub{font-size:10px;}
+  .exam-link{padding:5px 10px;font-size:12px;}
+
+  .tab-btn{padding:9px 13px;font-size:11.5px;}
+
+  .tab-pane{padding:12px;}
+
+  .ch-head{padding:11px 12px;}
+  .ch-head .ct{font-size:12.5px;}
+  .ch-body{padding:0 12px 12px;}
+
+  .blk{padding:10px 12px;}
+  .blk-title{font-size:12.5px;}
+  .blk li{font-size:12.5px;}
+  .blk p{font-size:12.5px;}
+
+  /* 테이블: 모바일에서 가로 스크롤 */
+  .tbl{font-size:11.5px;min-width:480px;}
+  .tbl th,.tbl td{padding:6px 8px;}
+
+  .fm{font-size:11.5px;padding:8px 10px;overflow-x:auto;white-space:pre;}
+
+  /* flow 아이템 축소 */
+  .fi{font-size:10.5px;padding:5px 9px;}
+  .fa{font-size:13px;}
+
+  /* overview grid: 모바일 1열 */
+  .ov-grid{grid-template-columns:1fr;}
+  .ov-head{font-size:12px;padding:8px 12px;}
+  .ov-body{font-size:12px;}
+
+  /* 시험 체크 리스트 */
+  .ex-list li{font-size:12px;padding:6px 8px;}
+
+  .section-title{font-size:13px;}
+  .hint{font-size:12px;}
+  .divider{margin:10px 0;}
+}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="box">
+    <h2>자연어처리 기말고사</h2>
+    <p>핵심 개념 종합 정리 v2</p>
+    <input type="password" id="pw" placeholder="••••" maxlength="10" onkeydown="if(event.key==='Enter')unlock()">
+    <button onclick="unlock()">입력</button>
+    <div id="lock-err"></div>
+  </div>
+</div>
+
+<div id="main" style="display:none">
+<header>
+  <div class="h-top">
+    <div>
+      <h1>자연어처리 기말고사 — 핵심 개념 종합 정리</h1>
+      <div class="sub">Pre-training · Scale-up · Post-training · Reasoning · Alignment · RAG · Agents</div>
+    </div>
+    <a href="시험문제집_기말고사.html" class="exam-link">📝 문제집</a>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('t0',this)">🗺 전체 구조</button>
+    <button class="tab-btn" onclick="switchTab('t1',this)">① Pre-training</button>
+    <button class="tab-btn" onclick="switchTab('t2',this)">② Scale-up</button>
+    <button class="tab-btn" onclick="switchTab('t3',this)">③ Post-training</button>
+    <button class="tab-btn" onclick="switchTab('t4',this)">④ Reasoning</button>
+    <button class="tab-btn" onclick="switchTab('t5',this)">⑤ Alignment</button>
+    <button class="tab-btn" onclick="switchTab('t6',this)">⑥ LLM + RAG</button>
+    <button class="tab-btn" onclick="switchTab('t7',this)">⑦ Agents</button>
+    <button class="tab-btn" onclick="switchTab('t8',this)">★ 시험 체크</button>
+  </nav>
+</header>
+
+<!-- ═══ 0. 전체 구조 ═══ -->
+<div id="t0" class="tab-pane active">
+  <div class="section-title">📌 5대 축 + Parametric/Non-parametric 위치</div>
+
+  <div class="blk ali" style="margin-bottom:14px">
+    <div class="blk-title">Parametric vs Non-parametric — 어디에 속하나?</div>
+    <table class="tbl">
+      <tr><th>개념</th><th>형성/활용 단계</th><th>저장 위치</th><th>업데이트 방법</th><th>등장 맥락</th></tr>
+      <tr>
+        <td><strong>Parametric knowledge</strong></td>
+        <td><span class="ax pre">Pre-training</span></td>
+        <td>모델 가중치</td>
+        <td>재학습(Fine-tuning) 필요</td>
+        <td>7강 RAG — "왜 RAG가 필요한가" 설명을 위해</td>
+      </tr>
+      <tr>
+        <td><strong>Non-parametric knowledge</strong></td>
+        <td><span class="ax rag">RAG 추론 단계</span></td>
+        <td>외부 DB / 인덱스</td>
+        <td>문서 추가만으로 즉시</td>
+        <td>7강 RAG — Parametric의 한계를 보완</td>
+      </tr>
+    </table>
+    <div class="hint" style="margin-top:8px">
+      💡 <strong>핵심 논리:</strong> Pre-training으로 쌓인 Parametric knowledge는 업데이트가 느리고 hallucination 위험 →
+      Non-parametric(RAG)으로 보완 → 이 구분이 RAG 존재 이유
+    </div>
+  </div>
+
+  <div class="section-title">📍 전체 개념 위치 지도</div>
+  <div class="ov-grid">
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--pre)">① Pre-training <span style="font-size:11px;opacity:.8">(사전학습)</span></div>
+      <div class="ov-body"><ul>
+        <li>Causal LM 목적함수 (next-token prediction)</li>
+        <li>GPT-1/2/3 진화 (규모·데이터)</li>
+        <li><strong>Parametric knowledge 형성</strong></li>
+        <li>The Pile, WebText 등 코퍼스</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--sca)">② Scale-up <span style="font-size:11px;opacity:.8">(규모 확장)</span></div>
+      <div class="ov-body"><ul>
+        <li>Scaling Laws (N, D, C — power-law)</li>
+        <li>Chinchilla law (compute-optimal)</li>
+        <li>Emergent Ability</li>
+        <li>Training-time scaling</li>
+        <li>RAG: 문서 추가 = Non-parametric 스케일</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--pos)">③ Post-training <span style="font-size:11px;opacity:.8">(사후학습)</span></div>
+      <div class="ov-body"><ul>
+        <li>SFT = <strong>Instruction Tuning</strong> (1단계)</li>
+        <li>RLHF → Reward Model → PPO (2단계)</li>
+        <li>RLVR (verifiable reward)</li>
+        <li>GRPO (critic 없는 PPO 변형)</li>
+        <li>LoRA / PEFT (효율적 fine-tuning)</li>
+        <li>ICL은 여기 <strong>아님</strong> → 추론 단계</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--rea)">④ Reasoning <span style="font-size:11px;opacity:.8">(추론)</span></div>
+      <div class="ov-body"><ul>
+        <li><strong>ICL</strong> (Prompt engineering으로 유도, 추론 시)</li>
+        <li>Zero-shot / Few-shot CoT</li>
+        <li>Self-consistency (다수결)</li>
+        <li>Test-time Scaling ← Reasoning의 핵심</li>
+        <li>Least-to-Most, Tree of Thought</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--ali)">⑤ Alignment <span style="font-size:11px;opacity:.8">(정렬)</span></div>
+      <div class="ov-body"><ul>
+        <li>HHH: Helpful / Honest / Harmless</li>
+        <li>RLHF (Post-training과 겹침)</li>
+        <li>KL penalty (reward hacking 방지)</li>
+        <li>Bradley-Terry 선호 모델</li>
+        <li>Mode collapse / Reward hacking</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--rag)">⑥ LLM + RAG <span style="font-size:11px;opacity:.8">(검색 증강)</span></div>
+      <div class="ov-body"><ul>
+        <li><strong>Non-parametric knowledge</strong> 활용</li>
+        <li>Sparse (TF-IDF) vs Dense (Bi/Cross-enc)</li>
+        <li>Precision@k / Recall@k / AP</li>
+        <li>RAG-Sequence / RAG-Token</li>
+        <li>Hallucination 완화</li>
+      </ul></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-head" style="background:var(--age)">⑦ Agents <span style="font-size:11px;opacity:.8">(에이전트)</span></div>
+      <div class="ov-body"><ul>
+        <li>observe → reason → act → observe 루프</li>
+        <li>Toolformer (self-supervised 도구 학습)</li>
+        <li>LLaVA (멀티모달)</li>
+        <li>SWE-Bench (코드 에이전트 평가)</li>
+        <li>Agent = LLM + ①~⑥ 통합</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:20px">자주 질문한 개념 위치 매칭 — 개발 vs 추론 vs 보상</div>
+  <div class="blk sca">
+    <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 구분</span> 6~9강 전체 흐름</div>
+    <div class="flow">
+      <div class="fi" style="background:var(--pre)">Pre-training<br><small>parametric knowledge</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--sca)">Scale-up<br><small>loss↓, emergent ability</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--pos)">Post-training<br><small>SFT, RLHF/RLVR, LoRA</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--rea)">Inference<br><small>ICL, CoT, RAG, agent</small></div>
+    </div>
+    <table class="tbl">
+      <tr><th>질문</th><th>정확한 위치/답</th></tr>
+      <tr><td>State가 사전학습 내용인가?</td><td><strong>아님.</strong> State는 prompt, conversation history, 지금까지 생성한 토큰. 사전학습 지식은 policy model의 파라미터 안에 있음.</td></tr>
+      <tr><td>Post-training은 추론인가?</td><td><strong>학습 단계.</strong> 답변 생성은 inference처럼 보이지만 reward 후 파라미터 업데이트가 있으므로 training.</td></tr>
+      <tr><td>RL은 top-p 후보 토큰 보상 조절인가?</td><td><strong>아님.</strong> Sampling으로 실제 생성한 응답/토큰 경로에 reward를 주고 그 log probability를 업데이트.</td></tr>
+      <tr><td>RLHF의 pairwise란?</td><td>두 응답 중 더 좋은 것을 고르는 인간 선호 데이터. Bradley-Terry가 P(y_w&gt;y_l)=σ(r_w-r_l)로 모델링.</td></tr>
+      <tr><td>RLVR verifier는 대형 모델인가?</td><td>꼭 아님. 정답 비교기, unit test, 규칙 checker가 될 수 있고, 경우에 따라 LLM judge도 가능.</td></tr>
+      <tr><td>RAG-Token이 CoT를 시작시키나?</td><td><strong>아님.</strong> RAG-Token은 문서 조건화 방식, CoT는 reasoning prompting. 둘은 독립이지만 결합 가능.</td></tr>
+      <tr><td>Emergent ability와 Aha moment는 같은가?</td><td><strong>다름.</strong> Emergent는 규모 증가에 따른 능력 출현, Aha moment는 RL 중 자기검토 전략이 나타나는 학습 과정 현상.</td></tr>
+      <tr><td>LoRA와 LLaVA는 같은 low-rank인가?</td><td>LoRA는 low-rank update가 핵심. LLaVA는 CLIP feature를 LLM embedding 공간으로 projection하는 멀티모달 구조.</td></tr>
+      <tr><td>Sigmoid와 Softmax 차이?</td><td>Sigmoid는 reward 차이 같은 단일 점수를 0~1로, Softmax는 여러 후보 logits를 합 1의 확률분포로 변환.</td></tr>
+    </table>
+    <div class="hint">답안 작성 순서: <strong>학습 시점/추론 시점</strong> → <strong>파라미터 업데이트 여부</strong> → <strong>reward 또는 context의 출처</strong>를 먼저 쓰면 대부분의 혼동을 피할 수 있다.</div>
+  </div>
+
+  <div class="section-title" style="margin-top:20px">🔄 ICL vs Instruction Tuning — 가장 자주 혼동되는 쌍</div>
+  <div class="blk pos">
+    <table class="tbl">
+      <tr><th></th><th>ICL (In-Context Learning)</th><th>Instruction Tuning (SFT)</th></tr>
+      <tr><td><strong>속하는 단계</strong></td><td><span class="ax rea">Reasoning — 추론 단계</span></td><td><span class="ax pos">Post-training — 학습 단계</span></td></tr>
+      <tr><td><strong>파라미터 변화</strong></td><td class="hl">없음</td><td class="ok">있음 (gradient 업데이트)</td></tr>
+      <tr><td><strong>방식</strong></td><td>프롬프트에 예시 삽입</td><td>명령문-응답 쌍으로 SFT</td></tr>
+      <tr><td><strong>zero/few-shot</strong></td><td>둘 다 가능 (주로 few-shot)</td><td>목적: zero-shot 일반화 향상</td></tr>
+      <tr><td><strong>관계</strong></td><td colspan="2">Instruction Tuning → ICL 성능도 향상시킴 (대체 아닌 보완)</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">🔄 RLHF vs RLVR — Post-training 내 형제 관계</div>
+  <div class="blk pos">
+    <div class="flow">
+      <div class="fi" style="background:var(--pre)">Pre-training<br><small>Parametric 지식 형성</small></div><div class="fa">→</div>
+      <div class="fi" style="background:#5c6bc0">SFT<br><small>Instruction Tuning</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--pos)">RLHF<br><small>인간 선호 정렬</small></div>
+      <div class="fa" style="margin:0 8px">또는</div>
+      <div class="fi" style="background:var(--rea)">RLVR<br><small>검증 가능 보상</small></div>
+    </div>
+    <p style="margin-top:8px;font-size:12.5px">RLHF와 RLVR는 <strong>형제 관계</strong>. RLVR가 RLHF의 하위 종류가 아님. 둘 다 Post-training의 RL 계열.</p>
+  </div>
+</div>
+
+<!-- ═══ 1. Pre-training ═══ -->
+<div id="t1" class="tab-pane">
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① 사전학습 목적함수 & 아키텍처</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk pre">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> Causal Language Modeling</div>
+        <ul>
+          <li>목적: <strong>다음 토큰 예측</strong> (next-token prediction)</li>
+          <li>자기지도학습 (Self-supervised) — 레이블 불필요</li>
+          <li>Transformer Decoder 스택 기반 (GPT 계열)</li>
+          <li>결과: <strong>Parametric knowledge</strong>가 가중치에 축적됨</li>
+        </ul>
+        <div class="hint">사전학습 = 암묵적 태스크 (다음 토큰 예측). Instruction Tuning = 명시적 태스크 (명령 따르기)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② GPT 진화 비교</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk pre">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> GPT-1 / 2 / 3</div>
+        <table class="tbl">
+          <tr><th>모델</th><th>레이어</th><th>파라미터</th><th>데이터</th><th>핵심 기여</th></tr>
+          <tr><td>GPT-1</td><td>12층</td><td>117M</td><td>BooksCorpus</td><td>Transformer decoder 언어모델 사전학습 정립</td></tr>
+          <tr><td>GPT-2</td><td>48층</td><td>1.5B</td><td>WebText</td><td>Zero-shot 능력 시연, 대규모 웹 데이터</td></tr>
+          <tr><td class="hl">GPT-3</td><td class="hl">96층</td><td class="hl">175B</td><td class="hl">The Pile 등</td><td class="hl">ICL 체계화·대중화, Few-shot prompting</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">③ PEFT — 효율적 Fine-tuning</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk pos">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> LoRA</div>
+        <div class="fm">
+          ΔW = B · A<br>
+          B ∈ R^(d × r),  A ∈ R^(r × d),  r ≪ d<br>
+          원본 파라미터: d²  →  LoRA: 2dr  →  절감: d/(2r)<br>
+          <span class="c">// 비정사각형: r(d_in + d_out)</span>
+        </div>
+        <ul>
+          <li>ΔW = BA (<strong>등호</strong>, ≈ 아님)</li>
+          <li>추론 시 B·A 를 W에 병합 → 추가 지연 없음</li>
+          <li><strong>계산 예:</strong> W∈R^(768×768), r=8 → 원본 589,824 vs LoRA 12,288 → <span class="hl">48배 절감</span></li>
+        </ul>
+      </div>
+      <div class="blk gray" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span> PEFT 방법 비교</div>
+        <table class="tbl">
+          <tr><th>방법</th><th>위치</th><th>특징</th></tr>
+          <tr><td>Adapter</td><td>레이어 사이</td><td>Bottleneck MLP 삽입</td></tr>
+          <tr><td>Prefix Tuning</td><td>각 레이어 K/V 앞</td><td>연속 벡터 최적화</td></tr>
+          <tr><td>Prompt Tuning</td><td>입력 임베딩 앞</td><td>Soft prompt 벡터 학습 (자연어 수정 아님)</td></tr>
+          <tr><td class="hl">LoRA</td><td class="hl">W_Q, W_V 병렬</td><td class="hl">저랭크 행렬 B·A 학습, 병합 가능</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 2. Scale-up ═══ -->
+<div id="t2" class="tab-pane">
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① Scaling Laws</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk sca">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> Power-law 관계</div>
+        <div class="fm">
+          L(N) ∝ N^(-α)  <span class="c">// 모델 크기와 loss</span><br>
+          L(D) ∝ D^(-β)  <span class="c">// 데이터 크기와 loss</span><br>
+          L(C) ∝ C^(-γ)  <span class="c">// 컴퓨팅과 loss</span>
+        </div>
+        <ul>
+          <li>세 요소(N, D, C) 모두 늘리면 loss가 예측 가능하게 감소</li>
+          <li><strong>Chinchilla law:</strong> 고정 compute에서 N과 D를 균형 있게 → compute-optimal</li>
+          <li>GPT-3는 Chinchilla 기준 모델 과대 / 데이터 과소</li>
+        </ul>
+        <table class="tbl">
+          <tr><th>기호</th><th>뜻</th><th>해석 포인트</th></tr>
+          <tr><td><strong>N</strong></td><td>모델 파라미터 수</td><td>모델 용량. 클수록 표현력은 커지지만 학습 데이터가 부족하면 undertrained가 됨</td></tr>
+          <tr><td><strong>D</strong></td><td>학습 데이터 토큰 수</td><td>모델이 실제로 본 텍스트 양. 큰 모델일수록 충분한 D가 필요</td></tr>
+          <tr><td><strong>C</strong></td><td>학습 compute</td><td>대략 C ≈ 6ND. 고정된 C 안에서 N과 D를 어떻게 나눌지가 핵심</td></tr>
+        </table>
+        <div class="hint">
+          <strong>Power-law:</strong> N, D, C를 키우면 loss가 급격히 한 번에 떨어지는 것이 아니라, 로그-로그 그래프에서 거의 직선처럼 예측 가능하게 감소한다는 뜻이다. 다만 규모를 2배로 키워도 성능 향상은 점점 작아지는 <strong>수확 체감</strong>이 있다.
+        </div>
+        <div class="hint">
+          <strong>Chinchilla law:</strong> compute가 정해져 있을 때 가장 큰 모델을 고르는 법칙이 아니라, <strong>loss를 최소화하는 N-D 비율</strong>을 고르는 법칙이다. 핵심 결론은 “모델만 크게 만들지 말고, 파라미터 수에 맞게 학습 토큰 수도 같이 늘려야 한다”이다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② Training-time vs Test-time Scaling</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk sca">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> 두 가지 Scaling 비교</div>
+        <table class="tbl">
+          <tr><th></th><th>Training-time Scaling</th><th>Test-time Scaling</th></tr>
+          <tr><td><strong>시점</strong></td><td>학습 중</td><td>추론 중</td></tr>
+          <tr><td><strong>방법</strong></td><td>더 큰 모델, 더 많은 데이터</td><td>더 많은 샘플, verifier, 긴 CoT</td></tr>
+          <tr><td><strong>강의</strong></td><td><span class="ax sca">Scale-up (6강)</span></td><td><span class="ax rea">Reasoning (8강)</span></td></tr>
+          <tr><td><strong>예시</strong></td><td>GPT-3 (175B), Chinchilla</td><td>o1, DeepSeek-R1, Self-consistency</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">③ Emergent Ability</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk sca">
+        <div class="blk-title"><span class="star">★</span> 창발 능력</div>
+        <ul>
+          <li>규모가 임계치를 넘을 때 특정 태스크 성능이 <strong>비선형적으로 출현</strong></li>
+          <li>비판: 평가 지표의 불연속성 때문에 과장될 수 있음 (graded metric 쓰면 완만)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. Post-training ═══ -->
+<div id="t3" class="tab-pane">
+
+  <div class="blk pos" style="margin-bottom:14px">
+    <div class="blk-title">Post-training 전체 흐름</div>
+    <div class="flow">
+      <div class="fi" style="background:var(--pre)">Pre-trained LLM<br><small>Parametric 지식</small></div><div class="fa">→</div>
+      <div class="fi" style="background:#5c6bc0">① SFT<br><small>Instruction Tuning</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--pos)">② RLHF<br><small>또는 RLVR</small></div><div class="fa">→</div>
+      <div class="fi" style="background:var(--ali)">Aligned LLM</div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① SFT — Instruction Tuning</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk pos">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> Instruction Tuning</div>
+        <ul>
+          <li>Post-training <strong>1단계</strong>. 명령문-응답 쌍으로 지도학습</li>
+          <li>파라미터 <strong>업데이트 있음</strong> (ICL과 핵심 차이)</li>
+          <li>목적: <strong>Zero-shot 일반화 향상</strong> (명령 형식 자체를 학습)</li>
+          <li>예: FLAN (62개 데이터셋, 12개 태스크 클러스터)</li>
+          <li>소규모(&lt;8B) 모델에서는 일반화 저하 가능 (용량 한계)</li>
+        </ul>
+        <div class="hint">Instruction Tuning 후 ICL 성능도 향상 — 대체 관계 아닌 보완 관계</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② RLHF vs RLVR — Post-training RL 계열</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk pos">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> RLHF 파이프라인</div>
+        <div class="flow">
+          <div class="fi">선호 데이터 수집<br><small>Pairwise 비교</small></div><div class="fa">→</div>
+          <div class="fi">Reward Model 학습<br><small>Bradley-Terry</small></div><div class="fa">→</div>
+          <div class="fi">PPO 최적화<br><small>KL penalty 포함</small></div>
+        </div>
+        <ul style="margin-top:8px">
+          <li>Pairwise 비교가 절대 점수보다 <strong>인간 판단이 더 일관적</strong></li>
+          <li>RLHF는 주관적 태스크 (helpfulness, harmlessness) 에 적합</li>
+        </ul>
+      </div>
+      <div class="blk rea" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> RLVR</div>
+        <ul>
+          <li>검증기/규칙으로 <strong>보상 자동 계산</strong> → 인간 레이블 불필요</li>
+          <li>수학·코드처럼 <strong>객관적 정답이 있는 태스크</strong>에 적합</li>
+          <li>RLHF의 형제 관계 (RLHF의 하위 개념 아님)</li>
+        </ul>
+      </div>
+      <div class="blk gray" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> PPO vs GRPO</div>
+        <table class="tbl">
+          <tr><th></th><th>PPO</th><th>GRPO</th></tr>
+          <tr><td>Critic 모델</td><td>있음 (Value network)</td><td class="hl">없음</td></tr>
+          <tr><td>Advantage 추정</td><td>GAE (Generalized Advantage Estimation)</td><td class="hl">Group-relative (그룹 내 상대 보상)</td></tr>
+          <tr><td>Update 제한</td><td>Clipping + KL 제약</td><td>KL 제약</td></tr>
+          <tr><td>사용 예</td><td>OpenAI GPT-4</td><td class="hl">DeepSeek-R1 등</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">③ 디코딩 전략</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk gray">
+        <div class="blk-title"><span class="star">★★</span> 디코딩 순서</div>
+        <div class="flow">
+          <div class="fi">logits</div><div class="fa">→</div>
+          <div class="fi">÷ Temperature</div><div class="fa">→</div>
+          <div class="fi">Top-k / Top-p 필터</div><div class="fa">→</div>
+          <div class="fi">Softmax 재정규화</div><div class="fa">→</div>
+          <div class="fi">Sampling</div>
+        </div>
+        <ul style="margin-top:8px">
+          <li><strong>k=1</strong> → Greedy decoding</li>
+          <li><strong>Temperature↓</strong> → 보수적, <strong>τ→∞</strong> → 균등분포</li>
+          <li><strong>Top-p (Nucleus):</strong> 확률 분포에 따라 후보 수 동적 조절</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. Reasoning ═══ -->
+<div id="t4" class="tab-pane">
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① ICL — 추론 단계의 프롬프트 엔지니어링</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rea">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> ICL 핵심</div>
+        <ul>
+          <li><strong>추론 단계</strong>에서 프롬프트만 바꾸는 것 — 파라미터 업데이트 없음</li>
+          <li>주로 <strong>Few-shot</strong> (예시 포함). Zero-shot도 가능</li>
+          <li>예시 = 임시 학습 데이터처럼 작동 (but 실제 가중치 변화 없음)</li>
+          <li>GPT-3에서 체계화·대중화 (최초 발명 아님)</li>
+          <li>ICL 능력 자체는 모델 규모가 클수록 향상 (Scaling과 연계)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② Chain-of-Thought (CoT) 계열</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rea">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> CoT 흐름</div>
+        <div class="flow">
+          <div class="fi" style="background:var(--rea)">Zero-shot CoT<br><small>"Let's think step by step"</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--rea)">Few-shot CoT<br><small>예시+추론 단계 제공</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--rea)">Self-consistency<br><small>다수결 투표</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--rea)">Least-to-Most<br><small>분해→순차 풀이</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--rea)">Tree/Search<br><small>ToT, MCTS</small></div>
+        </div>
+        <ul style="margin-top:8px">
+          <li>대형 모델에서 효과적 — 소형 모델은 불필요한 추론 텍스트가 성능 저하 유발</li>
+          <li>단점: 잘못된 중간 단계도 그럴듯하게 생성 가능</li>
+        </ul>
+      </div>
+      <div class="blk rea" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> Self-consistency</div>
+        <ul>
+          <li>Temperature sampling으로 <strong>여러 reasoning path</strong> 생성</li>
+          <li>최종 <strong>답(숫자/라벨)만 다수결</strong> (문장 전체 다수결 아님)</li>
+          <li><strong>계산 예:</strong> 5회 샘플링 → {$10×3, $8×1, $12×1} → Majority Vote = $10</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">③ Test-time Scaling</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rea">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> Test-time Scaling</div>
+        <ul>
+          <li><strong>추론 시 compute를 늘려</strong> 성능 향상 (학습 compute 증가 아님)</li>
+          <li>방법: 여러 샘플 생성 + verifier / search tree / 긴 CoT</li>
+          <li>대표 모델: <strong>o1, DeepSeek-R1</strong></li>
+        </ul>
+        <table class="tbl" style="margin-top:8px">
+          <tr><th>방법</th><th>설명</th></tr>
+          <tr><td>Best-of-N sampling</td><td>N개 생성 후 verifier가 최적 선택</td></tr>
+          <tr><td>Self-consistency</td><td>다양한 path → 다수결</td></tr>
+          <tr><td>Tree search (ToT)</td><td>MCTS 등으로 추론 경로 탐색</td></tr>
+          <tr><td>Long CoT</td><td>더 긴 사고 과정 허용 (o1 스타일)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">④ 추론 벤치마크</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk gray">
+        <div class="blk-title"><span class="star">★</span> 주요 벤치마크</div>
+        <table class="tbl">
+          <tr><th>벤치마크</th><th>규모</th><th>특징</th></tr>
+          <tr><td class="hl">GSM8K</td><td class="hl">8,500문제</td><td>초등 수학 문장제 (MATH와 수치 혼동 주의)</td></tr>
+          <tr><td class="hl">MATH</td><td class="hl">12,500문제</td><td>경쟁 수학 (고난도)</td></tr>
+          <tr><td>ARC</td><td>7,787문제</td><td>과학 상식 (Easy/Challenge)</td></tr>
+          <tr><td>BBH</td><td>23 태스크</td><td>Big-Bench Hard</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5. Alignment ═══ -->
+<div id="t5" class="tab-pane">
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① Alignment 필요성 & HHH</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk ali">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> 왜 Alignment가 필요한가</div>
+        <ul>
+          <li>사전학습만으로는 모델이 <strong>유해하거나 거짓된 응답</strong>을 생성할 수 있음</li>
+          <li><strong>HHH:</strong> Helpful(유용함) / Honest(정직함) / Harmless(무해함)</li>
+          <li>Alignment = 모델 행동을 인간 가치관에 맞게 정렬</li>
+          <li>Post-training의 목표이기도 함 (RLHF = Alignment의 대표 방법)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② Bradley-Terry & RLHF Alignment</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk ali">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> Bradley-Terry 모델</div>
+        <div class="fm">
+          P(y_w ≻ y_l) = σ(r_w - r_l) = e^r_w / (e^r_w + e^r_l)<br>
+          <span class="c">// y_w=선호 응답, y_l=비선호, r=reward score</span><br>
+          예: r_w=3.0, r_l=1.0 → P = e³/(e³+e¹) ≈ 0.881
+        </div>
+        <ul>
+          <li>Pairwise 비교가 절대 점수(1~10)보다 인간 판단이 더 일관적</li>
+        </ul>
+      </div>
+      <div class="blk ali" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> KL Penalty — Alignment 안전장치</div>
+        <div class="fm">
+          J(θ) = E[r(y)] - β × KL(π_θ || π_ref)<br>
+          <span class="c">// reward 극대화 + reference policy 이탈 제한</span>
+        </div>
+        <ul>
+          <li><strong>Reward Hacking:</strong> 보상 모델의 허점을 파고드는 현상</li>
+          <li><strong>Mode Collapse:</strong> 응답 다양성 감소, 특정 패턴으로 수렴</li>
+          <li>KL penalty가 두 가지 모두 완화 (β 클수록 reference에 가깝게 유지)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 6. LLM + RAG ═══ -->
+<div id="t6" class="tab-pane">
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① Parametric vs Non-parametric — RAG의 출발점</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rag">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> 구분의 핵심 의미</div>
+        <table class="tbl">
+          <tr><th></th><th>Parametric Knowledge</th><th>Non-parametric Knowledge</th></tr>
+          <tr><td><strong>저장 위치</strong></td><td>모델 가중치 (Pre-training 결과)</td><td>외부 DB / 인덱스</td></tr>
+          <tr><td><strong>업데이트</strong></td><td class="hl">재학습 필요 (느림)</td><td class="ok">문서 추가로 즉시</td></tr>
+          <tr><td><strong>출처 확인</strong></td><td class="hl">어려움 (hallucination)</td><td class="ok">문서 추적 가능</td></tr>
+          <tr><td><strong>RAG 역할</strong></td><td>LLM 자체 지식 (한계)</td><td>RAG가 이것을 주입</td></tr>
+        </table>
+        <div class="hint">💡 이 구분이 7강에서 등장한 이유: "LLM(Parametric)의 한계를 RAG(Non-parametric)로 보완한다"는 논리의 기반</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② Sparse vs Dense Retrieval</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rag">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> TF-IDF (Sparse)</div>
+        <div class="fm">
+          TF(t,d)  = log(1 + freq(t,d))<br>
+          IDF(t)   = log( N / DF(t) )<br>
+          TF-IDF   = TF × IDF<br>
+          <span class="c">// N=전체 문서 수, DF=단어 t 포함 문서 수</span>
+        </div>
+        <ul>
+          <li>흔한 단어(good, the) → <strong>DF 크면 IDF≈0</strong> → 변별력 없음</li>
+          <li>계산 예: Romeo(DF=1)→IDF=1.57, good(DF=37)→IDF=0</li>
+        </ul>
+      </div>
+      <div class="blk rag" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> Bi-encoder vs Cross-encoder (Dense)</div>
+        <table class="tbl">
+          <tr><th></th><th>Bi-encoder</th><th>Cross-encoder</th></tr>
+          <tr><td>인코딩</td><td>Query, Passage 따로</td><td>Query+Passage 함께</td></tr>
+          <tr><td>속도</td><td class="ok">빠름 (ANN 검색)</td><td class="hl">느림 (쌍마다 추론)</td></tr>
+          <tr><td>정확도</td><td>보통</td><td class="ok">높음</td></tr>
+          <tr><td>사용처</td><td class="ok">1단계 검색</td><td class="ok">2단계 재랭킹</td></tr>
+          <tr><td>사전계산</td><td class="ok">가능 (문서 임베딩)</td><td class="hl">불가</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">③ 평가 지표</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rag">
+        <div class="blk-title"><span class="star">★★★</span><span class="badge-must">반드시 출제</span> Precision / Recall / AP</div>
+        <div class="fm">
+          Precision@k = |top-k 중 관련| / k         <span class="c">// 결과의 순수도</span><br>
+          Recall@k    = |top-k 중 관련| / |전체 관련|  <span class="c">// 전체 회수율</span><br>
+          AP          = (1/|관련|) × Σ P@k × I(d_k 관련)
+        </div>
+        <div class="hint">💡 암기 팁: <strong>P</strong>recision = <strong>P</strong>urity (순수도), <strong>R</strong>ecall = <strong>R</strong>etrieval rate (회수율)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">④ RAG 아키텍처</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk rag">
+        <div class="blk-title"><span class="star">★★</span> RAG-Sequence vs RAG-Token</div>
+        <table class="tbl">
+          <tr><th>모델</th><th>문서 사용 방식</th><th>특징</th></tr>
+          <tr><td>REALM</td><td>End-to-end (Retriever도 학습)</td><td>사전학습 단계에서 검색기 학습</td></tr>
+          <tr><td class="hl">RAG-Sequence</td><td class="hl">전체 답에 동일 문서 집합</td><td>단순, 일관성 높음</td></tr>
+          <tr><td class="hl">RAG-Token</td><td class="hl">토큰마다 다른 문서 선택 가능</td><td>유연, marginalization 복잡</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 7. Agents ═══ -->
+<div id="t7" class="tab-pane">
+  <div class="ch open">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">① Agent 구성 & Loop</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk age">
+        <div class="blk-title"><span class="star">★★</span><span class="badge-likely">유력</span> Agent = LLM + 4가지</div>
+        <p style="margin-bottom:8px"><strong>Agent = LLM + Memory + Planner + Tools + Environment Feedback</strong></p>
+        <div class="flow">
+          <div class="fi" style="background:var(--age)">Observe<br><small>환경 관찰</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--age)">Reason/Plan<br><small>LLM 추론</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--age)">Act/Tool Call<br><small>도구 실행</small></div><div class="fa">→</div>
+          <div class="fi" style="background:var(--age)">Observe<br><small>결과 반영</small></div><div class="fa" style="color:var(--age)">↩반복</div>
+        </div>
+        <div class="hint" style="margin-top:8px">💡 <strong>단발성 답변 생성(ICL, prompting)과 반드시 구분</strong> — Agent는 루프·도구·상태 유지</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch">
+    <div class="ch-head" onclick="tog(this)"><span class="ct">② Toolformer & LLaVA & SWE-Bench</span><span class="arr">▼</span></div>
+    <div class="ch-body">
+      <div class="blk age">
+        <div class="blk-title"><span class="star">★★</span> Toolformer</div>
+        <ul>
+          <li>API 호출 후 <strong>미래 토큰 loss가 감소</strong>할 때만 학습 데이터로 유지</li>
+          <li>Self-supervised filtering → 레이블 없이 도구 사용 학습</li>
+        </ul>
+      </div>
+      <div class="blk age" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span> LLaVA (멀티모달)</div>
+        <div class="fm">H_v = W · Z_v  <span class="c">// CLIP 시각 특징 → 언어 공간</span><br>입력 = concat(H_v, H_q)  <span class="c">// 시각 + 텍스트 → LLM</span></div>
+        <ul><li>Early fusion (처리 전 결합) vs Late fusion (처리 후 표현 결합)</li></ul>
+      </div>
+      <div class="blk age" style="margin-top:10px">
+        <div class="blk-title"><span class="star">★★</span> SWE-Bench</div>
+        <ul>
+          <li>실제 GitHub 이슈 + 테스트로 코드 에이전트 평가</li>
+          <li><strong>패치가 실제 테스트를 통과</strong>하는지가 평가 기준</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 8. 시험 체크 ═══ -->
+<div id="t8" class="tab-pane">
+
+  <div class="section-title">★ 절대 암기 — 반드시 출제</div>
+  <ul class="ex-list">
+    <li class="hot">[Pre] LoRA: ΔW = BA, B∈R^(d×r), A∈R^(r×d), 파라미터 절감 = d/(2r)</li>
+    <li class="hot">[Pre→RAG] Parametric 지식은 Pre-training에서 형성, Non-parametric은 RAG 추론 시 보완</li>
+    <li class="hot">[Post] Post-training 순서: SFT(Instruction Tuning) → RLHF 또는 RLVR</li>
+    <li class="hot">[Post] RLHF와 RLVR는 형제 관계 (RLVR가 RLHF 하위 아님)</li>
+    <li class="hot">[Post] GRPO: PPO 변형, Critic 없이 Group-relative advantage 사용</li>
+    <li class="hot">[Rea] ICL = 추론 단계, 파라미터 업데이트 없음. Instruction Tuning = 학습 단계, 파라미터 업데이트 있음</li>
+    <li class="hot">[Rea] CoT는 zero-shot/few-shot 둘 다 가능. Self-consistency는 여러 CoT path 생성 후 최종 답 다수결</li>
+    <li class="hot">[Rea] Test-time Scaling = 추론 시 compute 증가 (학습 compute 아님)</li>
+    <li class="hot">[Rea/RAG] RAG-Token은 CoT를 시작시키는 기술이 아니라 토큰별 문서 조건화 방식</li>
+    <li class="hot">[Ali] Bradley-Terry: P(y_w≻y_l) = σ(r_w - r_l)</li>
+    <li class="hot">[Ali] RL의 state는 현재 문맥, policy는 LLM, action은 생성 응답, reward는 인간 선호 또는 verifier 점수</li>
+    <li class="hot">[Ali] KL penalty: J(θ) = E[r(y)] - β·KL. Reward hacking + Mode collapse 방지</li>
+    <li class="hot">[RAG] Precision@k = top-k 중 관련 / k. Recall@k = top-k 중 관련 / 전체 관련</li>
+    <li class="hot">[RAG] Bi-encoder = 빠른 1단계 검색. Cross-encoder = 정밀 2단계 재랭킹</li>
+    <li class="hot">[RAG] TF-IDF: 흔한 단어 → IDF≈0 → 변별력 없음</li>
+  </ul>
+
+  <div class="section-title" style="margin-top:20px">자주 혼동 — 시험에서 틀리기 쉬운 것</div>
+  <ul class="ex-list">
+    <li>ICL은 <strong>Reasoning 단계</strong> (추론 시 프롬프트). Post-training 아님</li>
+    <li>Instruction Tuning은 <strong>Post-training 1단계</strong> (SFT). ICL과 대체 관계 아님</li>
+    <li>RLVR는 RLHF의 종류가 <strong>아님</strong> — 둘 다 Post-training RL 계열의 형제</li>
+    <li>Test-time Scaling ≠ Training-time Scaling. 추론 시 compute 증가 vs 모델 크기 증가</li>
+    <li>Parametric knowledge = Pre-training 결과. RAG는 이걸 대체하는 게 아니라 <strong>보완</strong></li>
+    <li>CoT는 대형 모델에서 효과. 소형 모델에서는 오히려 성능 저하 가능</li>
+    <li>GSM8K = 8.5K (초등 수학), MATH = 12.5K (경쟁 수학). 수치 혼동 주의</li>
+    <li>RAG-Token ≠ RAG-Sequence. Token = 토큰마다 다른 문서, Sequence = 전체에 동일 문서</li>
+    <li>Prompt Tuning = soft prompt 벡터 학습 (자연어 프롬프트 수정 아님)</li>
+    <li>Alignment = 내부 생각을 인간과 같게 만드는 것이 아니라 출력 행동을 HHH 기준에 맞추는 것</li>
+    <li>LLaVA projection은 LoRA식 low-rank update가 아님. LoRA는 PEFT, LLaVA는 multimodal architecture</li>
+    <li>Sigmoid는 Bradley-Terry 선호 확률, Softmax는 다음 토큰 확률분포와 연결</li>
+    <li>GRPO = Critic <strong>없음</strong>. PPO = Critic 있음 (Value network)</li>
+  </ul>
+
+  <div class="section-title" style="margin-top:20px">계산 문제 대비</div>
+  <ul class="ex-list">
+    <li>LoRA 절감: W∈R^(768×768), r=8 → 원본 589,824 / LoRA 12,288 = <strong>48배 절감</strong></li>
+    <li>TF-IDF: N=37, Romeo(DF=1) → IDF=log37≈1.57 / good(DF=37) → IDF=0</li>
+    <li>Self-consistency: 5회 → {$10×3,$8×1,$12×1} → 다수결 = <strong>$10</strong></li>
+    <li>Bradley-Terry: r_w=3.0, r_l=1.0 → P=e³/(e³+e¹)≈<strong>0.881</strong></li>
+  </ul>
+</div>
+
+</div><!-- /main -->
+
+<script>
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+const HASH='5fa75ee2c5383fa601a45136751b99f41f203754378c650440e94c75020b70b0';
+const SK='_nlp_final_v2';
+
+async function unlock(){
+  const h=await sha256(document.getElementById('pw').value);
+  if(h===HASH){
+    sessionStorage.setItem(SK,'1');
+    showMain();
+  } else {
+    document.getElementById('lock-err').textContent='비밀번호가 틀렸습니다.';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
+  }
+}
+function showMain(){
+  document.getElementById('lock').style.display='none';
+  document.getElementById('main').style.display='block';
+  setTimeout(openSummaryHash, 30);
+}
+window.onload=()=>{
+  ensureSummaryAnchors();
+  if(sessionStorage.getItem(SK)==='1'){
+    showMain();
+  } else document.getElementById('pw').focus();
+};
+function activateSummaryTab(id){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const pane=document.getElementById(id);
+  if(pane) pane.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    if((b.getAttribute('onclick')||'').indexOf("'" + id + "'")!==-1) b.classList.add('active');
+  });
+}
+function switchTab(id,btn){
+  activateSummaryTab(id);
+  if(btn) btn.classList.add('active');
+}
+function tog(head){head.parentElement.classList.toggle('open');}
+document.querySelectorAll('.ch').forEach((c,i)=>{if(i%4<2)c.classList.add('open');});
+
+function findSummaryTarget(tabId, selector, text, closestSelector){
+  const tab=document.getElementById(tabId);
+  if(!tab) return null;
+  const nodes=Array.from(tab.querySelectorAll(selector));
+  const needle=text.toLowerCase();
+  const found=nodes.find(n=>(n.textContent||'').toLowerCase().indexOf(needle)!==-1);
+  if(!found) return null;
+  return closestSelector ? (found.closest(closestSelector)||found) : found;
+}
+function placeSummaryAnchor(id, target, tabId){
+  if(document.getElementById(id)) return;
+  const anchor=document.createElement('span');
+  anchor.id=id;
+  anchor.className='summary-anchor';
+  anchor.dataset.summaryTab=tabId;
+  target.parentNode.insertBefore(anchor,target);
+}
+function ensureSummaryAnchors(){
+  const anchors=[
+    {id:'sum-overview-map', tab:'t0', selector:'.section-title', text:'전체 개념 위치 지도'},
+    {id:'sum-flow-map', tab:'t0', selector:'.section-title', text:'자주 질문한 개념 위치 매칭'},
+    {id:'sum-icl-instruction', tab:'t0', selector:'.section-title', text:'ICL vs Instruction'},
+    {id:'sum-rl-state', tab:'t0', selector:'tr', text:'State가 사전학습'},
+    {id:'sum-sigmoid-softmax', tab:'t0', selector:'tr', text:'Sigmoid와 Softmax'},
+    {id:'sum-lora-llava', tab:'t0', selector:'tr', text:'LoRA와 LLaVA'},
+    {id:'sum-rag-token-cot', tab:'t0', selector:'tr', text:'RAG-Token이 CoT'},
+    {id:'sum-emergent-aha', tab:'t0', selector:'tr', text:'Emergent ability와 Aha'},
+    {id:'sum-prompt-icl-soft', tab:'t0', selector:'.section-title', text:'ICL vs Instruction'},
+    {id:'sum-lora', tab:'t1', selector:'.blk-title', text:'LoRA', closest:'.blk'},
+    {id:'sum-peft', tab:'t1', selector:'.ch-head', text:'PEFT', closest:'.ch'},
+    {id:'sum-scaling', tab:'t2', selector:'.ch-head', text:'Scaling Laws', closest:'.ch'},
+    {id:'sum-training-test', tab:'t2', selector:'.ch-head', text:'Training-time', closest:'.ch'},
+    {id:'sum-emergent', tab:'t2', selector:'.ch-head', text:'Emergent Ability', closest:'.ch'},
+    {id:'sum-instruction', tab:'t3', selector:'.ch-head', text:'Instruction Tuning', closest:'.ch'},
+    {id:'sum-rlhf-rlvr', tab:'t3', selector:'.ch-head', text:'RLHF vs RLVR', closest:'.ch'},
+    {id:'sum-rlhf', tab:'t3', selector:'.ch-head', text:'RLHF vs RLVR', closest:'.ch'},
+    {id:'sum-rlvr', tab:'t3', selector:'.ch-head', text:'RLHF vs RLVR', closest:'.ch'},
+    {id:'sum-grpo', tab:'t3', selector:'.blk-title', text:'PPO vs GRPO', closest:'.blk'},
+    {id:'sum-decoding', tab:'t3', selector:'.ch-head', text:'디코딩 전략', closest:'.ch'},
+    {id:'sum-icl', tab:'t4', selector:'.ch-head', text:'ICL', closest:'.ch'},
+    {id:'sum-cot', tab:'t4', selector:'.ch-head', text:'Chain-of-Thought', closest:'.ch'},
+    {id:'sum-self-consistency', tab:'t4', selector:'.blk-title', text:'Self-consistency', closest:'.blk'},
+    {id:'sum-test-time', tab:'t4', selector:'.ch-head', text:'Test-time Scaling', closest:'.ch'},
+    {id:'sum-alignment', tab:'t5', selector:'.ch-head', text:'Alignment', closest:'.ch'},
+    {id:'sum-bradley', tab:'t5', selector:'.ch-head', text:'Bradley-Terry', closest:'.ch'},
+    {id:'sum-kl', tab:'t5', selector:'.blk-title', text:'KL Penalty', closest:'.blk'},
+    {id:'sum-rag-parametric', tab:'t6', selector:'.ch-head', text:'Parametric', closest:'.ch'},
+    {id:'sum-tfidf', tab:'t6', selector:'.blk-title', text:'TF-IDF', closest:'.blk'},
+    {id:'sum-dense', tab:'t6', selector:'.blk-title', text:'Bi-encoder', closest:'.blk'},
+    {id:'sum-metrics', tab:'t6', selector:'.ch-head', text:'평가 지표', closest:'.ch'},
+    {id:'sum-rag-arch', tab:'t6', selector:'.ch-head', text:'RAG 아키텍처', closest:'.ch'},
+    {id:'sum-rag-token', tab:'t6', selector:'.ch-head', text:'RAG 아키텍처', closest:'.ch'},
+    {id:'sum-agent', tab:'t7', selector:'.ch-head', text:'Agent 구성', closest:'.ch'},
+    {id:'sum-toolformer', tab:'t7', selector:'.blk-title', text:'Toolformer', closest:'.blk'},
+    {id:'sum-llava', tab:'t7', selector:'.blk-title', text:'LLaVA', closest:'.blk'},
+    {id:'sum-swe', tab:'t7', selector:'.blk-title', text:'SWE-Bench', closest:'.blk'}
+  ];
+  anchors.forEach(a=>{
+    if(document.getElementById(a.id)) return;
+    const target=findSummaryTarget(a.tab,a.selector,a.text,a.closest);
+    if(target){
+      placeSummaryAnchor(a.id,target,a.tab);
+    }
+  });
+}
+function openSummaryHash(){
+  ensureSummaryAnchors();
+  if(!location.hash) return;
+  const id=decodeURIComponent(location.hash.slice(1));
+  const target=document.getElementById(id);
+  if(!target) return;
+  const pane=target.closest('.tab-pane');
+  if(pane) activateSummaryTab(pane.id);
+  const ch=target.closest('.ch');
+  if(ch) ch.classList.add('open');
+  document.querySelectorAll('.summary-focus').forEach(el=>el.classList.remove('summary-focus'));
+  const focusTarget=target.nextElementSibling || target.closest('.ch') || target;
+  focusTarget.classList.add('summary-focus');
+  setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}), 60);
+}
+window.addEventListener('hashchange', openSummaryHash);
+
+// 모바일: 테이블 가로 스크롤 래퍼 자동 적용
+if(window.innerWidth<=768){
+  document.querySelectorAll('.tbl').forEach(t=>{
+    if(!t.parentElement.classList.contains('tbl-wrap')){
+      const w=document.createElement('div');
+      w.className='tbl-wrap';
+      t.parentNode.insertBefore(w,t);
+      w.appendChild(t);
+    }
+  });
+}
+</script>
+</body>
+</html>

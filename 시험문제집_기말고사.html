@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자연어처리 기말고사 예상문제집</title>
+<style>
+  body { font-family: 'Malgun Gothic', sans-serif; max-width: 980px; margin: 0 auto; padding: 20px; background: linear-gradient(180deg, #f0f7ff 0%, #f5f7fb 52%, #f7f7f9 100%); color: #222; line-height: 1.7; }
+  /* ── PC 전용 ── */
+  @media (min-width: 769px) {
+    .q-box { padding: 16px 20px; }
+    .tf-area { gap: 16px; }
+  }
+  /* ── 모바일 전용 ── */
+  @media (max-width: 768px) {
+    body { padding: 10px; font-size: 13px; }
+    h1 { font-size: 1rem; padding: 12px 14px; border-radius: 10px; }
+    h2 { font-size: 0.95rem; padding: 9px 12px; border-radius: 8px; margin-top: 28px; }
+    h3 { font-size: 0.9rem; margin-top: 22px; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 12px; }
+    th, td { padding: 6px 8px; }
+    .chapter-nav { gap: 6px; }
+    .chapter-nav a { font-size: 0.82em; padding: 5px 11px; }
+    .top-actions { gap: 7px; }
+    .top-actions a, .top-actions button { padding: 7px 11px; font-size: 0.85em; }
+    .q-box { padding: 11px 13px; border-radius: 10px; }
+    .tf-area { gap: 8px; }
+    .tf-opt { padding: 5px 11px; font-size: 0.88em; }
+    .check-btn { padding: 6px 14px; font-size: 0.82em; }
+    .sa-ta { font-size: 0.88em; min-height: 60px; }
+    .concept-summary { padding: 12px 14px; border-radius: 10px; }
+    .practice-box { padding: 11px 13px; margin: 6px 0 6px 12px; }
+    .sol-box { font-size: 0.88em; }
+    .wrong-box { padding: 11px 13px; }
+    .scope-note { font-size: 0.88em; padding: 10px; }
+  }
+  h1 { background: linear-gradient(135deg, #006064, #00838f); color: white; padding: 18px 22px; border-radius: 16px; box-shadow: 0 16px 34px rgba(0,96,100,0.18); }
+  h2 { background: linear-gradient(135deg, #00695c, #00897b); color: white; padding: 12px 16px; border-radius: 12px; margin-top: 40px; box-shadow: 0 10px 24px rgba(0,105,92,0.14); }
+  h3 { color: #006064; border-bottom: 2px solid #006064; padding-bottom: 4px; margin-top: 30px; }
+  h4 { color: #37474f; margin-top: 20px; }
+  .example-box { background: #e0f7fa; border-left: 5px solid #00838f; padding: 12px 16px; margin: 10px 0; border-radius: 4px; }
+  .example-box .en { font-style: italic; color: #555; font-size: 0.92em; }
+  .example-box .kr { font-weight: bold; margin-top: 6px; }
+  .example-box .info { margin-top: 8px; font-size: 0.93em; color: #333; }
+  .q-box { background: rgba(255,255,255,0.92); border: 1px solid #b2dfdb; border-radius: 14px; padding: 14px 18px; margin: 10px 0; box-shadow: 0 8px 22px rgba(0,96,100,0.06); }
+  .q-num { font-weight: bold; color: #006064; }
+  .answer { background: #f1f8e9; border-left: 4px solid #558b2f; padding: 8px 14px; margin-top: 8px; border-radius: 4px; display: none; }
+  .toggle-btn { background: #00838f; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85em; margin-top: 6px; }
+  .toggle-btn:hover { background: #006064; }
+  .tf-true { color: #2e7d32; font-weight: bold; }
+  .tf-false { color: #c62828; font-weight: bold; }
+  .tag { display: inline-block; background: #ff6f00; color: white; font-size: 0.78em; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .tag.tf { background: #6a1b9a; }
+  .tag.sa { background: #00695c; }
+  .tag.calc { background: #1565c0; }
+  .step { margin: 4px 0 4px 16px; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  th { background: #00838f; color: white; padding: 8px; }
+  td { border: 1px solid #ccc; padding: 8px; font-size: 0.9em; }
+  .chapter-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .chapter-nav a { background: #00838f; color: white; padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 0.9em; }
+  .chapter-nav a:hover { background: #006064; }
+  .scope-note { background: #fff3e0; border: 1px solid #ff9800; padding: 12px; border-radius: 6px; margin: 16px 0; }
+  .concept-summary { background: rgba(255,255,255,0.94); border: 1px solid #80cbc4; border-radius: 16px; padding: 16px 18px; margin: 18px 0 20px; box-shadow: 0 12px 28px rgba(0,96,100,0.08); }
+  .concept-summary h2 { margin: 0 0 10px; border-radius: 10px; box-shadow: none; }
+  .concept-summary .one-line { background: #e0f7fa; border-left: 5px solid #00838f; padding: 10px 14px; border-radius: 6px; margin: 10px 0 14px; font-weight: 700; color: #004d40; }
+  .concept-summary .mini-note { background: #fff8e1; border-left: 4px solid #ff9800; padding: 9px 12px; border-radius: 6px; margin: 12px 0 0; font-size: 0.93em; }
+  .concept-summary table td:first-child { font-weight: 700; color: #006064; white-space: nowrap; }
+  .flow-map { background: rgba(255,255,255,0.96); border: 1px solid #c5d7e8; border-radius: 16px; padding: 16px 18px; margin: 18px 0 20px; box-shadow: 0 12px 28px rgba(21,101,192,0.08); }
+  .flow-map h2 { margin: 0 0 10px; border-radius: 10px; box-shadow: none; background: linear-gradient(135deg, #1565c0, #00838f); }
+  .flow-map h3 { margin-top: 18px; }
+  .flow-map .flow-callout { background: #eef7ff; border-left: 5px solid #1565c0; padding: 10px 14px; border-radius: 6px; margin: 10px 0 14px; font-weight: 700; color: #0d4778; }
+  .flow-map .warn-note { background: #fff8e1; border-left: 4px solid #ff9800; padding: 9px 12px; border-radius: 6px; margin: 12px 0; font-size: 0.93em; }
+  .flow-map table td:first-child { font-weight: 700; color: #1565c0; white-space: nowrap; }
+  .concept-jump { float:right; display:inline-flex; align-items:center; gap:4px; background:#eef7ff; color:#1565c0; border:1px solid #bbdefb; border-radius:999px; padding:3px 9px; margin:0 0 6px 8px; font-size:0.78em; font-weight:700; text-decoration:none; line-height:1.4; }
+  .concept-jump:hover { background:#dff0ff; color:#0d47a1; }
+  .example-box .concept-jump, .practice-box .concept-jump { background:#fff; }
+  .top-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin: 12px 0 14px; }
+  .top-actions a, .top-actions button {
+    background:#ffffff; color:#006064; border:1px solid #b2dfdb;
+    padding:8px 14px; border-radius:999px; text-decoration:none;
+    font-size:0.92em; cursor:pointer; box-shadow: 0 6px 18px rgba(0,96,100,0.08);
+  }
+  .top-actions a:hover, .top-actions button:hover { background:#e0f7fa; }
+  .auth-overlay { position:fixed; inset:0; z-index:100000; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(0,38,40,0.52); backdrop-filter:blur(8px); }
+  .auth-overlay.show { display:flex; }
+  .auth-modal { width:min(100%,420px); background:#fff; border-radius:20px; box-shadow:0 24px 60px rgba(0,0,0,0.22); padding:24px; }
+  .auth-title { font-size:1.08rem; font-weight:700; color:#006064; margin-bottom:6px; }
+  .auth-desc { font-size:0.88rem; color:#5f6368; margin-bottom:14px; line-height:1.55; }
+  .auth-input { width:100%; padding:13px 14px; border:1px solid #b2dfdb; border-radius:12px; font:inherit; outline:none; margin-bottom:10px; box-sizing:border-box; }
+  .auth-input:focus { border-color:#00838f; box-shadow:0 0 0 4px rgba(0,131,143,0.12); }
+  .auth-error { min-height:20px; font-size:0.82rem; color:#c62828; margin-bottom:10px; }
+  .auth-actions { display:flex; gap:10px; }
+  .auth-btn { flex:1; border:none; border-radius:12px; padding:12px 14px; font:inherit; font-weight:700; cursor:pointer; }
+  .auth-btn.primary { background:#00838f; color:white; }
+  .auth-btn.secondary { background:#e0f7fa; color:#006064; }
+  .wrong-box { background:#fff8e1; border:1px solid #ffcc02; border-radius:12px; padding:14px 18px; margin:18px 0; }
+  .wrong-box h4 { color:#e65100; margin:0 0 10px; }
+  .wrong-box ul { margin:0; padding-left:20px; }
+  .wrong-box li { margin:4px 0; font-size:0.93em; }
+  .wrong-box a { display:inline-block; margin-top:10px; background:#ff6f00; color:white; padding:6px 14px; border-radius:8px; text-decoration:none; font-size:0.88em; }
+  .wrong-box a:hover { background:#e65100; }
+  .wrong-check { width:18px; height:18px; margin-right:10px; cursor:pointer; vertical-align:middle; accent-color:#ff6f00; }
+  .q-box.is-wrong { background:#fff8e1; border-color:#ff9800; }
+  /* ── 예제 풀이 토글 ─────── */
+  .sol-btn { background:#006064; color:white; border:none; padding:5px 14px; border-radius:5px; cursor:pointer; font-size:0.85em; margin:10px 0 0; font-family:inherit; }
+  .sol-btn:hover { background:#00494d; }
+  .sol-box { background:#f0fffe; border-left:4px solid #00838f; padding:12px 16px; margin-top:6px; border-radius:6px; font-size:0.93em; }
+  .sol-box .step { margin:3px 0 3px 16px; }
+  .sol-detail { background:#e8f8f5; border-radius:6px; padding:10px 14px; margin:10px 0 4px; border-left:3px solid #00695c; font-size:0.91em; line-height:1.7; }
+  /* ── 연습 문제 ──────────── */
+  .practice-box { background:#f5fffe; border:1.5px solid #80cbc4; border-radius:12px; padding:14px 18px; margin:8px 0 8px 24px; }
+  .practice-label { font-weight:bold; color:#00695c; font-size:0.88em; margin-bottom:6px; }
+  .practice-q { font-size:0.95em; margin-bottom:8px; }
+  /* ── T/F 입력 ───────────── */
+  .tf-area { display:flex; align-items:center; gap:12px; margin:12px 0 4px; flex-wrap:wrap; }
+  .tf-opt { display:flex; align-items:center; gap:6px; cursor:pointer; padding:5px 14px; border:1.5px solid #b2dfdb; border-radius:20px; font-size:0.92em; transition:background .15s; user-select:none; }
+  .tf-opt:hover { background:#e0f7fa; }
+  .tf-opt input[type=radio] { accent-color:#00838f; width:15px; height:15px; cursor:pointer; }
+  .check-btn { background:#00838f; color:white; border:none; padding:6px 18px; border-radius:6px; cursor:pointer; font-size:0.85em; font-family:inherit; }
+  .check-btn:hover { background:#006064; }
+  .tf-result { margin-top:8px; padding:10px 14px; border-radius:8px; font-size:0.93em; display:none; }
+  .tf-result.correct { background:#e8f5e9; border-left:4px solid #2e7d32; }
+  .tf-result.wrong   { background:#ffebee; border-left:4px solid #c62828; }
+  .tf-result .verdict { font-size:1.05em; font-weight:bold; margin-bottom:6px; }
+  /* ── 단답형 입력 ────────── */
+  .sa-area { margin:12px 0 6px; }
+  .sa-ta { width:100%; box-sizing:border-box; padding:10px 12px; border:1.5px solid #b2dfdb; border-radius:8px; font-family:inherit; font-size:0.93em; resize:vertical; min-height:70px; line-height:1.6; }
+  .sa-ta:focus { border-color:#00838f; outline:none; box-shadow:0 0 0 3px rgba(0,131,143,.1); }
+</style>
+<style id="__memo_style__">
+#_mp_{position:fixed;top:0;left:0;right:0;z-index:99999;font-family:'Malgun Gothic',sans-serif;font-size:13px;background:#1e1e2e;border-bottom:2px solid #94e2d5;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#_mh_{display:flex;align-items:center;padding:7px 18px;cursor:pointer;user-select:none;gap:8px}
+#_mh_ .mt{color:#94e2d5;font-weight:bold;font-size:13px}
+#_mc_{font-size:11px;color:#6c7086}
+#_marr_{margin-left:auto;color:#6c7086;font-size:11px;transition:transform .2s}
+#_mb_{display:none;padding:0 16px 12px;max-height:300px;overflow-y:auto}
+.mi{background:#313244;border-radius:8px;padding:10px 12px;margin:6px 0;white-space:pre-wrap;word-break:break-word;line-height:1.65;color:#cdd6f4}
+.mi.ed{background:#45475a}
+.ma{display:flex;gap:6px;margin-top:7px}
+.mb{font-size:11px;padding:3px 10px;border-radius:4px;border:none;cursor:pointer;font-family:'Malgun Gothic',sans-serif}
+.meb{background:#45475a;color:#cdd6f4}.mdb{background:#f38ba822;color:#f38ba8}.msb{background:#a6e3a1;color:#1e1e2e}.mcb{background:#45475a;color:#cdd6f4}
+textarea.meta{width:100%;background:#181825;color:#cdd6f4;border:1px solid #94e2d5;border-radius:6px;padding:7px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:56px}
+#_mnew_{display:flex;gap:8px;margin-top:10px;align-items:flex-end;border-top:1px solid #313244;padding-top:10px}
+#_mta_{flex:1;background:#181825;color:#cdd6f4;border:1px solid #45475a;border-radius:6px;padding:8px;font-family:'Malgun Gothic',sans-serif;font-size:13px;resize:vertical;min-height:46px}
+#_msv_{padding:8px 18px;background:#94e2d5;color:#1e1e2e;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-family:'Malgun Gothic',sans-serif;white-space:nowrap;align-self:flex-end}
+#_msv_:hover{background:#a6e3c1}
+</style>
+<script>
+function toggle(id){var el=document.getElementById(id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function toggleAllAnswers(show){document.querySelectorAll('.answer').forEach(function(el){el.style.display=show?'block':'none';});}
+
+function toggleSol(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  var opening=el.style.display==='none';
+  el.style.display=opening?'block':'none';
+  if(btn&&btn.classList.contains('sol-btn'))
+    btn.textContent=opening?'▲ 풀이 숨기기':(btn.getAttribute('data-label')||'▼ 풀이 & 설명 보기');
+}
+
+function checkTF(id,correct){
+  var radios=document.querySelectorAll('input[name="r-'+id+'"]');
+  var sel=null;
+  radios.forEach(function(r){if(r.checked)sel=r.value;});
+  if(!sel){alert('T 또는 F를 선택하세요.');return;}
+  var res=document.getElementById('res-'+id);
+  var ans=document.getElementById(id);
+  var ok=(sel===correct);
+  res.style.display='block';
+  res.className='tf-result '+(ok?'correct':'wrong');
+  res.innerHTML='<div class="verdict">'+(ok?'✓ 정답!':'✗ 오답  (정답: '+(correct==='T'?'True':'False'))+'</div>'+(ans?ans.innerHTML:'');
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var conceptRules = [
+    {id:'sum-rl-state', label:'RL state/policy/reward', re:/state|policy|action|reward|top-p 후보 토큰|REINFORCE/i},
+    {id:'sum-lora-llava', label:'LoRA vs LLaVA', re:/LoRA와 LLaVA|low-rank 철학/i},
+    {id:'sum-sigmoid-softmax', label:'Sigmoid vs Softmax', re:/Sigmoid와 Softmax/i},
+    {id:'sum-rag-token-cot', label:'RAG-Token vs CoT', re:/RAG-Token이 CoT|CoT를 시작/i},
+    {id:'sum-emergent-aha', label:'Emergent vs Aha', re:/Aha moment|Emergent ability와 Aha/i},
+    {id:'sum-prompt-icl-soft', label:'Prompt/ICL/Soft prompt', re:/Prompt engineering|soft prompt tuning|Soft prompt|Prompt Tuning/i},
+    {id:'sum-lora', label:'LoRA / PEFT', re:/LoRA|저랭크|rank r|ΔW|BA|파라미터 절감|Q 행렬/i},
+    {id:'sum-scaling', label:'Scaling laws', re:/Scaling law|스케일링 법칙|L\(N\)|power-law|모델 손실|training compute/i},
+    {id:'sum-emergent', label:'Emergent ability', re:/Emergent ability|창발|임계값|소규모 모델 성능/i},
+    {id:'sum-decoding', label:'디코딩 전략', re:/Temperature|Greedy|Top-k|Top-p|온도|디코딩|확률 분포|sampling/i},
+    {id:'sum-tfidf', label:'TF-IDF / IDF', re:/TF-IDF|IDF|DF=|Shakespeare|Romeo|forest|good|Python|algorithm/i},
+    {id:'sum-metrics', label:'검색 평가 지표', re:/Precision|Recall|Average Precision|AP|P@|R@|관련 문서|검색 결과/i},
+    {id:'sum-dense', label:'Bi/Cross-encoder', re:/Bi-encoder|Cross-encoder|Dense Retrieval|재순위|재랭킹/i},
+    {id:'sum-rag-arch', label:'RAG 구조', re:/RAG-Sequence|RAG-Token|REALM|Non-parametric|Parametric knowledge|Closed-domain|Open-domain|Hallucination|QA/i},
+    {id:'sum-self-consistency', label:'Self-consistency', re:/Self-consistency|Majority|다수결|여러 reasoning path/i},
+    {id:'sum-cot', label:'CoT 계열', re:/Chain-of-thought|CoT|Zero-shot CoT|Few-shot CoT|단계별 추론/i},
+    {id:'sum-test-time', label:'Test-time scaling', re:/Test-time scaling|Long CoT|Beam|Tree Search|추론 시.*컴퓨팅/i},
+    {id:'sum-rlhf-rlvr', label:'RLHF / RLVR', re:/RLHF|RLVR|verifier|검증기|이진 보상|지도학습 대비|PPO|GRPO|Critic/i},
+    {id:'sum-instruction', label:'Instruction tuning', re:/Instruction tuning|인스트럭션|FLAN|사전학습\\(Pretraining\\)|Pretraining/i},
+    {id:'sum-alignment', label:'Alignment / HHH', re:/Alignment|HHH|정렬|pretrained LLM의 문제점|인간과 모델의 생각/i},
+    {id:'sum-bradley', label:'Bradley-Terry', re:/Bradley|pairwise|쌍 비교|선호 확률|r_w|r_l/i},
+    {id:'sum-kl', label:'KL penalty', re:/KL|Reward hacking|Mode collapse|보상 최대화|pretrained knowledge/i},
+    {id:'sum-llava', label:'LLaVA', re:/LLaVA|CLIP|프로젝션|시각|멀티모달|H_v|Z_v/i},
+    {id:'sum-toolformer', label:'Toolformer', re:/Toolformer|API 호출|미래 토큰|도구/i},
+    {id:'sum-agent', label:'Agent', re:/Agent|에이전트|observe|reason|act|도구 호출/i},
+    {id:'sum-swe', label:'SWE-Bench', re:/SWE-Bench|GitHub 이슈|패치/i}
+  ];
+  function pickConcept(text){
+    for(var i=0;i<conceptRules.length;i++){
+      if(conceptRules[i].re.test(text)) return conceptRules[i];
+    }
+    return {id:'sum-overview-map', label:'전체 구조'};
+  }
+  function addLink(box){
+    if(box.querySelector('.concept-jump')) return;
+    var rule = pickConcept(box.textContent || '');
+    var a = document.createElement('a');
+    a.className = 'concept-jump';
+    a.href = '핵심개념_종합정리.html#' + rule.id;
+    a.textContent = '요약: ' + rule.label;
+    a.setAttribute('aria-label', rule.label + ' 요약으로 이동');
+    box.insertBefore(a, box.firstChild);
+  }
+  document.querySelectorAll('.example-box,.practice-box,.q-box').forEach(addLink);
+});
+</script>
+</head>
+<body>
+
+<div class="auth-overlay" id="auth-overlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="auth-title" id="auth-title">비밀번호 확인</div>
+    <div class="auth-desc">기말고사 문제집에 접근하려면 비밀번호를 입력하세요.</div>
+    <input type="password" class="auth-input" id="auth-input" placeholder="비밀번호 입력" autocomplete="current-password">
+    <div class="auth-error" id="auth-error"></div>
+    <div class="auth-actions">
+      <button class="auth-btn secondary" type="button" id="auth-cancel">취소</button>
+      <button class="auth-btn primary" type="button" id="auth-submit">확인</button>
+    </div>
+  </div>
+</div>
+
+<div id="_mp_">
+  <div id="_mh_" onclick="_mtog_()">
+    <span class="mt">📝 메모</span><span id="_mc_"></span>
+    <span id="_marr_">▶</span>
+  </div>
+  <div id="_mb_">
+    <div id="_ml_"></div>
+    <div id="_mnew_">
+      <textarea id="_mta_" placeholder="새 메모를 입력하세요..."></textarea>
+      <button id="_msv_" onclick="_msave_()">저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="top-actions">
+  <a href="시험문제집_중간고사.html">← 중간고사 문제집</a>
+  <a href="핵심개념_종합정리.html" style="background:#00897b;color:#fff;padding:6px 14px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">📚 핵심 개념 정리</a>
+  <button type="button" onclick="toggleAllAnswers(true)">정답 모두 보기</button>
+  <button type="button" onclick="toggleAllAnswers(false)">정답 모두 숨기기</button>
+</div>
+
+<h1>자연어처리 기말고사 예상문제집</h1>
+
+<div class="scope-note">
+  <strong>시험 범위:</strong> 6강 LLMs &amp; In-context Learning ~ 9강 LLM Agents<br>
+  <strong>포함:</strong> 6강(PEFT/LoRA, ICL, Scaling Laws) · 7강(RAG, TF-IDF, Dense Retrieval) · 8강(Reasoning, RLVR, LLM Alignment, Instruction Tuning) · 9강(RLHF, Multimodal, Tool Use, Code Agent)
+</div>
+
+<div class="concept-summary" id="quick-map">
+  <h2>핵심 구분표: Prompting · ICL · RAG · Tuning</h2>
+  <div class="one-line">
+    ICL/RAG/Prompt engineering은 추론 시점에 입력을 구성하는 방법이고, Instruction tuning/Soft prompt tuning/LoRA는 학습 시점에 일부 파라미터를 업데이트하는 방법이다.
+  </div>
+  <table>
+    <tr><th>개념</th><th>언제 일어남</th><th>무엇을 바꾸나</th><th>핵심 의미</th></tr>
+    <tr>
+      <td>Prompt engineering</td>
+      <td>추론 시점</td>
+      <td>자연어 프롬프트</td>
+      <td>사람이 지시문, 역할, 출력 형식, 예시 배치를 직접 설계한다. 학습은 일어나지 않는다.</td>
+    </tr>
+    <tr>
+      <td>ICL / Few-shot prompting</td>
+      <td>추론 시점</td>
+      <td>프롬프트 안 예시</td>
+      <td>모델 파라미터 업데이트 없이, 문맥에 포함된 입출력 예시를 보고 그 자리에서 패턴을 따라간다.</td>
+    </tr>
+    <tr>
+      <td>RAG</td>
+      <td>추론 시점</td>
+      <td>검색된 외부 문서</td>
+      <td>질문과 관련된 문서를 검색해 context에 붙인다. ICL의 상위 개념이 아니라 검색으로 문맥을 보강하는 별도 기법이다.</td>
+    </tr>
+    <tr>
+      <td>Instruction tuning</td>
+      <td>학습 시점</td>
+      <td>모델 파라미터</td>
+      <td>instruction-response 데이터로 supervised fine-tuning하여 지시 따르기 능력을 모델에 지속적으로 반영한다.</td>
+    </tr>
+    <tr>
+      <td>Soft prompt tuning</td>
+      <td>학습 시점</td>
+      <td>학습 가능한 soft prompt 벡터</td>
+      <td>자연어 프롬프트를 고치는 것이 아니라, 입력 임베딩 앞에 붙는 연속 벡터만 gradient로 최적화한다. PEFT의 일종이다.</td>
+    </tr>
+    <tr>
+      <td>LoRA</td>
+      <td>학습 시점</td>
+      <td>저랭크 업데이트 행렬 A, B</td>
+      <td>기존 가중치 W는 고정하고 ΔW≈BA만 학습한다. 큰 모델을 싸게 특정 태스크에 맞추는 PEFT 방식이다.</td>
+    </tr>
+    <tr>
+      <td>Tool use / Agent</td>
+      <td>추론 시점 중심</td>
+      <td>도구 호출, 메모리, 행동 루프</td>
+      <td>LLM이 검색, API, 코드 실행 같은 외부 도구를 호출하고 관찰 결과를 다시 반영한다.</td>
+    </tr>
+  </table>
+  <div class="mini-note">
+    시험 답안 포인트: "ICL은 prompt engineering으로 끌어낼 수 있는 현상", "RAG는 ICL의 상위 개념이 아님", "soft prompt tuning은 자연어 수정이 아니라 벡터 학습", "instruction tuning은 fine-tuning의 한 종류"로 정리하면 된다.
+  </div>
+</div>
+
+<div class="flow-map" id="flow-map">
+  <h2>6~9강 전체 맥락: 모델 개발에서 추론·에이전트까지</h2>
+  <div class="flow-callout">
+    6강은 모델을 만들고 싸게 적응시키는 방법, 7강은 외부 지식으로 보완하는 방법, 8강은 더 잘 추론하고 정렬하는 방법, 9강은 선호·도구·멀티모달·에이전트로 확장하는 흐름이다.
+  </div>
+  <table>
+    <tr><th>흐름</th><th>핵심 개념</th><th>시험 포인트</th></tr>
+    <tr>
+      <td>Pre-training</td>
+      <td>다음 토큰 예측, parametric knowledge, scaling law, emergent ability</td>
+      <td>지식은 모델 파라미터 안에 저장된다. State가 사전학습 지식이라는 뜻은 아니다.</td>
+    </tr>
+    <tr>
+      <td>PEFT / 적응</td>
+      <td>LoRA, soft prompt tuning, instruction tuning</td>
+      <td>LoRA와 soft prompt tuning은 학습 시점 기법이다. 자연어 프롬프트 수정과 구분한다.</td>
+    </tr>
+    <tr>
+      <td>Inference / Reasoning</td>
+      <td>Prompt engineering, ICL, CoT, self-consistency, test-time scaling</td>
+      <td>ICL은 파라미터 업데이트가 없고, CoT는 zero-shot/few-shot 둘 다 가능하다.</td>
+    </tr>
+    <tr>
+      <td>RAG</td>
+      <td>Non-parametric knowledge, sparse/dense retrieval, RAG-Sequence/Token</td>
+      <td>RAG는 ICL의 상위 개념이 아니라 검색 문서를 context에 붙이는 지식 보강 기법이다.</td>
+    </tr>
+    <tr>
+      <td>Post-training / Alignment</td>
+      <td>RLHF, RLVR, reward model, Bradley-Terry, KL penalty</td>
+      <td>Alignment는 인간과 모델의 생각을 같게 만드는 것이 아니라 출력 행동을 HHH 기준에 맞추는 것이다.</td>
+    </tr>
+    <tr>
+      <td>Agents</td>
+      <td>Toolformer, LLaVA, SWE-Bench, observe-reason-act loop</td>
+      <td>Agent는 단발 답변이 아니라 도구 호출과 관찰을 반복하는 시스템이다.</td>
+    </tr>
+  </table>
+
+  <h3>자주 질문한 개념 매칭표</h3>
+  <table>
+    <tr><th>헷갈리는 질문</th><th>정확한 매칭</th></tr>
+    <tr><td>RL의 state가 사전학습 지식인가?</td><td>아니다. State는 현재 prompt, 대화 기록, 지금까지 생성한 토큰이다. 사전학습 지식은 policy model의 파라미터 안에 있다.</td></tr>
+    <tr><td>RL은 top-p 후보 토큰 보상을 조절하나?</td><td>아니다. Sampling으로 생성된 응답/토큰 경로에 reward를 주고, 그 경로의 log probability가 커지거나 작아지도록 policy를 업데이트한다.</td></tr>
+    <tr><td>RLHF에서 pairwise란?</td><td>같은 prompt에 대한 두 응답 중 더 나은 것을 고르는 선호 데이터다. Bradley-Terry는 reward 차이를 sigmoid로 선호 확률화한다.</td></tr>
+    <tr><td>RLVR의 verifier는 대형 모델인가?</td><td>꼭 아니다. 정답 비교기, unit test, 규칙 기반 checker일 수 있고, 경우에 따라 LLM judge를 쓸 수도 있다.</td></tr>
+    <tr><td>RAG-Token이 CoT를 시작시키나?</td><td>아니다. RAG-Token은 문서 조건화 방식이고, CoT는 단계적 추론을 유도하는 프롬프팅/추론 방식이다. 둘은 결합 가능하지만 독립 개념이다.</td></tr>
+    <tr><td>Emergent ability와 Aha moment는 같은가?</td><td>아니다. Emergent ability는 규모 증가에 따른 능력 출현이고, Aha moment는 RL post-training 중 자기검토 같은 추론 전략이 나타나는 현상이다.</td></tr>
+    <tr><td>LoRA와 LLaVA는 둘 다 low-rank인가?</td><td>LoRA는 low-rank update가 핵심이다. LLaVA는 CLIP feature를 LLM embedding 공간으로 projection하는 멀티모달 구조이며, projection이 곧 LoRA라는 뜻은 아니다.</td></tr>
+    <tr><td>Sigmoid와 Softmax는 언제 쓰나?</td><td>Sigmoid는 하나의 점수나 reward 차이를 0~1로 바꾼다. Softmax는 여러 후보 점수를 합 1인 확률분포로 만든다.</td></tr>
+  </table>
+  <div class="warn-note">
+    답안에서는 "학습 시점인지 추론 시점인지", "파라미터가 업데이트되는지", "reward가 어디서 오는지"를 먼저 쓰면 대부분의 개념 구분이 깔끔해진다.
+  </div>
+</div>
+
+<div class="chapter-nav">
+  <a href="#quick-map">핵심 구분표</a>
+  <a href="#flow-map">전체 흐름</a>
+  <a href="#ch6">6강: LLMs &amp; ICL</a>
+  <a href="#ch7">7강: RAG</a>
+  <a href="#ch8">8강: Reasoning &amp; Post-training</a>
+  <a href="#ch9">9강: Agents</a>
+</div>
+
+<!-- ==============================
+     PART 1: 계산 예제
+     ============================== -->
+<h2>PART 1: 계산 예제 (슬라이드 Examples 기반)</h2>
+
+<!-- 6강 계산 -->
+<h3 id="ch6">6강: LLMs &amp; In-context Learning</h3>
+
+<div class="example-box">
+  <div class="en">[Example 6-1] LoRA Parameter Reduction</div>
+  <div class="kr">LoRA 파라미터 절감량 계산</div>
+  <div class="info">
+    <strong>문제:</strong> 사전학습된 weight matrix W₀ ∈ ℝ<sup>768×768</sup>에 LoRA를 적용할 때 (rank r=8),<br>
+    원본 파라미터 수와 LoRA (B, A) 파라미터 수를 각각 구하고, 절감 배율을 계산하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-6-1')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-6-1" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• 원본 행렬: 768 × 768 = <strong>589,824</strong> 파라미터</div>
+      <div class="step">• LoRA 분해: B ∈ ℝ<sup>768×8</sup>, A ∈ ℝ<sup>8×768</sup></div>
+      <div class="step">  → B: 768×8 = 6,144 &nbsp; A: 8×768 = 6,144 &nbsp; 합계: <strong>12,288</strong></div>
+      <div class="step">• 절감 배율: 589,824 / 12,288 = <strong>48배</strong> (97.9% 감소)</div>
+      <div class="step">• 공식: 절감 배율 = d / (2r) = 768 / (2×8) = 48</div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> LoRA는 사전학습된 가중치 W₀를 frozen 상태로 유지하면서, 업데이트 행렬 ΔW를 두 저랭크 행렬의 곱 BA로 근사합니다. 순전파: <em>h = W₀x + ΔWx = W₀x + BAx</em>. 원래 d×d 행렬 업데이트에 d² 파라미터가 필요하지만, ΔW ≈ BA (B∈ℝ<sup>d×r</sup>, A∈ℝ<sup>r×d</sup>)로 표현하면 2dr 개만 필요합니다. r≪d 조건 덕분에 파라미터가 극적으로 줄어듭니다. 실제로 Attention의 Q, V 행렬에 주로 적용하며, 대형 모델의 가중치 업데이트가 본질적으로 저랭크 구조를 가진다는 경험적 관찰에 기반합니다.
+      </div>
+      <strong>핵심:</strong> 절감 배율 = d/(2r). ΔW = BA. W₀는 frozen.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-1-A]</div>
+  <div class="practice-q">W ∈ ℝ<sup>512×512</sup>에 LoRA(r=4)를 적용할 때, 원본 파라미터 수, LoRA 파라미터 수, 절감 배율을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-1a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-1a" style="display:none">
+    <div class="step">• 원본: 512 × 512 = <strong>262,144</strong></div>
+    <div class="step">• LoRA: 512×4 + 4×512 = 2,048 + 2,048 = <strong>4,096</strong></div>
+    <div class="step">• 절감 배율: 262,144 / 4,096 = <strong>64배</strong> &nbsp;(d/(2r) = 512/8 = 64)</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-1-B]</div>
+  <div class="practice-q">W ∈ ℝ<sup>1024×1024</sup>에 LoRA(r=32)를 적용할 때, LoRA 파라미터 수와 절감 배율을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-1b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-1b" style="display:none">
+    <div class="step">• 원본: 1,024 × 1,024 = <strong>1,048,576</strong></div>
+    <div class="step">• LoRA: 1024×32 + 32×1024 = 32,768 + 32,768 = <strong>65,536</strong></div>
+    <div class="step">• 절감 배율: 1,048,576 / 65,536 = <strong>16배</strong> &nbsp;(d/(2r) = 1024/64 = 16)</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 6-2] Scaling Laws: Language Model Loss</div>
+  <div class="kr">스케일링 법칙으로 모델 손실값 계산</div>
+  <div class="info">
+    <strong>문제:</strong> Scaling law L(N) = (Nc/N)<sup>αN</sup>에서 αN = 0.076, Nc = 8.8×10<sup>13</sup>일 때,<br>
+    N = 10<sup>9</sup> (1B 파라미터)인 경우 L(N)을 계산하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-6-2')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-6-2" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• L(N) = (8.8×10<sup>13</sup> / 10<sup>9</sup>)<sup>0.076</sup> = (8.8×10<sup>4</sup>)<sup>0.076</sup></div>
+      <div class="step">• log₁₀(88,000) ≈ 4.944</div>
+      <div class="step">• 0.076 × 4.944 ≈ 0.376</div>
+      <div class="step">• L(N) ≈ 10<sup>0.376</sup> ≈ <strong>2.38</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> 스케일링 법칙(Scaling Laws)은 모델 성능(Cross-Entropy Loss)이 모델 파라미터 수(N), 데이터양(D), 컴퓨팅(C=FLOPs) 각각과 멱법칙(power-law) 관계를 가진다는 실험적 발견입니다. 공식 L(N) = (Nc/N)<sup>αN</sup>에서 Nc는 임계 모델 크기, αN은 지수(실험적으로 측정). N이 클수록 L이 줄어드는(성능 향상) 패턴이 성립합니다. <br>
+        계산 요령: ① (Nc/N) 비율 계산 → ② log₁₀으로 변환 → ③ αN을 곱해 지수 → ④ 10의 거듭제곱으로 환원. 이 공식으로 특정 손실 목표 달성에 필요한 모델 크기를 사전에 예측할 수 있어 대형 모델 훈련 비용 최적화에 활용됩니다.
+      </div>
+      <strong>핵심:</strong> 계산 순서 — 비율 → log₁₀ → ×αN → 10^결과. N 클수록 L 작아짐.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-2-A]</div>
+  <div class="practice-q">동일 조건(αN=0.076, Nc=8.8×10<sup>13</sup>)에서 N=10<sup>10</sup> (10B 파라미터)일 때 L(N)을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-2a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-2a" style="display:none">
+    <div class="step">• (8.8×10<sup>13</sup> / 10<sup>10</sup>)<sup>0.076</sup> = (8,800)<sup>0.076</sup></div>
+    <div class="step">• log₁₀(8,800) ≈ 3.944</div>
+    <div class="step">• 0.076 × 3.944 ≈ 0.300</div>
+    <div class="step">• L(10B) ≈ 10<sup>0.300</sup> ≈ <strong>2.00</strong></div>
+    <div class="step">💡 N이 10배 증가(1B→10B)할수록 손실이 2.38→2.00으로 감소.</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-2-B]</div>
+  <div class="practice-q">동일 조건에서 N=10<sup>11</sup> (100B 파라미터)일 때 L(N)을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-2b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-2b" style="display:none">
+    <div class="step">• (8.8×10<sup>13</sup> / 10<sup>11</sup>)<sup>0.076</sup> = (880)<sup>0.076</sup></div>
+    <div class="step">• log₁₀(880) ≈ 2.944</div>
+    <div class="step">• 0.076 × 2.944 ≈ 0.224</div>
+    <div class="step">• L(100B) ≈ 10<sup>0.224</sup> ≈ <strong>1.67</strong></div>
+    <div class="step">💡 1B→10B→100B 손실: 2.38→2.00→1.67 (모델 클수록 손실 줄어듦)</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 6-3] Temperature Sampling: Probability Reshaping</div>
+  <div class="kr">온도 샘플링: 확률 분포 변환</div>
+  <div class="info">
+    <strong>문제:</strong> 다음 토큰 확률이 P(A)=0.5, P(B)=0.3, P(C)=0.2일 때, 온도 τ=2를 적용한 후의 새로운 확률 분포를 구하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-6-3')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-6-3" style="display:none">
+      <strong>단계별 풀이:</strong> 각 확률에 1/τ 제곱 후 재정규화<br>
+      <div class="step">• P(A)<sup>1/2</sup> = 0.5<sup>0.5</sup> = 0.707</div>
+      <div class="step">• P(B)<sup>1/2</sup> = 0.3<sup>0.5</sup> = 0.548</div>
+      <div class="step">• P(C)<sup>1/2</sup> = 0.2<sup>0.5</sup> = 0.447</div>
+      <div class="step">• 합계: 0.707 + 0.548 + 0.447 = 1.702</div>
+      <div class="step">• 정규화: P(A) = 0.707/1.702 ≈ <strong>0.416</strong>, P(B) ≈ <strong>0.322</strong>, P(C) ≈ <strong>0.263</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> 온도(τ)는 토큰 확률 분포의 뾰족함을 조절합니다. 원리: 원본 로짓(logit)을 τ로 나눈 후 softmax 적용 = 확률에 1/τ 거듭제곱 후 재정규화와 동일. <br>
+        • τ &lt; 1 → 높은 확률 토큰의 비중이 더 증가 → 분포가 더 뾰족해짐(보수적 생성)<br>
+        • τ > 1 → 확률 차이가 줄어들어 분포가 평탄해짐(다양성 증가) ← 이 예제 (τ=2)<br>
+        • τ → 0 → greedy decoding(가장 높은 확률 토큰만)<br>
+        • τ → ∞ → 모든 토큰 동일 확률(완전 랜덤)<br>
+        원본 P(A)=0.5였지만 τ=2 적용 후 0.416으로 낮아지고, P(C)=0.2였다가 0.263으로 올라간 것을 확인하세요. 다양성이 증가했습니다.
+      </div>
+      <strong>핵심:</strong> τ>1 → 평탄(다양성↑). τ&lt;1 → 뾰족(집중↑). τ→0 = greedy.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-3-A]</div>
+  <div class="practice-q">P(A)=0.6, P(B)=0.3, P(C)=0.1일 때, τ=0.5를 적용한 후의 확률 분포를 구하라. (τ&lt;1 효과 확인)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-3a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-3a" style="display:none">
+    <div class="step">• 1/τ = 1/0.5 = 2</div>
+    <div class="step">• P(A)<sup>2</sup> = 0.6² = 0.360</div>
+    <div class="step">• P(B)<sup>2</sup> = 0.3² = 0.090</div>
+    <div class="step">• P(C)<sup>2</sup> = 0.1² = 0.010</div>
+    <div class="step">• 합계: 0.360 + 0.090 + 0.010 = 0.460</div>
+    <div class="step">• 정규화: P(A) = 0.360/0.460 ≈ <strong>0.783</strong>, P(B) ≈ <strong>0.196</strong>, P(C) ≈ <strong>0.022</strong></div>
+    <div class="step">💡 τ&lt;1이므로 P(A)가 0.6→0.783으로 올라가고 P(C)는 0.1→0.022로 감소. 분포가 더 뾰족해짐.</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 6-3-B]</div>
+  <div class="practice-q">P(A)=0.4, P(B)=0.35, P(C)=0.25일 때, τ=3을 적용한 후의 확률 분포를 구하라. (소수점 3자리)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-6-3b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-6-3b" style="display:none">
+    <div class="step">• 1/τ = 1/3 ≈ 0.333</div>
+    <div class="step">• P(A)<sup>0.333</sup> = 0.4<sup>1/3</sup> ≈ 0.737</div>
+    <div class="step">• P(B)<sup>0.333</sup> = 0.35<sup>1/3</sup> ≈ 0.705</div>
+    <div class="step">• P(C)<sup>0.333</sup> = 0.25<sup>1/3</sup> ≈ 0.630</div>
+    <div class="step">• 합계: 0.737 + 0.705 + 0.630 = 2.072</div>
+    <div class="step">• 정규화: P(A) ≈ <strong>0.356</strong>, P(B) ≈ <strong>0.340</strong>, P(C) ≈ <strong>0.304</strong></div>
+    <div class="step">💡 τ=3(큰 값)이므로 0.4:0.35:0.25가 0.356:0.340:0.304로 거의 균등해짐.</div>
+  </div>
+</div>
+
+<!-- 7강 계산 -->
+<h3 id="ch7">7강: Retrieval-Augmented Generation (RAG)</h3>
+
+<div class="example-box">
+  <div class="en">[Example 7-1] IDF Calculation (Shakespeare Corpus)</div>
+  <div class="kr">IDF 계산: Shakespeare 코퍼스 예제 (슬라이드 직접 출제)</div>
+  <div class="info">
+    <strong>문제:</strong> 총 37개 문서로 구성된 Shakespeare 코퍼스에서 다음 단어의 IDF를 계산하라.<br>
+    (a) "Romeo" (DF=1) &nbsp; (b) "forest" (DF=12) &nbsp; (c) "good" (DF=37) &nbsp; IDF = log₁₀(N/DF)<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-7-1')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-7-1" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• IDF("Romeo") = log₁₀(37/1) = log₁₀(37) ≈ <strong>1.57</strong> → 희귀 단어, 높은 변별력</div>
+      <div class="step">• IDF("forest") = log₁₀(37/12) = log₁₀(3.083) ≈ <strong>0.49</strong> → 중간 변별력</div>
+      <div class="step">• IDF("good") = log₁₀(37/37) = log₁₀(1) = <strong>0</strong> → 전체 등장, 변별력 없음</div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> IDF(Inverse Document Frequency)는 특정 단어가 얼마나 '변별력'을 가지는지 측정합니다. 공식: IDF(t) = log₁₀(N/DF(t)). N=전체 문서 수, DF=해당 단어가 등장하는 문서 수.<br>
+        • DF가 작을수록(희귀 단어) → N/DF 큰 수 → log 값 큼 → 변별력 높음<br>
+        • DF=N이면 → log(1)=0 → 변별력 없음 ("the", "a", "good" 같은 불용어)<br>
+        TF-IDF = TF(해당 문서에서 등장 빈도) × IDF(전체 문서 기준 희귀도). "Romeo"는 특정 문서에만 등장하므로 TF-IDF가 높아져 해당 문서를 찾는 데 유용합니다. 슬라이드 예제로 직접 출제될 가능성 높음.
+      </div>
+      <strong>핵심:</strong> DF=N → IDF=0. DF 작을수록 IDF 큼. TF-IDF = TF × IDF.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-1-A]</div>
+  <div class="practice-q">총 100개 문서에서 IDF = log₁₀(N/DF)로 계산하라.<br>(a) "Python" (DF=5) &nbsp; (b) "the" (DF=100) &nbsp; (c) "algorithm" (DF=20)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-1a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-1a" style="display:none">
+    <div class="step">• IDF("Python") = log₁₀(100/5) = log₁₀(20) ≈ <strong>1.301</strong></div>
+    <div class="step">• IDF("the") = log₁₀(100/100) = log₁₀(1) = <strong>0</strong></div>
+    <div class="step">• IDF("algorithm") = log₁₀(100/20) = log₁₀(5) ≈ <strong>0.699</strong></div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-1-B]</div>
+  <div class="practice-q">총 50개 문서에서 IDF를 계산하라.<br>(a) "neural" (DF=10) &nbsp; (b) "transformer" (DF=2) &nbsp; (c) "is" (DF=50)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-1b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-1b" style="display:none">
+    <div class="step">• IDF("neural") = log₁₀(50/10) = log₁₀(5) ≈ <strong>0.699</strong></div>
+    <div class="step">• IDF("transformer") = log₁₀(50/2) = log₁₀(25) ≈ <strong>1.398</strong></div>
+    <div class="step">• IDF("is") = log₁₀(50/50) = <strong>0</strong></div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 7-2] Precision &amp; Recall @k</div>
+  <div class="kr">검색 평가: Precision &amp; Recall @k 계산</div>
+  <div class="info">
+    <strong>문제:</strong> 전체 관련 문서(U)가 9개인 컬렉션에서 검색 시스템이 순위 리스트를 반환했다.<br>
+    1위, 2위, 4위, 6위, 8위가 관련 문서(relevant)이다. (a) P@3, R@3 &nbsp; (b) P@5, R@5를 계산하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-7-2')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-7-2" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• Top-3 중 관련: 1위✓, 2위✓, 3위✗ → |R|=2, |T|=3</div>
+      <div class="step">  P@3 = 2/3 ≈ <strong>0.667</strong> &nbsp;&nbsp; R@3 = 2/9 ≈ <strong>0.222</strong></div>
+      <div class="step">• Top-5 중 관련: 1위✓, 2위✓, 3위✗, 4위✓, 5위✗ → |R|=3, |T|=5</div>
+      <div class="step">  P@5 = 3/5 = <strong>0.600</strong> &nbsp;&nbsp; R@5 = 3/9 ≈ <strong>0.333</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> 정보 검색 평가의 핵심 지표입니다.<br>
+        • |T| = 검색된 문서 수 (Top-k이면 k)<br>
+        • |U| = 전체 컬렉션의 실제 관련 문서 수 (이 예제에서 9개)<br>
+        • |R| = 검색 결과(Top-k) 중 실제 관련 문서 수<br>
+        • Precision@k = |R|/|T| = k개 결과 중 관련 문서 비율 → "얼마나 정확하게 찾았나"<br>
+        • Recall@k = |R|/|U| = 전체 관련 문서 중 찾은 비율 → "얼마나 많이 찾았나"<br>
+        k가 커질수록 일반적으로 Recall↑ (더 많이 찾음), Precision↓ (무관 문서 섞임). 두 지표는 트레이드오프 관계.
+      </div>
+      <strong>핵심:</strong> Precision=|R|/|T|(검색결과 기준), Recall=|R|/|U|(전체관련 기준). 혼동 금지!
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-2-A]</div>
+  <div class="practice-q">전체 관련 문서(U)=12. 검색 결과에서 1위, 3위, 5위, 7위, 9위가 관련 문서일 때,<br>(a) P@4, R@4 &nbsp; (b) P@6, R@6을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-2a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-2a" style="display:none">
+    <div class="step">• Top-4 관련: 1위✓, 2위✗, 3위✓, 4위✗ → |R|=2</div>
+    <div class="step">  P@4 = 2/4 = <strong>0.500</strong> &nbsp;&nbsp; R@4 = 2/12 ≈ <strong>0.167</strong></div>
+    <div class="step">• Top-6 관련: 1위✓, 3위✓, 5위✓ → |R|=3</div>
+    <div class="step">  P@6 = 3/6 = <strong>0.500</strong> &nbsp;&nbsp; R@6 = 3/12 = <strong>0.250</strong></div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-2-B]</div>
+  <div class="practice-q">전체 관련 문서(U)=10. 검색 결과에서 2위, 3위, 6위, 9위가 관련 문서일 때,<br>(a) P@5, R@5 &nbsp; (b) P@10, R@10을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-2b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-2b" style="display:none">
+    <div class="step">• Top-5 관련: 2위✓, 3위✓ → |R|=2</div>
+    <div class="step">  P@5 = 2/5 = <strong>0.400</strong> &nbsp;&nbsp; R@5 = 2/10 = <strong>0.200</strong></div>
+    <div class="step">• Top-10 관련: 2위✓, 3위✓, 6위✓, 9위✓ → |R|=4</div>
+    <div class="step">  P@10 = 4/10 = <strong>0.400</strong> &nbsp;&nbsp; R@10 = 4/10 = <strong>0.400</strong></div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 7-3] Average Precision (AP) Calculation</div>
+  <div class="kr">평균 정밀도(AP) 계산</div>
+  <div class="info">
+    <strong>문제:</strong> 검색 결과 5개 중 2번째, 4번째 문서만 관련(relevant)일 때 AP를 계산하라.<br>
+    AP = (1/|R|) × Σ (P@k × I(d_k is relevant))<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-7-3')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-7-3" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• |R| = 2 (관련 문서 총 2개)</div>
+      <div class="step">• k=1: 관련✗ → 기여 없음</div>
+      <div class="step">• k=2: 관련✓ → P@2 = 1/2 = 0.500 → 기여 +0.500</div>
+      <div class="step">• k=3: 관련✗ → 기여 없음</div>
+      <div class="step">• k=4: 관련✓ → P@4 = 2/4 = 0.500 → 기여 +0.500</div>
+      <div class="step">• k=5: 관련✗ → 기여 없음</div>
+      <div class="step">• AP = (1/2) × (0.500 + 0.500) = <strong>0.50</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> AP(Average Precision)는 검색 순위 리스트 전체를 평가하는 지표입니다. 핵심 아이디어: 관련 문서가 상위 순위에 있을수록 AP가 높아집니다.<br>
+        계산 방법: ① 관련 문서가 검색될 때마다 그 시점의 Precision@k를 기록 → ② 그 값들의 평균. I(dk is relevant)는 k번째 문서가 관련이면 1, 아니면 0.<br>
+        예를 들어 관련 문서가 2위, 4위에 있으면 P@2=0.5, P@4=0.5 → AP=0.5. 만약 관련 문서가 1위, 2위에 있었다면 P@1=1.0, P@2=1.0 → AP=1.0 (최고). 관련 문서를 최대한 앞 순위에 배치할수록 좋습니다.
+      </div>
+      <strong>핵심:</strong> 관련 문서 순위마다 P@k를 기록 → 평균. 앞 순위 관련일수록 AP 높음.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-3-A]</div>
+  <div class="practice-q">검색 결과 5개 중 1번째, 3번째, 5번째 문서가 관련일 때 AP를 계산하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-3a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-3a" style="display:none">
+    <div class="step">• |R| = 3</div>
+    <div class="step">• k=1: 관련✓ → P@1 = 1/1 = 1.000</div>
+    <div class="step">• k=3: 관련✓ → P@3 = 2/3 ≈ 0.667</div>
+    <div class="step">• k=5: 관련✓ → P@5 = 3/5 = 0.600</div>
+    <div class="step">• AP = (1/3) × (1.000 + 0.667 + 0.600) = (1/3) × 2.267 ≈ <strong>0.756</strong></div>
+    <div class="step">💡 1위에 관련 문서가 있어 AP=0.756 > 원래 예제 0.50. 상위 배치 효과 확인.</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 7-3-B]</div>
+  <div class="practice-q">검색 결과 6개 중 3번째, 5번째만 관련일 때 AP를 계산하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-7-3b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-7-3b" style="display:none">
+    <div class="step">• |R| = 2</div>
+    <div class="step">• k=3: 관련✓ → P@3 = 1/3 ≈ 0.333</div>
+    <div class="step">• k=5: 관련✓ → P@5 = 2/5 = 0.400</div>
+    <div class="step">• AP = (1/2) × (0.333 + 0.400) = (1/2) × 0.733 ≈ <strong>0.367</strong></div>
+    <div class="step">💡 원 예제(2위,4위)와 비교: AP 0.50 > 0.367. 더 낮은 순위에 관련 문서가 있으면 AP 낮아짐.</div>
+  </div>
+</div>
+
+<!-- 8강 계산 -->
+<h3 id="ch8">8강: LLM Reasoning &amp; Post-training</h3>
+
+<div class="example-box">
+  <div class="en">[Example 8-1] Self-consistency CoT: Majority Voting</div>
+  <div class="kr">Self-consistency CoT: 다수결 투표</div>
+  <div class="info">
+    <strong>문제:</strong> "3개 사과가 $6이면 5개 사과는?" 질문에 모델을 온도 샘플링으로 5번 실행했을 때<br>
+    결과: $10, $10, $8, $10, $12. Self-consistency 방법으로 최종 답을 선택하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-8-1')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-8-1" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• $10: 3번 등장 ← 최다</div>
+      <div class="step">• $8: 1번 등장</div>
+      <div class="step">• $12: 1번 등장</div>
+      <div class="step">• Majority Vote → 최종 답: <strong>$10</strong></div>
+      <div class="step">※ 실제 정답: 5개 × ($6/3개) = 5 × $2 = $10 ✓</div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> Self-consistency CoT는 단일 추론 경로의 취약성을 해결합니다. 단일 CoT는 중간 단계 하나만 틀려도 최종 오답이 되지만, Self-consistency는 온도 샘플링(τ>0)으로 다양한 추론 경로를 여러 번 생성한 뒤 다수결 투표로 최종 답을 선택합니다.<br>
+        핵심 가정: 올바른 추론 경로들은 일관된 답에 수렴하고, 잘못된 경로들은 다양한 오답으로 분산됩니다. 따라서 가장 많이 등장한 답이 정답일 가능성이 높습니다. N회 호출(계산 비용 증가)이 단점이지만 정확도가 크게 향상됩니다.
+      </div>
+      <strong>핵심:</strong> 여러 추론 경로 생성 → Majority Vote. 올바른 경로 = 같은 답에 수렴.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-1-A]</div>
+  <div class="practice-q">"12명을 3팀으로 나누면 한 팀은?" 질문에 7번 샘플링 결과: 4, 4, 3, 4, 5, 4, 3. 최종 답은?</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-1a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-1a" style="display:none">
+    <div class="step">• 4: 4번 등장 ← 최다</div>
+    <div class="step">• 3: 2번 등장</div>
+    <div class="step">• 5: 1번 등장</div>
+    <div class="step">• Majority Vote → 최종 답: <strong>4명</strong> (실제 정답: 12/3=4 ✓)</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-1-B]</div>
+  <div class="practice-q">번역 태스크에서 6번 샘플링 결과: "파리", "파리", "런던", "파리", "베를린", "파리". 최종 답은? 이 방식의 한계를 서술하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-1b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-1b" style="display:none">
+    <div class="step">• "파리": 4번 → 최종 답: <strong>파리</strong></div>
+    <div class="step">• 한계: Self-consistency는 단일 정답(Closed-ended) 문제에 효과적. 창의적/개방형 생성(Open-ended)에서는 "최다 등장 답"의 의미가 불분명해짐. 계산 비용이 N배로 증가하는 단점도 있음.</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 8-2] RLVR Expected Reward (REINFORCE)</div>
+  <div class="kr">RLVR 기대 보상 계산 (REINFORCE)</div>
+  <div class="info">
+    <strong>문제:</strong> RLVR에서 모델의 정답률 60%. 이진 보상: 정답 r=1, 오답 r=0.<br>
+    (a) 현재 E[r]를 계산하라. &nbsp; (b) 학습 후 정답률 80%일 때 E[r]은?<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-8-2')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-8-2" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• (a) E[r] = 0.6 × 1 + 0.4 × 0 = <strong>0.6</strong></div>
+      <div class="step">• (b) E[r] = 0.8 × 1 + 0.2 × 0 = <strong>0.8</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> RLVR(RL with Verifiable Rewards)에서 기대 보상 E[r]은 모델의 현재 능력을 수치로 나타냅니다. 이진 보상(Binary Reward): 검증 가능한 정답이면 r=1, 오답이면 r=0.<br>
+        REINFORCE 업데이트 규칙: ∇J(θ) = E[r × ∇log π_θ(y|x)]. 보상이 높을수록(r=1) 해당 생성 경로의 log-probability를 높이도록 파라미터를 조정합니다. 오답(r=0)에서는 기울기 기여가 없어 업데이트 없음. 이진 보상이므로 E[r] = 정답률 그 자체입니다.<br>
+        RLVR의 장점: 자동 검증기(verifier)로 인간 개입 없이 이진 보상 부여 가능 → 데이터 확장성 우수.
+      </div>
+      <strong>핵심:</strong> 이진 보상에서 E[r] = 정답률. REINFORCE: r=1이면 해당 경로 log-prob↑.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-2-A]</div>
+  <div class="practice-q">이진 보상(r=1/0)에서 정답률 45%일 때 E[r]을 구하라. 학습 후 75%가 되면 E[r]은?</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-2a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-2a" style="display:none">
+    <div class="step">• 초기: E[r] = 0.45×1 + 0.55×0 = <strong>0.45</strong></div>
+    <div class="step">• 학습 후: E[r] = 0.75×1 + 0.25×0 = <strong>0.75</strong></div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-2-B]</div>
+  <div class="practice-q">보상이 정답 r=+2, 오답 r=−1인 경우, 정답률 60%일 때 E[r]은? 학습 후 80%일 때는?</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-2b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-2b" style="display:none">
+    <div class="step">• 초기: E[r] = 0.6×(+2) + 0.4×(−1) = 1.2 − 0.4 = <strong>0.8</strong></div>
+    <div class="step">• 학습 후: E[r] = 0.8×(+2) + 0.2×(−1) = 1.6 − 0.2 = <strong>1.4</strong></div>
+    <div class="step">💡 비이진 보상에서는 E[r] ≠ 정답률. E[r] = Σ (확률 × 보상)</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 8-3] LoRA for Large Model (Instruction Tuning Scenario)</div>
+  <div class="kr">대형 모델에서 LoRA 파라미터 절감 (인스트럭션 튜닝 시나리오)</div>
+  <div class="info">
+    <strong>문제:</strong> 7B LLM의 Attention Q 행렬 크기: 4096×4096. r=16 LoRA 적용 시<br>
+    원본 vs LoRA 파라미터 수와 절감 배율을 구하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-8-3')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-8-3" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• 원본: 4096 × 4096 = <strong>16,777,216</strong> ≈ 16.8M</div>
+      <div class="step">• B∈ℝ<sup>4096×16</sup>: 65,536 &nbsp; A∈ℝ<sup>16×4096</sup>: 65,536 &nbsp; 합계: <strong>131,072</strong> ≈ 131K</div>
+      <div class="step">• 절감 배율: 16,777,216 / 131,072 = <strong>128배</strong> (99.2% 감소)</div>
+      <div class="step">• 공식: d/(2r) = 4096/(2×16) = 128</div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> 대형 모델(7B LLM)에서 LoRA의 파라미터 절감 효과는 더욱 극적입니다. 실제로는 Attention의 Q, K, V, O 행렬 각각에 LoRA를 적용합니다. 32층 모델이라면 4행렬×32층×131K = 약 16.8M LoRA 파라미터로, 원본 7B의 0.24%에 해당합니다.<br>
+        인스트럭션 튜닝 시 full fine-tuning(7B 파라미터 모두 업데이트)은 GPU 메모리 80GB+가 필요하지만, LoRA를 사용하면 단일 GPU에서도 학습이 가능합니다. 실제로 LLaMA-3 7B를 LoRA로 fine-tuning할 때 단일 24GB GPU로 충분합니다.
+      </div>
+      <strong>핵심:</strong> 절감배율 = d/(2r) = 4096/32 = 128. 대형 모델일수록 절감 효과 극대화.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-3-A]</div>
+  <div class="practice-q">Q 행렬 크기 2048×2048, r=8로 LoRA 적용 시 원본, LoRA 파라미터 수, 절감 배율을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-3a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-3a" style="display:none">
+    <div class="step">• 원본: 2048 × 2048 = <strong>4,194,304</strong></div>
+    <div class="step">• LoRA: 2048×8 + 8×2048 = 16,384+16,384 = <strong>32,768</strong></div>
+    <div class="step">• 절감 배율: 4,194,304 / 32,768 = <strong>128배</strong> &nbsp;(d/(2r)=2048/16=128)</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 8-3-B]</div>
+  <div class="practice-q">Q 행렬 크기 8192×8192, r=64로 LoRA 적용 시 절감 배율을 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-8-3b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-8-3b" style="display:none">
+    <div class="step">• 원본: 8192 × 8192 = <strong>67,108,864</strong> ≈ 67M</div>
+    <div class="step">• LoRA: 8192×64 + 64×8192 = 524,288+524,288 = <strong>1,048,576</strong> ≈ 1M</div>
+    <div class="step">• 절감 배율: 67,108,864 / 1,048,576 = <strong>64배</strong> &nbsp;(d/(2r)=8192/128=64)</div>
+  </div>
+</div>
+
+<!-- 9강 계산 -->
+<h3 id="ch9">9강: LLM Agents</h3>
+
+<div class="example-box">
+  <div class="en">[Example 9-1] Bradley-Terry Reward Model</div>
+  <div class="kr">RLHF 보상 모델: Bradley-Terry 선호 확률 계산</div>
+  <div class="info">
+    <strong>문제:</strong> r_w = 3.0 (선호 응답), r_l = 1.0 (비선호 응답)일 때<br>
+    Bradley-Terry 모델로 P(y_w ≻ y_l) = e<sup>r_w</sup> / (e<sup>r_w</sup> + e<sup>r_l</sup>)을 계산하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-9-1')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-9-1" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• e<sup>3.0</sup> ≈ 20.09, &nbsp; e<sup>1.0</sup> ≈ 2.718</div>
+      <div class="step">• P = 20.09 / (20.09 + 2.718) = 20.09 / 22.808 ≈ <strong>0.881 (88.1%)</strong></div>
+      <div class="step">• 또는: P = σ(r_w − r_l) = σ(3.0 − 1.0) = σ(2.0) ≈ 0.881</div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> Bradley-Terry 모델은 두 항목 간 선호 확률을 모델링합니다. P(A≻B) = e<sup>rA</sup>/(e<sup>rA</sup>+e<sup>rB</sup>) = σ(rA−rB). σ는 시그모이드 함수.<br>
+        핵심 특성: ① r_w=r_l이면 P=0.5(무차별). ② 차이(r_w−r_l)가 클수록 P→1. ③ σ(2.0)≈0.881은 자주 출제되는 수치이므로 기억 권장.<br>
+        RLHF에서 이 목적함수로 인간 선호 쌍 데이터(y_w≻y_l)를 사용해 보상 모델을 학습합니다. 학습 손실: L = −E[log P(y_w≻y_l)] = −E[log σ(r_w−r_l)].
+      </div>
+      <strong>핵심:</strong> P = e<sup>rw</sup>/(e<sup>rw</sup>+e<sup>rl</sup>) = σ(rw−rl). 차이 2.0 → P≈88.1%.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-1-A]</div>
+  <div class="practice-q">r_w = 2.0, r_l = 0.5일 때 P(y_w ≻ y_l)를 계산하라. (e<sup>2.0</sup>≈7.389, e<sup>0.5</sup>≈1.649)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-1a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-1a" style="display:none">
+    <div class="step">• P = 7.389 / (7.389 + 1.649) = 7.389 / 9.038 ≈ <strong>0.817 (81.7%)</strong></div>
+    <div class="step">• 또는 σ(2.0−0.5) = σ(1.5) ≈ 0.817</div>
+    <div class="step">💡 차이가 2.0→1.5로 줄었으므로 P도 88.1%→81.7%로 감소.</div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-1-B]</div>
+  <div class="practice-q">r_w = 5.0, r_l = 3.0일 때 P(y_w ≻ y_l)를 구하라. (e<sup>5</sup>≈148.4, e<sup>3</sup>≈20.09)</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-1b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-1b" style="display:none">
+    <div class="step">• P = 148.4 / (148.4 + 20.09) = 148.4 / 168.49 ≈ <strong>0.881 (88.1%)</strong></div>
+    <div class="step">• σ(5.0−3.0) = σ(2.0) ≈ 0.881 ← 원 예제와 동일!</div>
+    <div class="step">💡 절대값 r_w, r_l이 달라도 <em>차이(r_w−r_l)가 같으면</em> P가 같음. 중요한 성질!</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 9-2] RLHF: KL Divergence Regularization</div>
+  <div class="kr">RLHF: KL 발산 패널티 계산</div>
+  <div class="info">
+    <strong>문제:</strong> J(θ) = E[r(y)] − β × KL(π_θ || π_ref)<br>
+    E[r]=2.5, KL=1.2, β=0.3일 때 J(θ)를 구하라.<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-9-2')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-9-2" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• KL 패널티: β × KL = 0.3 × 1.2 = 0.36</div>
+      <div class="step">• J(θ) = 2.5 − 0.36 = <strong>2.14</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> RLHF의 regularized objective는 순수 보상 최대화의 문제점(reward hacking, mode collapse 등)을 해결합니다.<br>
+        • E[r(y)]: 현재 정책 모델의 기대 보상 (높을수록 좋음)<br>
+        • KL(π_θ ∥ π_ref): 현재 정책이 참조 SFT 모델에서 얼마나 벗어났는지 (작을수록 좋음)<br>
+        • β: KL 패널티 강도. β=0이면 순수 reward 최대화 → reward hacking 위험. β가 클수록 참조 모델에 가깝게 유지.<br>
+        J(θ)를 최대화하는 것 = "보상을 높이되, 참조 모델에서 너무 멀리 벗어나지 말 것"의 균형.
+      </div>
+      <strong>핵심:</strong> J = E[r] − β×KL. β↑ → 참조 모델 이탈 억제. β=0 → reward hacking 위험.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-2-A]</div>
+  <div class="practice-q">E[r]=3.0, KL=0.8, β=0.5일 때 J(θ)를 구하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-2a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-2a" style="display:none">
+    <div class="step">• KL 패널티: 0.5 × 0.8 = 0.40</div>
+    <div class="step">• J(θ) = 3.0 − 0.40 = <strong>2.60</strong></div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-2-B]</div>
+  <div class="practice-q">E[r]=4.2, KL=2.0일 때, (a) β=0.1이면 J=? (b) β=1.0이면 J=? β 크기 변화의 의미를 설명하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-2b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-2b" style="display:none">
+    <div class="step">• (a) β=0.1: J = 4.2 − 0.1×2.0 = 4.2 − 0.20 = <strong>4.00</strong></div>
+    <div class="step">• (b) β=1.0: J = 4.2 − 1.0×2.0 = 4.2 − 2.00 = <strong>2.20</strong></div>
+    <div class="step">• β가 0.1→1.0으로 10배 증가하면, KL 이탈(2.0)이 강하게 패널티되어 J가 4.00→2.20으로 감소. β가 클수록 참조 모델 근처에서 최적화해야 함.</div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="en">[Example 9-3] LLaVA Projection Matrix Size</div>
+  <div class="kr">LLaVA: 시각-텍스트 프로젝션 행렬 파라미터 수</div>
+  <div class="info">
+    <strong>문제:</strong> LLaVA에서 CLIP 출력 768-dim, LLM 입력 4096-dim일 때, 프로젝션 행렬 W의 파라미터 수는?<br>
+    <button class="sol-btn" data-label="▼ 풀이 &amp; 설명 보기" onclick="toggleSol('sol-9-3')">▼ 풀이 &amp; 설명 보기</button>
+    <div class="sol-box" id="sol-9-3" style="display:none">
+      <strong>단계별 풀이:</strong><br>
+      <div class="step">• W ∈ ℝ<sup>768×4096</sup> (CLIP dim → LLM dim)</div>
+      <div class="step">• 파라미터 수: 768 × 4096 = <strong>3,145,728 ≈ 3.1M</strong></div>
+      <div class="sol-detail">
+        <strong>상세 설명:</strong> LLaVA(Large Language and Vision Assistant) 아키텍처:<br>
+        ① CLIP 비전 인코더: 이미지 패치 → Z_v (각 패치에 768-dim 벡터)<br>
+        ② 프로젝션: H_v = W × Z_v (768-dim → 4096-dim, 언어 공간으로 변환)<br>
+        ③ Concatenate: [H_v; H_q] (시각 토큰 + 텍스트 토큰) → LLaMA 입력<br>
+        학습 단계: 초기에 CLIP 인코더·LLaMA 모두 frozen, W만 학습 → 이후 전체 fine-tuning. W를 통해 "이미지 토큰"이 텍스트 토큰과 동일한 공간에서 처리됩니다.
+      </div>
+      <strong>핵심:</strong> W 크기 = CLIP_dim × LLM_dim. H_v=W×Z_v → [H_v;H_q] → LLM.
+    </div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-3-A]</div>
+  <div class="practice-q">CLIP 출력 1024-dim, LLM 입력 4096-dim인 LLaVA 변형에서 W의 파라미터 수는?</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-3a')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-3a" style="display:none">
+    <div class="step">• W ∈ ℝ<sup>1024×4096</sup></div>
+    <div class="step">• 파라미터 수: 1024 × 4096 = <strong>4,194,304 ≈ 4.2M</strong></div>
+  </div>
+</div>
+<div class="practice-box">
+  <div class="practice-label">[연습 9-3-B]</div>
+  <div class="practice-q">CLIP 출력 512-dim, LLM 입력 2048-dim일 때 W의 파라미터 수는? 원 예제(768→4096, 3.1M)와 비교 설명하라.</div>
+  <button class="sol-btn" data-label="▼ 풀이 보기" onclick="toggleSol('pr-9-3b')">▼ 풀이 보기</button>
+  <div class="sol-box" id="pr-9-3b" style="display:none">
+    <div class="step">• W ∈ ℝ<sup>512×2048</sup></div>
+    <div class="step">• 파라미터 수: 512 × 2048 = <strong>1,048,576 ≈ 1.05M</strong></div>
+    <div class="step">• 원 예제 3.1M 대비 약 1/3 수준. 더 작은 모델(소형 LLM)일수록 W도 작아짐.</div>
+  </div>
+</div>
+
+
+<!-- ==============================
+     PART 2: T/F 문제
+     ============================== -->
+<h2>PART 2: True / False 문제</h2>
+
+<!-- ── 6강 T/F ── -->
+<h3>6강: LLMs &amp; In-context Learning</h3>
+
+<div class="q-box">
+  <span class="q-num">Q1</span> <span class="tag tf">T/F</span>
+  LoRA는 weight update ΔW를 저랭크(low-rank) 행렬의 곱 BA로 근사한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-1')">정답 보기</button>
+  <div class="answer" id="tf6-1"><span class="tf-true">TRUE</span> — ΔW ≈ BA (B∈ℝ<sup>d×r</sup>, A∈ℝ<sup>r×d</sup>, r≪d). 사전학습 가중치 W₀는 frozen.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q2</span> <span class="tag tf">T/F</span>
+  In-context learning은 모델 파라미터를 업데이트하여 새 작업에 적응한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-2')">정답 보기</button>
+  <div class="answer" id="tf6-2"><span class="tf-false">FALSE</span> — ICL은 파라미터 업데이트 없음. 프롬프트의 예제로만 학습 효과를 냄. GPT-3 논문에서 처음 연구.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q3</span> <span class="tag tf">T/F</span>
+  k=1인 Top-k sampling은 greedy decoding과 동일하다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-3')">정답 보기</button>
+  <div class="answer" id="tf6-3"><span class="tf-true">TRUE</span> — k=1이면 가장 높은 확률의 토큰만 선택 → greedy decoding과 동일.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q4</span> <span class="tag tf">T/F</span>
+  Emergent ability는 소규모 모델의 성능으로 사전에 예측할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-4')">정답 보기</button>
+  <div class="answer" id="tf6-4"><span class="tf-false">FALSE</span> — Emergent ability는 특정 규모 임계값 이전까지 random 성능을 보이다 갑자기 나타남. 소규모 모델로 예측 불가.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q5</span> <span class="tag tf">T/F</span>
+  Prompt tuning에서는 LM 파라미터 전체를 학습한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-5')">정답 보기</button>
+  <div class="answer" id="tf6-5"><span class="tf-false">FALSE</span> — Prompt tuning은 LM을 frozen한 채 소수의 prompt token embedding만 학습. PEFT의 일종.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q6</span> <span class="tag tf">T/F</span>
+  GPT-3는 96개 레이어, 175B 파라미터를 가지며 2020년에 공개되었다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-6')">정답 보기</button>
+  <div class="answer" id="tf6-6"><span class="tf-true">TRUE</span> — 슬라이드 직접 인용: GPT-3(2020): 96 layers, 175B parameters.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q7</span> <span class="tag tf">T/F</span>
+  온도 τ→∞일 때 temperature sampling은 greedy decoding에 가까워진다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-7')">정답 보기</button>
+  <div class="answer" id="tf6-7"><span class="tf-false">FALSE</span> — τ→0이 greedy decoding에 수렴. τ→∞는 모든 토큰이 균등 확률이 되어 완전 랜덤 샘플링.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q8</span> <span class="tag tf">T/F</span>
+  Scaling law에서 모델 성능은 모델 크기(N), 데이터셋 크기(D), 컴퓨팅(C) 각각과 멱법칙(power-law) 관계를 보인다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-8')">정답 보기</button>
+  <div class="answer" id="tf6-8"><span class="tf-true">TRUE</span> — 다른 두 요소가 병목이 아닐 때 각 요소와 Cross-entropy loss 간 power-law 관계 성립.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q9</span> <span class="tag tf">T/F</span>
+  GPT(Decoder) 아키텍처는 양방향 셀프 어텐션(Bidirectional self-attention)을 사용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-9')">정답 보기</button>
+  <div class="answer" id="tf6-9"><span class="tf-false">FALSE</span> — GPT(Decoder)는 단방향(Unidirectional) 셀프 어텐션. BERT(Encoder)가 양방향.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q10</span> <span class="tag tf">T/F</span>
+  Nucleus sampling(Top-p)은 상위 p 퍼센트 확률 질량을 포함하는 최소 어휘 집합에서 샘플링한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-10')">정답 보기</button>
+  <div class="answer" id="tf6-10"><span class="tf-true">TRUE</span> — Top-k의 단점(확률 분포 형태 무시)을 보완. 일반적으로 p=0.9 사용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q11</span> <span class="tag tf">T/F</span>
+  In-context learning은 GPT-2 논문에서 처음 연구된 개념이다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-11')">정답 보기</button>
+  <div class="answer" id="tf6-11"><span class="tf-false">FALSE</span> — GPT-3 논문에서 처음 연구됨. ICL은 GPT-3의 주요 발견 중 하나.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q12</span> <span class="tag tf">T/F</span>
+  BERT는 Masked Language Modeling(MLM)을 사전학습 목표로 사용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-12')">정답 보기</button>
+  <div class="answer" id="tf6-12"><span class="tf-true">TRUE</span> — BERT: MLM(단어 15% 마스킹 후 예측) + NSP(다음 문장 예측) 두 가지 사전학습 목표 사용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q13</span> <span class="tag tf">T/F</span>
+  Greedy decoding은 동일한 입력에 여러 번 실행해도 항상 같은 출력을 보장한다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-13')">정답 보기</button>
+  <div class="answer" id="tf6-13"><span class="tf-true">TRUE</span> — Greedy decoding의 장점: Deterministic(결정론적). 단점: globally optimal solution 보장 안됨, 다양성 없음.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q14</span> <span class="tag tf">T/F</span>
+  Fine-tuning 시 PEFT는 모든 모델 파라미터를 업데이트하는 방식이다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-14')">정답 보기</button>
+  <div class="answer" id="tf6-14"><span class="tf-false">FALSE</span> — PEFT(Parameter Efficient Fine-tuning)는 소수의 파라미터만 업데이트. Full fine-tuning의 비용 문제 해결.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q15</span> <span class="tag tf">T/F</span>
+  The Pile은 800GB 이상의 22개 서브데이터셋으로 구성된 사전학습 코퍼스다.
+  <br><button class="toggle-btn" onclick="toggle('tf6-15')">정답 보기</button>
+  <div class="answer" id="tf6-15"><span class="tf-true">TRUE</span> — 슬라이드 직접 인용: The Pile: 22 sub-datasets (&gt;800GB). 대형 언어모델 사전학습에 널리 사용.</div>
+</div>
+
+<!-- ── 7강 T/F ── -->
+<h3>7강: Retrieval-Augmented Generation (RAG)</h3>
+
+<div class="q-box">
+  <span class="q-num">Q16</span> <span class="tag tf">T/F</span>
+  Extractive QA는 주어진 문맥에서 텍스트 span을 그대로 추출하여 답변한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-1')">정답 보기</button>
+  <div class="answer" id="tf7-1"><span class="tf-true">TRUE</span> — Extractive QA = Reading Comprehension. BERT 같은 encoder-only 모델로 수행. ↔ Abstractive QA는 재구성.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q17</span> <span class="tag tf">T/F</span>
+  Parametric knowledge는 모델 파라미터 외부의 데이터베이스에 저장된 지식이다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-2')">정답 보기</button>
+  <div class="answer" id="tf7-2"><span class="tf-false">FALSE</span> — Parametric knowledge = 모델 파라미터 내부에 인코딩된 지식. 외부 = non-parametric knowledge.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q18</span> <span class="tag tf">T/F</span>
+  TF-IDF는 원시 빈도수(raw count)가 아닌 로그 스케일로 변환한 TF를 사용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-3')">정답 보기</button>
+  <div class="answer" id="tf7-3"><span class="tf-true">TRUE</span> — 100번 등장이 10번보다 10배 중요하지 않음. 로그 스케일로 squash: TF = 1 + log(count) (count>0일 때).</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q19</span> <span class="tag tf">T/F</span>
+  Bi-encoder는 쿼리와 문서를 함께 처리하여 상호 작용(interaction)을 포착한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-4')">정답 보기</button>
+  <div class="answer" id="tf7-4"><span class="tf-false">FALSE</span> — Bi-encoder는 쿼리/문서를 독립적으로 인코딩 → 상호 작용 포착 불가. Cross-encoder가 함께 처리.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q20</span> <span class="tag tf">T/F</span>
+  Cross-encoder는 문서 벡터를 미리 계산(precompute)해 둘 수 있어 대규모 검색에 적합하다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-5')">정답 보기</button>
+  <div class="answer" id="tf7-5"><span class="tf-false">FALSE</span> — 이것은 Bi-encoder의 장점. Cross-encoder는 쿼리-문서 쌍을 매번 처리해야 하므로 대규모 검색에 비적합(scalability 낮음).</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q21</span> <span class="tag tf">T/F</span>
+  Recall = |R|/|T| (검색된 관련 문서 수 / 전체 검색 결과 수)이다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-6')">정답 보기</button>
+  <div class="answer" id="tf7-6"><span class="tf-false">FALSE</span> — Precision = |R|/|T|. Recall = |R|/|U| (전체 컬렉션의 관련 문서 수). 공식 혼동 주의!</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q22</span> <span class="tag tf">T/F</span>
+  RAG-Token 모델은 시퀀스 내 토큰마다 다른 검색 문서를 사용할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-7')">정답 보기</button>
+  <div class="answer" id="tf7-7"><span class="tf-true">TRUE</span> — RAG-Token: 각 생성 토큰에서 주변화(marginalization) 수행 → 토큰마다 다른 문서 사용 가능. ↔ RAG-Sequence: 전체 시퀀스에 동일 문서.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q23</span> <span class="tag tf">T/F</span>
+  Dense retrieval은 정확한 단어 일치(exact word overlap)에만 의존한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-8')">정답 보기</button>
+  <div class="answer" id="tf7-8"><span class="tf-false">FALSE</span> — 이것은 Sparse retrieval(TF-IDF)의 특성. Dense retrieval은 의미적 유사도(semantic similarity) 기반.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q24</span> <span class="tag tf">T/F</span>
+  Hallucination은 LLM이 사실과 다르지만 그럴듯하게 들리는 정보를 생성하는 현상이다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-9')">정답 보기</button>
+  <div class="answer" id="tf7-9"><span class="tf-true">TRUE</span> — Hallucination 정의: factually incorrect, misleading, or fabricated information that sounds plausible. RAG의 주요 해결 동기.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q25</span> <span class="tag tf">T/F</span>
+  모든 문서에 등장하는 단어(DF=N)의 IDF는 최대값을 가진다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-10')">정답 보기</button>
+  <div class="answer" id="tf7-10"><span class="tf-false">FALSE</span> — IDF = log(N/DF) = log(N/N) = log(1) = 0. 모든 문서에 등장하는 단어는 변별력 없음 → IDF=0 (최솟값).</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q26</span> <span class="tag tf">T/F</span>
+  Open-book QA는 외부 지식 소스를 참조하지 않고 답변한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-11')">정답 보기</button>
+  <div class="answer" id="tf7-11"><span class="tf-false">FALSE</span> — Open-book QA는 외부 지식 소스 접근 가능. Closed-book QA가 외부 정보 없이 답변.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q27</span> <span class="tag tf">T/F</span>
+  FFN(Feedforward Network) 파라미터는 트랜스포머 전체 파라미터의 약 2/3를 차지한다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-12')">정답 보기</button>
+  <div class="answer" id="tf7-12"><span class="tf-true">TRUE</span> — 슬라이드 직접 인용. FFN(xi) = ReLU(xi·W1)·W2로 2개의 대형 weight matrix 포함.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q28</span> <span class="tag tf">T/F</span>
+  Non-parametric knowledge는 모델 재학습 없이 지식 베이스만 업데이트하여 갱신할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-13')">정답 보기</button>
+  <div class="answer" id="tf7-13"><span class="tf-true">TRUE</span> — Non-parametric 지식의 장점: easier updates, 모델 크기 증가 없이 정보 추가 가능, interpretability 향상.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q29</span> <span class="tag tf">T/F</span>
+  Average Precision(AP)은 관련 문서가 검색될 때마다의 Precision@k 값들의 평균이다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-14')">정답 보기</button>
+  <div class="answer" id="tf7-14"><span class="tf-true">TRUE</span> — AP = (1/|R|) × Σ P@k × I(dk is relevant). 관련 문서가 상위에 있을수록 AP 높음.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q30</span> <span class="tag tf">T/F</span>
+  REALM은 Encoder 사전학습(BERT 스타일)에 RAG를 통합한 최초의 논문이다.
+  <br><button class="toggle-btn" onclick="toggle('tf7-15')">정답 보기</button>
+  <div class="answer" id="tf7-15"><span class="tf-true">TRUE</span> — REALM(2020): Retrieval-Augmented Language Model pre-training. MLM loss를 검색된 콘텐츠 조건부로 계산.</div>
+</div>
+
+<!-- ── 8강 T/F ── -->
+<h3>8강: LLM Reasoning &amp; Post-training</h3>
+
+<div class="q-box">
+  <span class="q-num">Q31</span> <span class="tag tf">T/F</span>
+  Chain-of-thought(CoT) 프롬프팅은 소규모 모델(&lt;7B)에서 가장 효과적이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-1')">정답 보기</button>
+  <div class="answer" id="tf8-1"><span class="tf-false">FALSE</span> — CoT는 대형 모델에서 효과적. 소규모 모델에는 오히려 성능이 떨어질 수 있음. 슬라이드: "CoT is especially effective for large models".</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q32</span> <span class="tag tf">T/F</span>
+  "Let's think step by step"를 답변 앞에 붙이면 Zero-shot CoT를 유발할 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-2')">정답 보기</button>
+  <div class="answer" id="tf8-2"><span class="tf-true">TRUE</span> — Zero-shot CoT: few-shot 예제 없이 "Let's think step by step"만으로 단계별 추론 유발 가능.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q33</span> <span class="tag tf">T/F</span>
+  Self-consistency CoT는 동일 프롬프트에 여러 번 샘플링 후 다수결 투표로 최종 답을 선택한다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-3')">정답 보기</button>
+  <div class="answer" id="tf8-3"><span class="tf-true">TRUE</span> — 직관: 여러 다른 추론 경로가 같은 답에 수렴하면 신뢰도 증가. 온도 샘플링으로 다양한 추론 경로 생성.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q34</span> <span class="tag tf">T/F</span>
+  RLVR에서 검증 가능한 정답(verifiably correct)이면 이진 보상(binary reward)을 받는다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-4')">정답 보기</button>
+  <div class="answer" id="tf8-4"><span class="tf-true">TRUE</span> — RLVR: Fine-tune policy model(LLM) using RL. Verifiably correct → reward=1, incorrect → reward=0. OpenAI o1, DeepSeek-R1의 핵심 기법.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q35</span> <span class="tag tf">T/F</span>
+  GRPO(Group Relative Policy Optimization)는 PPO와 달리 critic 모델이 필요 없다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-5')">정답 보기</button>
+  <div class="answer" id="tf8-5"><span class="tf-true">TRUE</span> — GRPO: PPO의 변형으로 critic model 없이, 그룹의 상대적 보상으로 advantage 추정. DeepSeek-R1에서 사용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q36</span> <span class="tag tf">T/F</span>
+  연역적 추론(Deductive reasoning)은 특정 관찰에서 일반화된 결론을 이끌어낸다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-6')">정답 보기</button>
+  <div class="answer" id="tf8-6"><span class="tf-false">FALSE</span> — 이것은 귀납적 추론(Inductive). 연역적 추론: 일반 원칙 → 특정 결론. "All humans are mortal + Socrates is human → Socrates is mortal".</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q37</span> <span class="tag tf">T/F</span>
+  GSM8K는 12.5K의 경쟁 수학 문제로 구성된 벤치마크이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-7')">정답 보기</button>
+  <div class="answer" id="tf8-7"><span class="tf-false">FALSE</span> — GSM8K: 8.5K 초등학교 수준 수학 문제. 12.5K 경쟁 수학 문제는 MATH 벤치마크.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q38</span> <span class="tag tf">T/F</span>
+  Test-time scaling은 학습 시간(training time) 컴퓨팅을 늘려 성능을 향상시킨다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-8')">정답 보기</button>
+  <div class="answer" id="tf8-8"><span class="tf-false">FALSE</span> — Test-time scaling은 추론 시(inference time) 컴퓨팅 증가. 방법: self-consistency, long CoT, beam/tree search, iterative refinement.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q39</span> <span class="tag tf">T/F</span>
+  Instruction tuning은 자기지도학습(self-supervised learning)의 일종이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-9')">정답 보기</button>
+  <div class="answer" id="tf8-9"><span class="tf-false">FALSE</span> — Instruction tuning은 지도학습(supervised learning). 사전학습이 self-supervised. 인간이 작성한 응답(annotation) 사용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q40</span> <span class="tag tf">T/F</span>
+  소규모 모델(&lt;8B)에 instruction tuning을 적용하면 일반화 성능이 오히려 저하될 수 있다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-10')">정답 보기</button>
+  <div class="answer" id="tf8-10"><span class="tf-true">TRUE</span> — 슬라이드 직접 인용: "Instruction tuning can hurt small model (&lt;8B) generalization". 대형 모델에는 반대로 크게 향상.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q41</span> <span class="tag tf">T/F</span>
+  PPO는 정책 업데이트 안정성을 위해 클립(clipped) 목적함수를 사용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-11')">정답 보기</button>
+  <div class="answer" id="tf8-11"><span class="tf-true">TRUE</span> — PPO: Clipped surrogate objective → 너무 큰 정책 업데이트 방지. GAE(Generalized Advantage Estimation)로 분산 감소.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q42</span> <span class="tag tf">T/F</span>
+  LLM Alignment의 HHH 기준은 Helpful, Honest, Harmless이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-12')">정답 보기</button>
+  <div class="answer" id="tf8-12"><span class="tf-true">TRUE</span> — Askell et al. 2021의 HHH: Helpful(유용함), Honest(정직함), Harmless(무해함). ChatGPT 정렬의 핵심 기준.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q43</span> <span class="tag tf">T/F</span>
+  사전학습(Pretraining)의 목표는 특정 태스크 지시사항을 잘 따르도록 학습하는 것이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-13')">정답 보기</button>
+  <div class="answer" id="tf8-13"><span class="tf-false">FALSE</span> — 이것은 Instruction tuning의 목표. 사전학습 목표: 다음 토큰 예측(language modeling), 광범위한 언어 패턴·지식 학습.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q44</span> <span class="tag tf">T/F</span>
+  FLAN은 62개 데이터셋, 12개 태스크 클러스터로 구성된 instruction tuning 데이터셋이다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-14')">정답 보기</button>
+  <div class="answer" id="tf8-14"><span class="tf-true">TRUE</span> — 슬라이드 직접 인용. 더 많은 클러스터/태스크 사용 → 미등록 클러스터에 대한 일반화 향상.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q45</span> <span class="tag tf">T/F</span>
+  RLVR은 지도학습과 달리 모델 자신의 생성 분포에서 학습하여 분포 불일치 문제를 해소한다.
+  <br><button class="toggle-btn" onclick="toggle('tf8-15')">정답 보기</button>
+  <div class="answer" id="tf8-15"><span class="tf-true">TRUE</span> — RLVR의 장점 중 하나: distribution mismatch 해소. 지도학습은 사람이 만든 데이터 분포와 모델 분포가 다를 수 있음.</div>
+</div>
+
+<!-- ── 9강 T/F ── -->
+<h3>9강: LLM Agents</h3>
+
+<div class="q-box">
+  <span class="q-num">Q46</span> <span class="tag tf">T/F</span>
+  RLHF에서 인간 평가자는 응답에 1~10의 절대 점수를 직접 부여한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-1')">정답 보기</button>
+  <div class="answer" id="tf9-1"><span class="tf-false">FALSE</span> — RLHF는 쌍 비교(pairwise comparison) 방식. 절대 점수는 평가자마다 기준이 달라 일관성 부족. "Humans are better at relative judgments than absolute ones".</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q47</span> <span class="tag tf">T/F</span>
+  RLHF에서 KL 발산 패널티는 정책 모델이 초기 SFT 모델에서 너무 멀리 벗어나는 것을 방지한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-2')">정답 보기</button>
+  <div class="answer" id="tf9-2"><span class="tf-true">TRUE</span> — J(θ) = E[r(y)] - β·KL(π_θ || π_ref). β가 클수록 초기 모델과의 차이를 강하게 억제 → reward hacking 방지.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q48</span> <span class="tag tf">T/F</span>
+  Early fusion은 각 모달리티를 별도로 처리한 후 표현을 결합하는 방식이다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-3')">정답 보기</button>
+  <div class="answer" id="tf9-3"><span class="tf-false">FALSE</span> — 이것은 Late fusion. Early fusion: 처리 전 raw input 데이터를 먼저 결합. Late fusion: 각 모달리티 처리 후 표현 결합.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q49</span> <span class="tag tf">T/F</span>
+  LLaVA는 CLIP 비전 인코더와 대형 언어 모델(LLaMA)을 결합한 멀티모달 모델이다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-4')">정답 보기</button>
+  <div class="answer" id="tf9-4"><span class="tf-true">TRUE</span> — LLaVA: Large Language and Vision Assistant. CLIP(비전) + LLaMA(언어). 프로젝션 행렬 W로 시각 임베딩 → 언어 공간 변환.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q50</span> <span class="tag tf">T/F</span>
+  Toolformer는 LLM이 언제, 어떤 도구를 사용할지 자동으로 결정하도록 학습된다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-5')">정답 보기</button>
+  <div class="answer" id="tf9-5"><span class="tf-true">TRUE</span> — Toolformer: train LMs to use various tools and automatically decide when and how to use which tool. 도구 유형: 계산기, 위키피디아 검색, QA 시스템, 번역기.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q51</span> <span class="tag tf">T/F</span>
+  Reward hacking이란 LLM이 실제 원하는 행동 없이 보상 모델의 허점을 이용해 높은 보상을 얻는 것이다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-6')">정답 보기</button>
+  <div class="answer" id="tf9-6"><span class="tf-true">TRUE</span> — RLHF의 주요 위험 중 하나. Mode collapse(좁은 출력 다양성), 사전학습 지식 손실도 함께 발생 가능.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q52</span> <span class="tag tf">T/F</span>
+  Instruction tuning의 단점 중 하나는 Human annotation의 비용이 높다는 것이다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-7')">정답 보기</button>
+  <div class="answer" id="tf9-7"><span class="tf-true">TRUE</span> — RLHF가 instruction tuning보다 annotation 효율적인 이유: RLHF는 "어떤 게 더 나은가"만 판단하면 됨(쌍 비교). Instruction tuning은 전체 응답 작성 필요.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q53</span> <span class="tag tf">T/F</span>
+  InCoder는 코드 삽입(infilling)을 위해 Causal Masking을 사용하여 학습된다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-8')">정답 보기</button>
+  <div class="answer" id="tf9-8"><span class="tf-true">TRUE</span> — InCoder: 코드 span을 샘플링하여 문서 끝으로 이동 → 양방향 맥락 조건부로 마스크된 내용 생성 학습. 코드는 좌→우 단방향 작성이 아님.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q54</span> <span class="tag tf">T/F</span>
+  SWE-Bench는 실제 Python 저장소의 GitHub 이슈를 해결하는 패치 생성 능력을 평가한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-9')">정답 보기</button>
+  <div class="answer" id="tf9-9"><span class="tf-true">TRUE</span> — SWE-Bench: 실제 GitHub 이슈 + merged PR 솔루션 쌍. LLM이 생성한 패치를 실제 테스트로 평가.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q55</span> <span class="tag tf">T/F</span>
+  Mode collapse는 RLHF에서 LLM이 다양성 없이 좁은 범위의 출력만 생성하는 문제다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-10')">정답 보기</button>
+  <div class="answer" id="tf9-10"><span class="tf-true">TRUE</span> — Naïve reward 최대화의 문제: reward model 허점 이용 + mode collapse + 사전학습 지식 손실. KL 패널티로 완화.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q56</span> <span class="tag tf">T/F</span>
+  Language agent의 기반은 LLM이며, 자연어 이해·생성·추론 능력을 활용한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-11')">정답 보기</button>
+  <div class="answer" id="tf9-11"><span class="tf-true">TRUE</span> — Language agents: LLM이 기반. NLU(user input 이해) + NLG(응답/행동 생성) + Reasoning(다단계 문제 해결) 모두 활용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q57</span> <span class="tag tf">T/F</span>
+  멀티모달 LLM의 학습 데이터는 단일 모달리티 쌍으로 구성되어야 한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-12')">정답 보기</button>
+  <div class="answer" id="tf9-12"><span class="tf-false">FALSE</span> — 멀티모달 데이터셋은 다양한 모달리티의 paired examples(예: 이미지-텍스트 쌍) 필요. "teach the model the relationships between different types of data".</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q58</span> <span class="tag tf">T/F</span>
+  도구 사용 능력(Tool Usage Ability)은 모델 규모와 무관하다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-13')">정답 보기</button>
+  <div class="answer" id="tf9-13"><span class="tf-false">FALSE</span> — 슬라이드: "Larger models more effectively learn how to appropriately use tools". 소규모 모델은 도구 사용 능력이 낮음.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q59</span> <span class="tag tf">T/F</span>
+  RLHF에서 보상 모델은 LLM 생성 응답에 스칼라(scalar) 점수를 출력한다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-14')">정답 보기</button>
+  <div class="answer" id="tf9-14"><span class="tf-true">TRUE</span> — Reward model: 마지막 토큰 표현에 linear layer 적용 → scalar score 출력. Higher reward = more preferred.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">Q60</span> <span class="tag tf">T/F</span>
+  Open-ended 창의적 생성 태스크에서 instruction tuning이 RLHF보다 정답을 판단하기 쉽다.
+  <br><button class="toggle-btn" onclick="toggle('tf9-15')">정답 보기</button>
+  <div class="answer" id="tf9-15"><span class="tf-false">FALSE</span> — Open-ended 창의적 생성은 단일 정답 없음 → instruction tuning의 한계. RLHF는 "어떤 것이 더 창의적/매력적인가"로 선호 판단 가능.</div>
+</div>
+
+
+<!-- ==============================
+     PART 3: 단답형 문제
+     ============================== -->
+<h2>PART 3: 단답형 문제</h2>
+
+<h3>6강: LLMs &amp; In-context Learning</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-1</span> <span class="tag sa">단답</span>
+  LoRA에서 ΔW를 BA로 근사할 때, r은 d보다 훨씬 작아야 한다. 이 조건(r ≪ d)이 필요한 이유를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa6-1')">정답 보기</button>
+  <div class="answer" id="sa6-1">저랭크 근사(low-rank approximation)를 통해 파라미터 수를 극적으로 줄이기 위해. d×d → d×r + r×d = 2dr (r≪d이면 2dr≪d²). 대형 언어모델은 과잉 파라미터화(overparameterization)되어 있어 실제 업데이트가 저랭크 구조를 가진다는 경험적 관찰에 근거.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-2</span> <span class="tag sa">단답</span>
+  Scaling law에서 LLM 성능을 결정하는 3가지 주요 요소를 나열하라.
+  <br><button class="toggle-btn" onclick="toggle('sa6-2')">정답 보기</button>
+  <div class="answer" id="sa6-2">① 모델 크기(N: number of parameters) ② 데이터셋 크기(D: amount of training data/tokens) ③ 컴퓨팅(C: FLOPs, floating point operations). 세 요소 각각과 Cross-entropy loss의 관계가 power-law를 따름.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-3</span> <span class="tag sa">단답</span>
+  In-context learning이 few-shot learning의 일종인 이유를 설명하고, 파라미터 업데이트 여부를 밝혀라.
+  <br><button class="toggle-btn" onclick="toggle('sa6-3')">정답 보기</button>
+  <div class="answer" id="sa6-3">프롬프트에 포함된 소수의 입출력 예제(few-shot examples)를 보고 새로운 입력의 출력을 예측하므로 few-shot learning의 일종. 모델 파라미터 업데이트 없음(No parameter updates). GPT-3 논문에서 최초 연구.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-4</span> <span class="tag sa">단답</span>
+  Greedy decoding의 장점 2가지와 단점 2가지를 나열하라.
+  <br><button class="toggle-btn" onclick="toggle('sa6-4')">정답 보기</button>
+  <div class="answer" id="sa6-4"><strong>장점:</strong> ① 구현 간단(Simplicity) ② 결정론적(Deterministic) — 동일 입력에 항상 동일 출력<br><strong>단점:</strong> ① 전역 최적해 보장 불가(Suboptimal solutions) ② 다양성 없음(Lack of diversity) — 같은 입력에 다른 출력 생성 불가</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-5</span> <span class="tag sa">단답</span>
+  Emergent ability란 무엇이며, 왜 소규모 모델 성능으로 예측할 수 없는가?
+  <br><button class="toggle-btn" onclick="toggle('sa6-5')">정답 보기</button>
+  <div class="answer" id="sa6-5">Emergent ability: 명시적으로 학습하지 않았지만 모델 규모가 특정 임계값(threshold)을 초과하면 갑자기 나타나는 능력. 소규모 모델에서는 random 수준 성능을 보이다 임계 규모 이후 급격히 향상되기 때문에, 소규모 모델 성능 추외(extrapolation)로는 예측 불가.</div>
+</div>
+
+<h3>7강: Retrieval-Augmented Generation (RAG)</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-6</span> <span class="tag sa">단답</span>
+  Closed-domain QA와 Open-domain QA의 차이를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa7-1')">정답 보기</button>
+  <div class="answer" id="sa7-1"><strong>Closed-domain QA:</strong> 특정 도메인(의료, 법률 등) 내의 질문에만 답변. 해당 도메인 지식으로 학습된 전문 모델.<br><strong>Open-domain QA:</strong> 어떤 도메인의 질문에도 답변. 웹/대규모 코퍼스 등 광범위한 외부 지식 소스 활용. 대부분의 LLM 응용이 Open-domain QA 설정.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-7</span> <span class="tag sa">단답</span>
+  Bi-encoder와 Cross-encoder의 장단점을 각각 설명하고, 어떤 상황에 적합한지 서술하라.
+  <br><button class="toggle-btn" onclick="toggle('sa7-2')">정답 보기</button>
+  <div class="answer" id="sa7-2"><strong>Bi-encoder:</strong> 장점 - 문서 벡터 사전 계산 가능, 대규모 검색에 적합. 단점 - 쿼리-문서 상호작용 포착 불가.<br><strong>Cross-encoder:</strong> 장점 - 쿼리-문서 간 섬세한 상호작용 포착. 단점 - 대규모 코퍼스에 비적합(scalability ↓).<br>실무: 1단계 대규모 검색(Bi-encoder) → 2단계 재순위(Cross-encoder) 방식으로 결합 사용.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-8</span> <span class="tag sa">단답</span>
+  Hallucination이 발생하는 주요 원인 3가지를 서술하라.
+  <br><button class="toggle-btn" onclick="toggle('sa7-3')">정답 보기</button>
+  <div class="answer" id="sa7-3">① <strong>Limited knowledge:</strong> 학습 데이터 범위 밖의 정보에 대해 그럴듯한 오답 생성<br>② <strong>Overgeneralization:</strong> 한 맥락에서 학습한 패턴을 적용 불가한 다른 맥락에 적용<br>③ <strong>Lack of common sense:</strong> 상식적 추론 능력 부족으로 비현실적 답변 생성</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-9</span> <span class="tag sa">단답</span>
+  RAG-Sequence와 RAG-Token의 차이를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa7-4')">정답 보기</button>
+  <div class="answer" id="sa7-4"><strong>RAG-Sequence:</strong> 동일한 검색 문서를 전체 시퀀스 생성에 사용. 검색 문서를 단일 잠재 변수(latent variable)로 처리. 시퀀스 레벨에서 주변화(marginalization).<br><strong>RAG-Token:</strong> 각 토큰 생성마다 다른 검색 문서 사용 가능. 토큰 레벨에서 주변화. 더 유연하지만 계산 비용 높음.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-10</span> <span class="tag sa">단답</span>
+  Non-parametric knowledge가 parametric knowledge 대비 갖는 이점 3가지를 서술하라.
+  <br><button class="toggle-btn" onclick="toggle('sa7-5')">정답 보기</button>
+  <div class="answer" id="sa7-5">① 모델 크기 증가 없이 더 많은 정보 활용 가능<br>② 지식 업데이트/수정이 쉬움 (모델 재학습 불필요)<br>③ 모델 해석 가능성(interpretability) 향상 — 어떤 문서에서 답변이 생성됐는지 추적 가능</div>
+</div>
+
+<h3>8강: LLM Reasoning &amp; Post-training</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-11</span> <span class="tag sa">단답</span>
+  Chain-of-thought(CoT) 프롬프팅의 핵심 아이디어를 설명하고, Self-consistency CoT와의 차이를 서술하라.
+  <br><button class="toggle-btn" onclick="toggle('sa8-1')">정답 보기</button>
+  <div class="answer" id="sa8-1"><strong>CoT:</strong> 모델이 복잡한 문제를 단계별 추론 과정으로 분해하여 답변. 즉각적 답변 대신 논리적 사고 흐름을 순차적으로 설명하도록 유도.<br><strong>Self-consistency CoT:</strong> 동일 프롬프트에 온도 샘플링으로 여러 번 CoT 실행 → 다양한 추론 경로 생성 → majority voting으로 최종 답 선택. 신뢰도 향상.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-12</span> <span class="tag sa">단답</span>
+  RLVR이 지도학습(Supervised Learning) 대비 갖는 장점 3가지를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa8-2')">정답 보기</button>
+  <div class="answer" id="sa8-2">① <strong>Data scalability:</strong> 인간이 전체 정답 작성 불필요. 자동 검증기(verifier)로 이진 보상 부여 → 데이터 확장성 우수<br>② <strong>Imitation vs. Optimization:</strong> SL은 사람 추론 모방(suboptimal 가능). RLVR은 최종 정답 최적화 → 모델이 자체 효율적 추론 경로 발견<br>③ <strong>Distribution match:</strong> 모델 자신의 생성 분포에서 학습 → 학습-추론 분포 불일치 해소</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-13</span> <span class="tag sa">단답</span>
+  Instruction tuning과 사전학습(Pretraining)의 차이를 감독 방식, 태스크 형식, 목표 측면에서 비교하라.
+  <br><button class="toggle-btn" onclick="toggle('sa8-3')">정답 보기</button>
+  <div class="answer" id="sa8-3">
+    <table>
+      <tr><th>구분</th><th>사전학습</th><th>Instruction Tuning</th></tr>
+      <tr><td>감독 방식</td><td>자기지도학습 (human annotation 불필요)</td><td>지도학습 (human annotated responses)</td></tr>
+      <tr><td>태스크 형식</td><td>암묵적 (다음 토큰 예측)</td><td>명시적 (자연어 지시사항)</td></tr>
+      <tr><td>목표</td><td>광범위한 언어 패턴·지식 학습</td><td>특정 지시사항 따르기, 다양한 태스크 수행</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-14</span> <span class="tag sa">단답</span>
+  LLM Alignment가 필요한 이유(pretrained LLM의 문제점) 3가지를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa8-4')">정답 보기</button>
+  <div class="answer" id="sa8-4">① <strong>Objective mismatch:</strong> 사전학습 목표(다음 토큰 예측)는 인간 의도/가치 이해를 포함하지 않음<br>② <strong>Training data bias:</strong> 인터넷 텍스트는 편향, 유해, 오해의 소지 있는 내용 포함. 모델이 좋고 나쁜 행동을 구분 못함<br>③ <strong>Over-generalization:</strong> 특정 맥락에서 부적절한 출력 가능. 의도한 윤리/정직 기준과 불일치 가능</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-15</span> <span class="tag sa">단답</span>
+  Test-time scaling이란 무엇이며, 그 방법 3가지를 제시하라.
+  <br><button class="toggle-btn" onclick="toggle('sa8-5')">정답 보기</button>
+  <div class="answer" id="sa8-5"><strong>Test-time scaling:</strong> 추론 시(inference time) 더 많은 컴퓨팅을 사용하여 고품질 답변 생성.<br><strong>방법:</strong><br>① Self-consistency(majority voting): 여러 번 샘플링 후 다수결<br>② Long CoT: 더 긴 추론 체인(DeepSeek-R1, o1)<br>③ Beam/Tree Search: 여러 추론 경로 동시 탐색, 막힌 경우 백트래킹<br>(+ Iterative Refinement: 초기 응답 반복 개선)</div>
+</div>
+
+<h3>9강: LLM Agents</h3>
+
+<div class="q-box">
+  <span class="q-num">SA-16</span> <span class="tag sa">단답</span>
+  RLHF에서 보상 모델 학습에 쌍 비교(pairwise comparison)를 사용하는 이유를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa9-1')">정답 보기</button>
+  <div class="answer" id="sa9-1">인간 평가자는 절대 점수(예: 1~10)보다 상대적 판단(어느 것이 더 나은가)을 일관되게 수행하는 능력이 뛰어남. 절대 점수는 평가자마다 기준이 달라 inconsistency 발생. 쌍 비교는 preference data로 Bradley-Terry 목적함수로 reward model 학습.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-17</span> <span class="tag sa">단답</span>
+  LLaVA의 아키텍처에서 프로젝션 행렬 W의 역할을 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa9-2')">정답 보기</button>
+  <div class="answer" id="sa9-2">비전 인코더(CLIP)의 출력 임베딩 Z_v를 LLM이 처리할 수 있는 텍스트 임베딩 공간으로 변환: H_v = W × Z_v. 이후 H_v(시각 토큰)와 H_q(텍스트 토큰)를 concatenate하여 LLM에 입력. 초기 학습 단계에서 비전 인코더와 LLM은 frozen, W만 학습.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-18</span> <span class="tag sa">단답</span>
+  Naïve한 RLHF 보상 최대화(KL 패널티 없이)의 문제점 3가지를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa9-3')">정답 보기</button>
+  <div class="answer" id="sa9-3">① <strong>Reward hacking:</strong> 보상 모델 허점 이용 → 실제 바람직한 행동 없이 높은 보상 달성<br>② <strong>Mode collapse:</strong> 좁은 출력 분포에 수렴 → 다양성 부족, 다양한 상황에 일반화 실패<br>③ <strong>Loss of pretrained knowledge:</strong> 보상 모델 과최적화로 초기 사전학습 지식(문법, 사실성 등) 손실</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-19</span> <span class="tag sa">단답</span>
+  Instruction tuning의 한계 4가지를 설명하고, RLHF가 각 한계를 어떻게 해결하는지 서술하라.
+  <br><button class="toggle-btn" onclick="toggle('sa9-4')">정답 보기</button>
+  <div class="answer" id="sa9-4">① <strong>Costly annotation:</strong> 전체 응답 작성 필요 → RLHF: 선호 레이블(어느 게 더 나은가)만 수집<br>② <strong>Open-ended generation:</strong> 단일 정답 없는 창의적 태스크에 취약 → RLHF: 인간 선호로 창의성 평가 가능<br>③ <strong>Token-level learning:</strong> 모든 토큰 오류를 동등하게 패널티 → RLHF: 오류 중요도를 인간 피드백으로 우선순위화<br>④ <strong>Suboptimal human answers:</strong> 사람이 최적이 아닌 응답 작성 가능 → RLHF: 여러 선택지 중 더 나은 것 고르기가 처음부터 쓰기보다 쉬움</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-20</span> <span class="tag sa">단답</span>
+  Toolformer에서 API 호출이 실제로 유용한지 필터링하는 기준을 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa9-5')">정답 보기</button>
+  <div class="answer" id="sa9-5">API 호출이 미래 토큰 생성의 loss를 감소시키는지 여부로 필터링. 도움이 되는 API 호출 = 해당 API 결과를 보고 다음 토큰을 더 잘 예측하는 경우(loss ↓). 도움이 되지 않는 API 호출은 필터링하여 학습 데이터에서 제외. In-context learning 방식으로 새 데이터에 대한 API call 생성.</div>
+</div>
+
+<h2>PART 4: 자주 질문한 개념 연결 문제</h2>
+
+<div class="q-box">
+  <span class="q-num">SA-21</span> <span class="tag sa">단답</span>
+  RLHF/RLVR 관점에서 state, policy, action, reward를 LLM에 매핑하고, state가 사전학습 지식인지 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-1')">정답 보기</button>
+  <div class="answer" id="sa4-1"><strong>State:</strong> 사용자 프롬프트, 대화 기록, 지금까지 생성한 토큰. <strong>Policy:</strong> LLM 자체 πθ. <strong>Action:</strong> 다음 토큰 또는 전체 응답 생성. <strong>Reward:</strong> 응답 품질 점수. State는 사전학습 지식이 아니며, 사전학습 지식은 policy model의 파라미터 θ 안에 저장된 parametric knowledge이다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-22</span> <span class="tag sa">단답</span>
+  RLHF와 RLVR의 reward 출처 차이를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-2')">정답 보기</button>
+  <div class="answer" id="sa4-2"><strong>RLHF:</strong> 인간 pairwise preference로 reward model을 학습하고, 그 reward model이 응답에 scalar 점수를 준다. <strong>RLVR:</strong> 정답 비교기, unit test, 규칙 기반 checker 같은 verifier가 자동으로 보상을 준다. RLHF는 인간 선호 정렬에 강하고, RLVR은 수학·코드처럼 검증 가능한 추론 태스크에 강하다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-23</span> <span class="tag sa">단답</span>
+  Bradley-Terry 방식이 pairwise preference 모델링인 이유를 sigmoid와 연결해 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-3')">정답 보기</button>
+  <div class="answer" id="sa4-3">Pairwise preference는 같은 prompt의 두 응답 y_w, y_l 중 사람이 더 선호한 응답을 고르는 데이터이다. Bradley-Terry는 두 응답의 reward 차이를 이용해 P(y_w &gt; y_l)=σ(r_w-r_l)로 선호 확률을 모델링한다. reward 차이가 클수록 sigmoid 출력이 1에 가까워져 y_w가 더 선호될 확률이 커진다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-24</span> <span class="tag sa">단답</span>
+  Sigmoid와 Softmax의 차이를 LLM 예시와 함께 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-4')">정답 보기</button>
+  <div class="answer" id="sa4-4"><strong>Sigmoid:</strong> 하나의 점수 또는 독립 점수를 0~1로 바꾼다. RLHF의 Bradley-Terry에서 reward 차이 r_w-r_l을 선호 확률로 바꿀 때 쓴다. <strong>Softmax:</strong> 여러 후보 점수를 합이 1인 확률분포로 바꾼다. LLM 다음 토큰 예측에서 vocabulary 전체 logits를 확률분포로 만들 때 쓴다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-25</span> <span class="tag sa">단답</span>
+  RAG-Sequence와 RAG-Token의 차이, 그리고 현대 RAG에서 흔히 쓰이는 방식의 차이를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-5')">정답 보기</button>
+  <div class="answer" id="sa4-5"><strong>RAG-Sequence:</strong> 전체 출력 시퀀스가 같은 문서 또는 문서 집합에 조건화된다. <strong>RAG-Token:</strong> 각 생성 토큰마다 문서에 대해 marginalization하여 토큰별로 다른 문서를 활용할 수 있다. 다만 현대 실무 RAG는 RAG-Token 수식을 직접 쓰기보다 top-k 문서를 context에 넣고 LLM attention이 필요한 부분을 참고하게 하는 경우가 많다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-26</span> <span class="tag sa">단답</span>
+  CoT, Zero-shot CoT, Few-shot CoT, Self-consistency CoT의 관계를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-6')">정답 보기</button>
+  <div class="answer" id="sa4-6">CoT는 모델이 중간 추론 단계를 생성하도록 유도하는 방식이다. Zero-shot CoT는 예시 없이 "Let's think step by step" 같은 지시만 붙이는 방식이고, Few-shot CoT는 풀이 과정이 포함된 예시를 prompt에 넣는 방식이다. Self-consistency CoT는 여러 CoT reasoning path를 temperature sampling으로 생성한 뒤 최종 답을 다수결로 고른다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-27</span> <span class="tag sa">단답</span>
+  Emergent ability와 Aha moment의 차이를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-7')">정답 보기</button>
+  <div class="answer" id="sa4-7"><strong>Emergent ability:</strong> 모델 크기, 데이터, compute가 일정 규모를 넘을 때 특정 능력이 갑자기 나타나는 스케일링 관점의 현상이다. <strong>Aha moment:</strong> RL post-training 중 모델이 자기검토, 긴 사고 과정 같은 추론 전략을 발견한 것처럼 보이는 학습 과정 관점의 현상이다. 둘 다 갑작스러워 보이지만 발생 맥락이 다르다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-28</span> <span class="tag sa">단답</span>
+  LoRA와 LLaVA가 같은 low-rank 철학인지 구분하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-8')">정답 보기</button>
+  <div class="answer" id="sa4-8">LoRA는 ΔW≈BA로 기존 가중치 업데이트를 저랭크 행렬로 근사하는 PEFT 방법이므로 low-rank가 핵심이다. LLaVA는 CLIP vision encoder의 시각 feature를 LLM embedding 공간으로 projection하여 이미지+텍스트를 처리하는 멀티모달 아키텍처이다. 둘 다 pretrained model을 효율적으로 재사용한다는 철학은 공유하지만, LLaVA의 projection이 곧 LoRA식 low-rank update를 뜻하지는 않는다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-29</span> <span class="tag sa">단답</span>
+  Prompt engineering, ICL, soft prompt tuning을 파라미터 업데이트 여부로 구분하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-9')">정답 보기</button>
+  <div class="answer" id="sa4-9"><strong>Prompt engineering:</strong> 사람이 자연어 프롬프트를 수정하며 학습 없음. <strong>ICL:</strong> 프롬프트 안 예시로 추론 시점에 패턴을 따르며 파라미터 업데이트 없음. <strong>Soft prompt tuning:</strong> 자연어가 아닌 학습 가능한 soft prompt embedding 벡터를 gradient로 업데이트하는 PEFT 방식이다.</div>
+</div>
+
+<div class="q-box">
+  <span class="q-num">SA-30</span> <span class="tag sa">단답</span>
+  Alignment가 "인간과 모델의 생각을 같게 만드는 것"이 아닌 이유를 설명하라.
+  <br><button class="toggle-btn" onclick="toggle('sa4-10')">정답 보기</button>
+  <div class="answer" id="sa4-10">Alignment는 모델의 내부 생각을 인간과 동일하게 만드는 것이 아니라, 모델의 출력과 행동을 인간의 의도·선호·안전 기준에 맞추는 것이다. 대표 기준은 Helpful, Honest, Harmless이며, instruction tuning, RLHF, RLVR, KL penalty 같은 post-training 방법으로 사전학습 목표와 인간 선호 사이의 불일치를 줄인다.</div>
+</div>
+
+
+<!-- 오답 노트 섹션 -->
+<div class="wrong-box" id="wrong-section" style="display:none">
+  <h4>오답 노트</h4>
+  <ul id="wrong-list"></ul>
+  <a href="오답노트_기말.html" id="wrong-link" style="display:none">오답 노트 HTML로 내보내기</a>
+</div>
+
+<script>
+(function(){
+  var H='5fa75ee2c5383fa601a45136751b99f41f203754378c650440e94c75020b70b0';
+  var KEY='_ga_final';
+  function setAuthError(msg){ document.getElementById('auth-error').textContent = msg || ''; }
+  function showAuthModal(){
+    var overlay=document.getElementById('auth-overlay');
+    var input=document.getElementById('auth-input');
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+    input.value='';
+    setAuthError('');
+    setTimeout(function(){ input.focus(); }, 30);
+  }
+  function hideAuthModal(){
+    var overlay=document.getElementById('auth-overlay');
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+  }
+  function renderDenied(){
+    document.body.innerHTML='<div style="font-family:Malgun Gothic,sans-serif;max-width:560px;margin:90px auto;padding:24px;background:#fff;border:1px solid #e0e0e0;border-radius:18px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,0.08)"><h2 style="color:#c62828;margin:0 0 10px">접근이 거부되었습니다.</h2><p style="color:#666;margin:0">비밀번호를 입력하지 않아 페이지를 열지 않았습니다.</p></div>';
+  }
+  async function hashPassword(pw){
+    var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+    return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+  }
+  async function ensureAuth(){
+    if(sessionStorage.getItem(KEY)===H) return;
+    return new Promise(function(resolve){
+      var input=document.getElementById('auth-input');
+      var submitBtn=document.getElementById('auth-submit');
+      var cancelBtn=document.getElementById('auth-cancel');
+      function cleanup(){ submitBtn.onclick=null; cancelBtn.onclick=null; input.onkeydown=null; }
+      async function submit(){
+        if(!input.value){ setAuthError('비밀번호를 입력하세요.'); input.focus(); return; }
+        var h=await hashPassword(input.value);
+        if(h===H){
+          sessionStorage.setItem(KEY,H);
+          cleanup();
+          hideAuthModal();
+          resolve(true);
+          return;
+        }
+        setAuthError('비밀번호가 올바르지 않습니다.');
+        input.select();
+      }
+      submitBtn.onclick=submit;
+      cancelBtn.onclick=function(){
+        cleanup();
+        hideAuthModal();
+        renderDenied();
+        resolve(false);
+      };
+      input.onkeydown=function(e){ if(e.key==='Enter') submit(); };
+      showAuthModal();
+    });
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    ensureAuth();
+
+    /* ── T/F 문항 자동 변환 ── */
+    document.querySelectorAll('.q-box').forEach(function(box){
+      var tfTag=box.querySelector('.tag.tf');
+      if(!tfTag)return;
+      var btn=box.querySelector('.toggle-btn');
+      if(!btn)return;
+      var m=btn.getAttribute('onclick').match(/'([^']+)'/);
+      if(!m)return;
+      var aid=m[1];
+      var ans=document.getElementById(aid);
+      if(!ans)return;
+      var correct=ans.querySelector('.tf-true')?'T':'F';
+      btn.remove();
+      var tfArea=document.createElement('div');
+      tfArea.className='tf-area';
+      tfArea.innerHTML='<label class="tf-opt"><input type="radio" name="r-'+aid+'" value="T"> <span>True</span></label>'
+        +'<label class="tf-opt"><input type="radio" name="r-'+aid+'" value="F"> <span>False</span></label>'
+        +'<button class="check-btn" onclick="checkTF(\''+aid+'\',\''+correct+'\')">제출</button>';
+      var resDiv=document.createElement('div');
+      resDiv.id='res-'+aid;
+      resDiv.className='tf-result';
+      ans.parentNode.insertBefore(tfArea,ans);
+      ans.parentNode.insertBefore(resDiv,ans);
+    });
+
+    /* ── 단답형 textarea 추가 ── */
+    document.querySelectorAll('.q-box').forEach(function(box){
+      var saTag=box.querySelector('.tag.sa');
+      if(!saTag)return;
+      var btn=box.querySelector('.toggle-btn');
+      if(!btn)return;
+      var saArea=document.createElement('div');
+      saArea.className='sa-area';
+      saArea.innerHTML='<textarea class="sa-ta" placeholder="여기에 답변을 작성하세요..."></textarea>';
+      btn.parentNode.insertBefore(saArea,btn);
+      btn.textContent='정답 확인';
+    });
+
+    /* 메모 시스템 */
+    var MK='_memo_final';
+    var memos=JSON.parse(localStorage.getItem(MK)||'[]');
+    function saveMemos(){ localStorage.setItem(MK,JSON.stringify(memos)); }
+    function renderMemos(){
+      var ml=document.getElementById('_ml_');
+      var mc=document.getElementById('_mc_');
+      ml.innerHTML='';
+      mc.textContent=memos.length?'('+memos.length+'개)':'';
+      memos.forEach(function(m,i){
+        var d=document.createElement('div');
+        d.className='mi'+(m.editing?' ed':'');
+        if(m.editing){
+          var ta=document.createElement('textarea');
+          ta.className='meta'; ta.value=m.text;
+          d.appendChild(ta);
+          var ma=document.createElement('div'); ma.className='ma';
+          var sb=document.createElement('button'); sb.className='mb msb'; sb.textContent='저장';
+          sb.onclick=function(){ memos[i]={text:ta.value,editing:false}; saveMemos(); renderMemos(); };
+          var cb=document.createElement('button'); cb.className='mb mcb'; cb.textContent='취소';
+          cb.onclick=function(){ memos[i].editing=false; renderMemos(); };
+          ma.appendChild(sb); ma.appendChild(cb); d.appendChild(ma);
+        } else {
+          d.textContent=m.text;
+          var ma=document.createElement('div'); ma.className='ma';
+          var eb=document.createElement('button'); eb.className='mb meb'; eb.textContent='편집';
+          eb.onclick=function(){ memos[i].editing=true; renderMemos(); };
+          var db=document.createElement('button'); db.className='mb mdb'; db.textContent='삭제';
+          db.onclick=function(){ memos.splice(i,1); saveMemos(); renderMemos(); };
+          ma.appendChild(eb); ma.appendChild(db); d.appendChild(ma);
+        }
+        ml.appendChild(d);
+      });
+    }
+    window._mtog_=function(){
+      var mb=document.getElementById('_mb_');
+      var arr=document.getElementById('_marr_');
+      var open=mb.style.display==='block';
+      mb.style.display=open?'none':'block';
+      arr.style.transform=open?'':'rotate(90deg)';
+      if(!open) renderMemos();
+    };
+    window._msave_=function(){
+      var ta=document.getElementById('_mta_');
+      if(!ta.value.trim()) return;
+      memos.push({text:ta.value.trim(),editing:false});
+      saveMemos(); renderMemos(); ta.value='';
+    };
+    renderMemos();
+  });
+})();
+</script>
+</body>
+</html>
